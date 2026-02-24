@@ -39,6 +39,18 @@ jobs:
           BAIDU_ANALYTICS_ID: ${{ secrets.BAIDU_ANALYTICS_ID }}
         run: npm run build
 
+      - name: Verify Baidu Analytics in build output
+        run: |
+          if grep -r "hm.baidu.com" dist/ 1>/dev/null; then
+            echo "✅ 构建产物中已包含百度统计脚本"
+          else
+            echo "❌ 构建产物中未找到 hm.baidu.com，请确认："
+            echo "  1. Repository secret 名称确为 BAIDU_ANALYTICS_ID（区分大小写）"
+            echo "  2. 值为 hm.js? 后面的 ID，无多余空格/换行"
+            echo "  3. 本 workflow 由本仓库 push 触发（fork 的 PR 无法使用 secrets）"
+            exit 1
+          fi
+
       - name: Add CNAME
         run: echo "www.zaobao.tech" > dist/CNAME
 
