@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>科技早报</title>
+    <link>https://www.zaobao.tech/</link>
+    <description>记录每天值得分享的科技内容，每天发布。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 24 Feb 2026 12:00:00 GMT</lastBuildDate>
+    <atom:link href="https://www.zaobao.tech/rss.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>微软紧急警告：AI 助手 OpenClaw 不适合在企业工作站运行</title>
+      <link>https://www.zaobao.tech/day/2026-02-24/1/</link>
+      <description>微软建议 OpenClaw 仅部署于完全隔离环境，高权限与持久状态带来提示注入、技能恶意软件等风险，全球数万实例暴露 RCE。</description>
+      <pubDate>Tue, 24 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-24/1/</guid>
+    </item>
+
+    <item>
+      <title>ZUNA：脑电图基础模型</title>
+      <link>https://www.zaobao.tech/day/2026-02-24/2/</link>
+      <description>轻量级 EEG 基座模型，支持去噪、通道重建与坐标预测，参数量仅 0.38B，已开源。</description>
+      <pubDate>Tue, 24 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-24/2/</guid>
+    </item>
+
+    <item>
+      <title>Intelligent AI Delegation：DeepMind 的 AI 智能委托框架</title>
+      <link>https://www.zaobao.tech/day/2026-02-24/3/</link>
+      <description>将任务分配、权责边界与多方信任形式化，借鉴智能合约、零知识证明与博弈共识等机制。</description>
+      <pubDate>Tue, 24 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-24/3/</guid>
+    </item>
+
+    <item>
+      <title>谷歌对反代 Anitgravity 的账号采取封禁措施</title>
+      <link>https://www.zaobao.tech/day/2026-02-24/4/</link>
+      <description>将 Anitgravity 模型通过反代接入 OpenCode/OpenClaw 等会触发会员失效，官方将开放申诉。</description>
+      <pubDate>Tue, 24 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-24/4/</guid>
+    </item>
+
+    <item>
+      <title>Anthropic 发布 Skill 创建指南</title>
+      <link>https://www.zaobao.tech/day/2026-02-23/1/</link>
+      <description>一份 30 余页的 PDF 指南，系统讲解如何为 Claude 构建 Skill，内容覆盖完整、步骤清晰。</description>
+      <pubDate>Mon, 23 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-23/1/</guid>
+    </item>
+
+    <item>
+      <title>Claude Code 支持 Git Worktree</title>
+      <link>https://www.zaobao.tech/day/2026-02-23/2/</link>
+      <description>基于 Worktree 实现多工作区隔离，多智能体可并行运行且互不干扰。</description>
+      <pubDate>Mon, 23 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-23/2/</guid>
+    </item>
+
+    <item>
+      <title>Tavus 发布 Phoenix-4：实时虚拟人模型</title>
+      <link>https://www.zaobao.tech/day/2026-02-23/3/</link>
+      <description>支持实时渲染虚拟人，并根据对话内容驱动表情与情绪反馈。</description>
+      <pubDate>Mon, 23 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-23/3/</guid>
+    </item>
+
+    <item>
+      <title>谷歌发布 Gemini 3.1 Pro</title>
+      <link>https://www.zaobao.tech/day/2026-02-20/1/</link>
+      <description>推理与代码能力增强，前端表现领先同类；对隐喻与复杂语义的理解明显提升，已登陆 Gemini APP 与 AI Studio。</description>
+      <pubDate>Fri, 20 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-20/1/</guid>
+    </item>
+
+    <item>
+      <title>Argmax 发布 TTSKit：Mac / iPhone 实时语音合成</title>
+      <link>https://www.zaobao.tech/day/2026-02-20/2/</link>
+      <description>支持在 Mac 与 iPhone 上实时生成语音，当前集成 Qwen3 TTS，模型已开源。</description>
+      <pubDate>Fri, 20 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-20/2/</guid>
+    </item>
+
+    <item>
+      <title>Kitten TTS：约 15M 参数轻量 TTS 模型</title>
+      <link>https://www.zaobao.tech/day/2026-02-20/3/</link>
+      <description>参数量仅约 15M，体积极小，目前仅支持英文，适合资源受限场景。</description>
+      <pubDate>Fri, 20 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-20/3/</guid>
+    </item>
+
+  </channel>
+</rss>

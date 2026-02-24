@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Allow: /day/
+
+Sitemap: https://www.zaobao.tech/sitemap.xml

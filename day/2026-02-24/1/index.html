@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>微软紧急警告：AI 助手 OpenClaw 不适合在企业工作站运行 - 科技早报</title>
+  
+  
+  
+  <meta name="description" content="微软建议 OpenClaw 仅部署于完全隔离环境，高权限与持久状态带来提示注入、技能恶意软件等风险，全球数万实例暴露 RCE。" />
+  <link rel="canonical" href="https://www.zaobao.tech/day/2026-02-24/1/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="微软紧急警告：AI 助手 OpenClaw 不适合在企业工作站运行 - 科技早报" />
+  <meta property="og:description" content="微软建议 OpenClaw 仅部署于完全隔离环境，高权限与持久状态带来提示注入、技能恶意软件等风险，全球数万实例暴露 RCE。" />
+  <meta property="og:url" content="https://www.zaobao.tech/day/2026-02-24/1/" />
+  
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.zaobao.tech/" },
+      { "@type": "ListItem", "position": 2, "name": "2026年2月24日 周二 早报", "item": "https://www.zaobao.tech/day/2026-02-24/" },
+      { "@type": "ListItem", "position": 3, "name": "微软紧急警告：AI 助手 OpenClaw 不适合在企业工作站运行", "item": "https://www.zaobao.tech/day/2026-02-24/1/" }
+    ]
+  }
+  </script>
+  
+  <link rel="alternate" type="application/rss+xml" title="科技早报 RSS" href="https://www.zaobao.tech/rss.xml" />
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a href="/" class="logo-wrap">
+        <img src="/images/logo.jpg" alt="科技早报" class="logo" onerror="this.style.display='none'"/>
+        <span class="site-title">科技早报</span>
+      </a>
+      <div class="theme-toggle theme-switch" role="group" aria-label="主题切换">
+        <button type="button" class="theme-btn is-active" id="theme-light" title="浅色模式" aria-label="浅色模式">
+          <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button type="button" class="theme-btn" id="theme-dark" title="深色模式" aria-label="深色模式">
+          <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="main-wrap">
+      <main class="main">
+        
+<div class="article-page">
+  <article class="article-single">
+    <h1 class="detail-title">微软紧急警告：AI 助手 OpenClaw 不适合在企业工作站运行</h1>
+    
+    <div class="detail-tags">
+      
+      <a href="/" class="tag" data-tag="OpenClaw">OpenClaw</a>
+      
+      <a href="/" class="tag" data-tag="安全">安全</a>
+      
+    </div>
+    
+    <div class="detail-meta">
+      <span class="detail-date">2026-02-24 周二 | </span>
+      <span class="detail-views">阅读 <span id="busuanzi_value_page_pv">0</span> 次</span>
+    </div>
+    <div class="detail-body">
+      <p>Microsoft 近日就 AI 助手 <strong>OpenClaw</strong> 发布安全警告，明确其<strong>不应在标准个人或企业工作站上运行</strong>，仅适合部署于完全隔离的环境。</p>
+<p><img src="/images/openclaw-enterprise-warning.jpg" alt="微软警告：OpenClaw 与企业工作站安全"></p>
+<p>OpenClaw 为可自主执行任务的代理，需获得对系统、邮件、文件及登录凭据等的全面访问权限，并保持持久状态（内存）。微软 Defender 团队将其类比为「具有持久凭据的不受信任代码执行程序」：一旦被利用，攻击者可能窃取凭据与敏感数据，并篡改代理的持久记忆，使其在后续运行中持续执行恶意指令。</p>
+<p>微软指出当前主要有两类威胁：</p>
+<ul>
+<li><strong>间接提示注入</strong>：恶意指令隐藏在代理所读内容中，可操控其工具调用或篡改内存，在未设严格安全边界时，代理可能在不知情下执行攻击者意图。</li>
+<li><strong>技能恶意软件</strong>：OpenClaw 可从互联网下载并运行代码以扩展功能；攻击者通过投递含恶意代码的「技能」模块实现远程控制或后门，攻击未必依赖传统恶意软件，也可能通过细微配置更改达成。</li>
+</ul>
+<p>实际风险已显现：SecurityScorecard 旗下 STRIKE 团队发现，全球 82 国超过 4.2 万个独立 IP 暴露 OpenClaw 控制面板，其中约 5 万个实例存在**远程代码执行（RCE）**漏洞，攻击者可直接控制宿主系统并接管用户账户。</p>
+<p>微软建议在<strong>专用虚拟机或独立物理系统</strong>中测试与评估，使用专用、非特权凭据，仅访问非敏感数据，并建立持续监控与定期重建机制，避免在核心生产系统中直接部署。自主代理型 AI 的安全边界与治理，已成为企业必须正视的问题。</p>
+
+    </div>
+  </article>
+  <p class="article-back">
+    <a href="/day/2026-02-24/">← 返回当日早报</a>
+  </p>
+</div>
+
+      </main>
+
+      <aside class="sidebar">
+        <section class="card tags-card">
+          <h3 class="card-title">标签</h3>
+          <div class="tags-list" id="tags-list">
+            
+            <a href="/#/tag/TTS" class="tag" data-tag="TTS">TTS (2)</a>
+            
+            <a href="/#/tag/OpenClaw" class="tag" data-tag="OpenClaw">OpenClaw (2)</a>
+            
+            <a href="/#/tag/Google" class="tag" data-tag="Google">Google (1)</a>
+            
+            <a href="/#/tag/Gemini" class="tag" data-tag="Gemini">Gemini (1)</a>
+            
+            <a href="/#/tag/Argmax" class="tag" data-tag="Argmax">Argmax (1)</a>
+            
+            <a href="/#/tag/Kitten" class="tag" data-tag="Kitten">Kitten (1)</a>
+            
+            <a href="/#/tag/Anthropic" class="tag" data-tag="Anthropic">Anthropic (1)</a>
+            
+            <a href="/#/tag/Skill" class="tag" data-tag="Skill">Skill (1)</a>
+            
+            <a href="/#/tag/Claude%20Code" class="tag" data-tag="Claude Code">Claude Code (1)</a>
+            
+            <a href="/#/tag/Git%20Worktree" class="tag" data-tag="Git Worktree">Git Worktree (1)</a>
+            
+            <a href="/#/tag/%E5%AE%9E%E6%97%B6%E8%99%9A%E6%8B%9F%E4%BA%BA" class="tag" data-tag="实时虚拟人">实时虚拟人 (1)</a>
+            
+            <a href="/#/tag/Tavus" class="tag" data-tag="Tavus">Tavus (1)</a>
+            
+            <a href="/#/tag/%E5%AE%89%E5%85%A8" class="tag" data-tag="安全">安全 (1)</a>
+            
+            <a href="/#/tag/%E8%84%91%E7%94%B5%E5%9B%BE" class="tag" data-tag="脑电图">脑电图 (1)</a>
+            
+            <a href="/#/tag/DeepMind" class="tag" data-tag="DeepMind">DeepMind (1)</a>
+            
+            <a href="/#/tag/Anitgravity" class="tag" data-tag="Anitgravity">Anitgravity (1)</a>
+            
+            <a href="/#/tag/OpenCode" class="tag" data-tag="OpenCode">OpenCode (1)</a>
+            
+          </div>
+        </section>
+        <section class="card author-card">
+          <h3 class="card-title">关于</h3>
+          <p class="author-name">作者：江湖</p>
+          <p class="author-intro">记录每天值得分享的科技内容，每天发布。</p>
+          <p class="author-links">
+            本早报<a href="https://github.com/zaobao-tech/zaobao" target="_blank" rel="noopener">开源</a>，欢迎<a href="https://github.com/zaobao-tech/zaobao/issues" target="_blank" rel="noopener">投稿</a>。
+          </p>
+          <div class="author-icons">
+            <a href="https://v.douyin.com/HBkTUfyow40/" target="_blank" rel="noopener" class="author-icon" title="抖音：科技早报" aria-label="抖音">
+              <svg class="icon-douyin" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+            </a>
+            <a href="https://github.com/zaobao-tech" target="_blank" rel="noopener" class="author-icon" title="GitHub" aria-label="GitHub">
+              <svg class="icon-github" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.653 1.653.241 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="author-icon" title="RSS 订阅" aria-label="RSS 订阅">
+              <svg class="icon-rss" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9 M4 4a16 16 0 0 1 16 16 M6 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+            </a>
+            <a href="https://tongji.baidu.com/" target="_blank" rel="noopener" class="author-icon" title="百度统计" aria-label="百度统计">
+              <svg class="icon-baidu-tongji" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3v18h3v-6h2v6h3v-6h2v6h3V3H5zm2 2h2v4H7V5zm6 0h2v4h-2V5zM7 13h2v4H7v-4zm6 0h2v4h-2v-4z"/></svg>
+            </a>
+          </div>
+        </section>
+        <p class="sidebar-copyright">Copyright © 2011-2026</p>
+      </aside>
+    </div>
+  </div>
+  <div class="detail-image-lightbox hidden" id="detail-image-lightbox" aria-hidden="true" title="点击关闭">
+    <img src="" alt="" />
+  </div>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="/js/site.js"></script>
+  
+</body>
+</html>
