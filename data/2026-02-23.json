@@ -1,0 +1,26 @@
+{
+  "date": "2026-02-23",
+  "items": [
+    {
+      "id": "1",
+      "title": "Anthropic 发布 Skill 创建指南",
+      "summary": "一份 30 余页的 PDF 指南，系统讲解如何为 Claude 构建 Skill，内容覆盖完整、步骤清晰。",
+      "tags": ["Anthropic", "Skill"],
+      "content": "Anthropic 上线 **The Complete Guide to Building Skill for Claude**，以 PDF 形式提供，篇幅约 30 多页。\n\n文档从零开始说明如何为 Claude 设计与实现 Skill，结构清晰、说明详尽，适合开发者按步骤落地。\n\n- 文档下载：[Anthropic 官方资源](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf)"
+    },
+    {
+      "id": "2",
+      "title": "Claude Code 支持 Git Worktree",
+      "summary": "基于 Worktree 实现多工作区隔离，多智能体可并行运行且互不干扰。",
+      "tags": ["Claude Code", "Git Worktree"],
+      "content": "**Claude Code** 现已支持 **Git Worktree**：通过为每个任务或会话使用独立工作树，实现多智能体**并行运行**，彼此之间互不干扰。\n\nWorktree 是 Git 的原生能力，可在同一仓库下维护多个检出目录，便于同时开展不同分支或任务。\n\n- Git Worktree 说明：[git-scm.com 文档](https://git-scm.com/docs/git-worktree)"
+    },
+    {
+      "id": "3",
+      "title": "Tavus 发布 Phoenix-4：实时虚拟人模型",
+      "summary": "支持实时渲染虚拟人，并根据对话内容驱动表情与情绪反馈。",
+      "tags": ["实时虚拟人", "Tavus"],
+      "content": "Tavus 推出 **Phoenix-4**，主打**实时虚拟人**渲染与驱动。\n\n除实时生成虚拟形象外，模型会根据当前**说话内容**实时生成与之匹配的**表情与情绪反馈**，使数字人表现更自然、更有代入感，适用于直播、客服、演示等场景。\n\n- 详细介绍：[Tavus - Phoenix-4 官方介绍](https://www.tavus.io/post/phoenix-4-real-time-human-rendering-with-emotional-intelligence)"
+    }
+  ]
+}

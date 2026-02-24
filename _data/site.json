@@ -1,0 +1,11 @@
+{
+  "title": "科技早报",
+  "baseUrl": "https://www.zaobao.tech",
+  "themeColor": "#8C3EFF",
+  "todayColor": "#E74C3C",
+  "logo": "/images/logo.jpg",
+  "author": "江湖",
+  "intro": "记录每天值得分享的科技内容，每天发布。",
+  "repoUrl": "https://github.com/zaobao-tech/zaobao",
+  "issuesUrl": "https://github.com/zaobao-tech/zaobao/issues"
+}

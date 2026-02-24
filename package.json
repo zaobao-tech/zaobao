@@ -1,0 +1,17 @@
+{
+  "name": "zaobao-tech",
+  "version": "1.0.0",
+  "description": "一个早报系统，筛选出有价值的科技信息，让我们从过载的信息中解放出来，减少信息焦虑",
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve",
+    "start": "eleventy --serve"
+  },
+  "keywords": [],
+  "author": "江湖",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "markdown-it": "^14.0.0"
+  }
+}

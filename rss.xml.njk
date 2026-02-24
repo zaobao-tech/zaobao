@@ -1,0 +1,24 @@
+---
+permalink: /rss.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.title | escapeXml }}</title>
+    <link>{{ site.baseUrl }}/</link>
+    <description>{{ site.intro | escapeXml }}</description>
+    <language>zh-CN</language>
+    <lastBuildDate>{% if zaobao.articlesList.length %}{{ zaobao.articlesList[0].dateKey | formatDateRSS }}{% else %}{{ "2026-01-01" | formatDateRSS }}{% endif %}</lastBuildDate>
+    <atom:link href="{{ site.baseUrl }}/rss.xml" rel="self" type="application/rss+xml"/>
+{% for article in zaobao.articlesList.slice(0, 50) %}
+    <item>
+      <title>{{ article.item.title or "无标题" | escapeXml }}</title>
+      <link>{{ site.baseUrl }}/day/{{ article.dateKey }}/{{ article.index + 1 }}/</link>
+      <description>{{ (article.item.summary or article.item.title or "无标题") | escapeXml }}</description>
+      <pubDate>{{ article.dateKey | formatDateRSS }}</pubDate>
+      <guid isPermaLink="true">{{ site.baseUrl }}/day/{{ article.dateKey }}/{{ article.index + 1 }}/</guid>
+    </item>
+{% endfor %}
+  </channel>
+</rss>

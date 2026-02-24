@@ -1,0 +1,26 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{{ site.baseUrl }}/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1</priority>
+  </url>
+{% for day in zaobao.daysList %}
+  <url>
+    <loc>{{ site.baseUrl }}/day/{{ day.dateKey }}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+{% endfor %}
+{% for article in zaobao.articlesList %}
+  <url>
+    <loc>{{ site.baseUrl }}/day/{{ article.dateKey }}/{{ article.index + 1 }}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+{% endfor %}
+</urlset>

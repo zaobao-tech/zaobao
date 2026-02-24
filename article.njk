@@ -1,0 +1,31 @@
+---
+layout: layout.njk
+pagination:
+  data: zaobao.articlesList
+  size: 1
+  alias: articleInfo
+permalink: "day/{{ articleInfo.dateKey }}/{{ articleInfo.index + 1 }}/index.html"
+---
+
+<div class="article-page">
+  <article class="article-single">
+    <h1 class="detail-title">{{ articleInfo.item.title or "无标题" }}</h1>
+    {% if (articleInfo.item.tags or []).length %}
+    <div class="detail-tags">
+      {% for tagName in articleInfo.item.tags %}
+      <a href="/" class="tag" data-tag="{{ tagName }}">{{ tagName }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="detail-meta">
+      <span class="detail-date">{{ articleInfo.dateKey | formatDateLine }} | </span>
+      <span class="detail-views">阅读 <span id="busuanzi_value_page_pv">0</span> 次</span>
+    </div>
+    <div class="detail-body">
+      {{ articleInfo.item.contentHtml | safe }}
+    </div>
+  </article>
+  <p class="article-back">
+    <a href="/day/{{ articleInfo.dateKey }}/">← 返回当日早报</a>
+  </p>
+</div>

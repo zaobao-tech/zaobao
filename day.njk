@@ -1,0 +1,98 @@
+---
+layout: layout.njk
+pagination:
+  data: zaobao.daysList
+  size: 1
+  alias: dayInfo
+permalink: "day/{{ dayInfo.dateKey }}/index.html"
+---
+
+<div class="heatmap-section">
+  <div class="year-tabs" id="year-tabs">
+    {% for y in zaobao.years %}
+    <button type="button" class="year-tab {% if y == zaobao.years[0] %}is-active{% endif %}" data-year="{{ y }}">{{ y }}</button>
+    {% endfor %}
+  </div>
+  <div class="heatmap-wrap" id="heatmap-wrap">
+    {% for year in zaobao.years %}
+    <div class="heatmap-year {% if year == zaobao.years[0] %}is-active{% endif %}" data-year="{{ year }}" id="heatmap-{{ year }}">
+      <div class="heatmap-grid">
+        <div class="heatmap-labels heatmap-days">
+          <span>周一</span><span>周二</span><span>周三</span><span>周四</span><span>周五</span><span>周六</span><span>周日</span>
+        </div>
+        <div class="heatmap-cells">
+          {% set rowsByDay = zaobao.calendarByYear[year] %}
+          {% for row in rowsByDay %}
+          <div class="heatmap-week">
+            {% for cell in row %}
+            {% if cell %}
+            <a href="/day/{{ cell.dateKey }}/" class="cell {% if cell.count > 0 %}has-data{% endif %} {% if cell.isToday %}is-today{% endif %} {% if cell.dateKey == dayInfo.dateKey %}is-selected{% endif %}" data-date="{{ cell.dateKey }}" data-count="{{ cell.count }}" title="{{ cell.title }}"></a>
+            {% else %}
+            <span class="cell empty"></span>
+            {% endif %}
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="heatmap-month-row">
+        <div class="heatmap-labels heatmap-months-placeholder"></div>
+        <div class="heatmap-month-cells">
+          {% for month in zaobao.monthLabelsByYear[year] %}
+          <span class="month-cell">{% if month %}{{ month }}月{% endif %}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="day-section">
+  <h2 class="day-title" id="day-title">{{ dayInfo.dateKey | formatDateCN }} 早报</h2>
+  <div class="day-section-scroll">
+  <div class="day-panel">
+    <div class="day-list" id="day-list">
+      <ul class="item-list" id="item-list">
+        {% for item in dayInfo.day.items %}
+        <li>
+          <a href="/day/{{ dayInfo.dateKey }}/{{ loop.index }}/" class="item-link {% if loop.index0 == 0 %}is-active{% endif %}">{{ item.title or "无标题" }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      <p class="empty-state {% if dayInfo.day.items.length %}hidden{% endif %}" id="empty-state">该日暂无早报。</p>
+    </div>
+    <div class="day-resizer" id="day-resizer" title="拖动调节宽度"></div>
+    <div class="day-detail">
+      {% if dayInfo.day.items.length %}
+      {% set first = dayInfo.day.items[0] %}
+      <h1 class="detail-title" id="detail-title">{{ first.title or "无标题" }}</h1>
+      <div class="detail-tags" id="detail-tags">
+        {% for tagName in first.tags or [] %}
+        <a href="#" class="tag" data-tag="{{ tagName }}">{{ tagName }}</a>
+        {% endfor %}
+      </div>
+      <div class="detail-meta" id="detail-meta">
+        <span class="detail-date" id="detail-date">{{ dayInfo.dateKey | formatDateLine }} | </span>
+        <span class="detail-views">阅读 <span id="busuanzi_value_page_pv">0</span> 次</span>
+      </div>
+      <article class="detail-body" id="detail-body">
+        {{ first.contentHtml | safe }}
+      </article>
+      {% else %}
+      <h1 class="detail-title hidden" id="detail-title"></h1>
+      <div class="detail-tags hidden" id="detail-tags"></div>
+      <div class="detail-meta hidden" id="detail-meta"></div>
+      <article class="detail-body hidden" id="detail-body"></article>
+      {% endif %}
+    </div>
+  </div>
+  </div>
+</div>
+
+<script>
+  window.ZAOBAO_DATA = {{ zaobao.daysByDate | json | safe }};
+  window.ZAOBAO_TAGS = {{ zaobao.tagsIndex | json | safe }};
+  window.ZAOBAO_TOTAL_BY_YEAR = {{ zaobao.totalByYear | json | safe }};
+  window.ZAOBAO_DAY_PAGE = "{{ dayInfo.dateKey }}";
+</script>

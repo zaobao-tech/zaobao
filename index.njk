@@ -1,0 +1,73 @@
+---
+layout: layout.njk
+title: 首页
+---
+
+<div class="heatmap-section">
+  <div class="year-tabs" id="year-tabs">
+    {% for y in zaobao.years %}
+    <button type="button" class="year-tab {% if y == zaobao.years[0] %}is-active{% endif %}" data-year="{{ y }}">{{ y }}</button>
+    {% endfor %}
+  </div>
+  <div class="heatmap-wrap" id="heatmap-wrap">
+    {% for year in zaobao.years %}
+    <div class="heatmap-year {% if year == zaobao.years[0] %}is-active{% endif %}" data-year="{{ year }}" id="heatmap-{{ year }}">
+      <div class="heatmap-grid">
+        <div class="heatmap-labels heatmap-days">
+          <span>周一</span><span>周二</span><span>周三</span><span>周四</span><span>周五</span><span>周六</span><span>周日</span>
+        </div>
+        <div class="heatmap-cells">
+          {% set rowsByDay = zaobao.calendarByYear[year] %}
+          {% for row in rowsByDay %}
+          <div class="heatmap-week">
+            {% for cell in row %}
+            {% if cell %}
+            <a href="{% if cell.count > 0 %}/day/{{ cell.dateKey }}/{% else %}#{% endif %}" class="cell {% if cell.count > 0 %}has-data{% endif %} {% if cell.isToday %}is-today{% endif %}" data-date="{{ cell.dateKey }}" data-count="{{ cell.count }}" title="{{ cell.title }}"></a>
+            {% else %}
+            <span class="cell empty"></span>
+            {% endif %}
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="heatmap-month-row">
+        <div class="heatmap-labels heatmap-months-placeholder"></div>
+        <div class="heatmap-month-cells">
+          {% for month in zaobao.monthLabelsByYear[year] %}
+          <span class="month-cell">{% if month %}{{ month }}月{% endif %}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="day-section">
+  <h2 class="day-title" id="day-title">今日早报</h2>
+  <div class="day-section-scroll">
+  <div class="day-panel">
+    <div class="day-list" id="day-list">
+      <ul class="item-list" id="item-list"></ul>
+      <p class="empty-state" id="empty-state">该日暂无早报。</p>
+    </div>
+    <div class="day-resizer" id="day-resizer" title="拖动调节宽度"></div>
+    <div class="day-detail">
+      <h1 class="detail-title hidden" id="detail-title"></h1>
+      <div class="detail-tags hidden" id="detail-tags"></div>
+      <div class="detail-meta hidden" id="detail-meta">
+        <span class="detail-date" id="detail-date"></span>
+        <span class="detail-views">阅读 <span id="busuanzi_value_page_pv">0</span> 次</span>
+      </div>
+      <article class="detail-body hidden" id="detail-body"></article>
+    </div>
+  </div>
+  </div>
+</div>
+
+<script>
+  window.ZAOBAO_DATA = {{ zaobao.daysByDate | json | safe }};
+  window.ZAOBAO_TAGS = {{ zaobao.tagsIndex | json | safe }};
+  window.ZAOBAO_TOTAL_BY_YEAR = {{ zaobao.totalByYear | json | safe }};
+</script>
