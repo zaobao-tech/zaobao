@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  workflow_dispatch:  # 允许在 Actions 页手动点击 Run workflow 触发
 
 jobs:
   build-and-deploy:
@@ -22,6 +23,16 @@ jobs:
         env:
           NODE_ENV: development
         run: npm ci
+
+      - name: Check Baidu Analytics config
+        env:
+          BAIDU_ANALYTICS_ID: ${{ secrets.BAIDU_ANALYTICS_ID }}
+        run: |
+          if [ -n "$BAIDU_ANALYTICS_ID" ]; then
+            echo "✅ Baidu Analytics: 已配置 (ID 已注入到构建)"
+          else
+            echo "⚠️ Baidu Analytics: 未配置 — 请在仓库 Settings → Secrets and variables → Actions 中添加 BAIDU_ANALYTICS_ID"
+          fi
 
       - name: Build
         env:
