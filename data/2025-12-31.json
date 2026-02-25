@@ -1,0 +1,12 @@
+{
+  "date": "2025-12-31",
+  "items": [
+    {
+      "id": "1",
+      "title": "Antigravity",
+      "summary": "谷歌 2025 年底发布的智能体优先 IDE，具备自主规划、工具使用与多智能体并行能力，从「AI 辅助编程」迈向「AI 自主开发」。",
+      "tags": ["基础知识", "Antigravity", "IDE"],
+      "contentRef": "2025-12-31-antigravity.md"
+    }
+  ]
+}

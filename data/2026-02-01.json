@@ -1,0 +1,12 @@
+{
+  "date": "2026-02-01",
+  "items": [
+    {
+      "id": "1",
+      "title": "OpenClaw",
+      "summary": "2026 年爆火的开源 AI 代理运行时，将 Claude/GPT/DeepSeek 变成 24 小时在线的「数字管家」，支持本地部署、心跳机制与聊天即 UI。",
+      "tags": ["OpenClaw", "Agent", "开源", "基础知识"],
+      "contentRef": "2026-02-01-openclaw.md"
+    }
+  ]
+}

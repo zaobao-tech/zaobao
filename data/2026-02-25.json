@@ -5,22 +5,45 @@
       "id": "1",
       "title": "Anthropic 推出企业级插件 Cowork，深度植入 Office 办公全家桶",
       "summary": "发布「Cowork & Plugins for the Enterprise」，在 Excel、PowerPoint、Slack 内直接调用 Claude，开源可移植插件与连接器接入 Google Drive、Gmail 等，德勤、欧莱雅已接入。",
-      "tags": ["Anthropic", "Cowork", "企业版"],
+      "tags": [
+        "Anthropic",
+        "Cowork"
+      ],
       "contentRef": "2026-02-25-cowork-enterprise.md"
     },
     {
       "id": "2",
       "title": "Anthropic 报告：DeepSeek、Kimi、MiniMax 蒸馏 Claude 数据",
       "summary": "报告披露 MiniMax 约 1300 万次交互、Kimi 约 300 万次、DeepSeek 约 15 万次涉及蒸馏。",
-      "tags": ["Anthropic", "蒸馏", "DeepSeek", "Kimi", "MiniMax"],
+      "tags": [
+        "Anthropic",
+        "蒸馏",
+        "DeepSeek",
+        "Kimi",
+        "MiniMax"
+      ],
       "content": "Anthropic 发布报告称 **DeepSeek、Kimi、MiniMax** 等模型存在对 Claude 数据的蒸馏使用。\n\n报告中披露的交互量级约为：MiniMax 1300 万次交互，Kimi 300 万次交互，DeepSeek 15 万次交互。\n\n- 官方报告：[Detecting and preventing distillation attacks](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks)"
     },
     {
       "id": "3",
       "title": "蒸馏",
       "summary": "从核心痛点、本质定义、技术路径到四种主流方案，一文搞懂大模型蒸馏。",
-      "tags": ["基础知识"],
+      "tags": [
+        "基础知识"
+      ],
       "contentRef": "2026-02-25-distillation.md"
+    },
+    {
+      "id": "4",
+      "title": "api-design",
+      "summary": "REST API 设计规范 Skill。REST API 资源命名、状态码、分页、过滤、错误响应、版本与限流等生产级 API 设计模式与实现示例（TS/Python/Go）。",
+      "install": "npx skills add affaan-m/everything-claude-code --skill \"api-design\"",
+      "repoUrl": "https://github.com/affaan-m/everything-claude-code",
+      "tags": [
+        "API",
+        "REST"
+      ],
+      "contentRef": "skills/api-design.md"
     }
   ]
 }

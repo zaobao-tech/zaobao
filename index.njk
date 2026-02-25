@@ -1,6 +1,7 @@
 ---
 layout: layout.njk
 title: 首页
+navSection: home
 ---
 
 <div class="heatmap-section">
@@ -22,7 +23,7 @@ title: 首页
           <div class="heatmap-week">
             {% for cell in row %}
             {% if cell %}
-            <a href="{% if cell.count > 0 %}/day/{{ cell.dateKey }}/{% else %}#{% endif %}" class="cell {% if cell.count > 0 %}has-data{% endif %} {% if cell.isToday %}is-today{% endif %}" data-date="{{ cell.dateKey }}" data-count="{{ cell.count }}" title="{{ cell.title }}"></a>
+            <a href="{% if cell.count > 0 %}#/day/{{ cell.dateKey }}/1{% else %}#{% endif %}" class="cell {% if cell.count > 0 %}has-data{% endif %} {% if cell.isToday %}is-today{% endif %}" data-date="{{ cell.dateKey }}" data-count="{{ cell.count }}" title="{{ cell.title }}"></a>
             {% else %}
             <span class="cell empty"></span>
             {% endif %}
@@ -44,30 +45,90 @@ title: 首页
   </div>
 </div>
 
-<div class="day-section">
-  <h2 class="day-title" id="day-title">今日早报</h2>
-  <div class="day-section-scroll">
-  <div class="day-panel">
-    <div class="day-list" id="day-list">
-      <ul class="item-list" id="item-list"></ul>
-      <p class="empty-state" id="empty-state">该日暂无早报。</p>
-    </div>
-    <div class="day-resizer" id="day-resizer" title="拖动调节宽度"></div>
-    <div class="day-detail">
-      <h1 class="detail-title hidden" id="detail-title"></h1>
-      <div class="detail-tags hidden" id="detail-tags"></div>
-      <div class="detail-meta hidden" id="detail-meta">
-        <span class="detail-date" id="detail-date"></span>
-        <span class="detail-views">阅读 <span id="busuanzi_value_page_pv">0</span> 次</span>
+<div class="zaobao-home-layout">
+  <aside class="zaobao-left">
+    <div class="zaobao-left-row">
+      <div class="year-tabs year-tabs-left" id="year-tabs-left">
+        {% for y in zaobao.years %}
+        <button type="button" class="year-tab {% if y == zaobao.years[0] %}is-active{% endif %}" data-year="{{ y }}">{{ y }}</button>
+        {% endfor %}
       </div>
-      <article class="detail-body hidden" id="detail-body"></article>
+      <div class="year-days-wrap" id="year-days-wrap">
+        <ul class="year-days-list" id="year-days-list"></ul>
+        <p class="year-days-loading hidden" id="year-days-loading">加载中…</p>
+        <p class="year-days-empty hidden" id="year-days-empty">该年暂无早报。</p>
+      </div>
+    </div>
+  </aside>
+
+  <div class="zaobao-content day-section">
+    <h2 class="day-title" id="day-title">选择日期</h2>
+    <div class="day-section-scroll">
+      <div class="day-panel">
+        <div class="day-list" id="day-list">
+          <ul class="item-list" id="item-list"></ul>
+          <p class="empty-state" id="empty-state">请从左侧选择日期。</p>
+        </div>
+        <div class="day-resizer" id="day-resizer" title="拖动调节宽度"></div>
+        <div class="day-detail">
+          <h1 class="detail-title hidden" id="detail-title"></h1>
+          <div class="detail-tags hidden" id="detail-tags"></div>
+          <div class="detail-meta hidden" id="detail-meta">
+            <span class="detail-views">阅读 <span id="page-pv-value">0</span> 次</span>
+          </div>
+          <p class="detail-summary hidden" id="detail-summary"></p>
+          <dl class="detail-meta-extra hidden" id="detail-meta-extra"></dl>
+          <article class="detail-body hidden" id="detail-body"></article>
+        </div>
+      </div>
     </div>
   </div>
-  </div>
+</div>
+
+<div class="index-skills-view" id="index-skills-view" aria-hidden="true">
+  <section class="skills-zaobao-layout">
+    <aside class="skills-left">
+      <div class="skills-left-row">
+        <div class="skills-category-tabs year-tabs" id="skills-category-tabs" role="tablist" aria-label="分类"></div>
+        <div class="skills-children-wrap">
+          <ul class="skills-children-list" id="skills-children-list"></ul>
+        </div>
+      </div>
+    </aside>
+    <div class="skills-content">
+      <div class="skills-content-inner">
+        <div class="skill-list-wrap" id="skills-skill-list-wrap">
+          <ul class="skill-list-inner" id="skills-skill-list"></ul>
+        </div>
+        <div class="day-resizer" id="skills-list-resizer" title="拖动调节宽度"></div>
+        <div class="skill-detail-wrap">
+          <h1 class="skill-detail-title hidden" id="skills-detail-title"></h1>
+          <div class="detail-tags hidden" id="skills-detail-tags"></div>
+          <div class="detail-meta hidden" id="skills-detail-meta">
+            <span class="detail-date" id="skills-detail-date"></span><span class="detail-meta-sep" aria-hidden="true">|</span><span class="detail-views">阅读 <span id="skills-page-pv-value">0</span> 次</span>
+          </div>
+          <p class="detail-summary hidden" id="skills-detail-summary"></p>
+          <dl class="detail-meta-extra hidden" id="skills-detail-meta-extra"></dl>
+          <div class="skill-detail-body detail-body hidden" id="skills-detail-body"></div>
+          <p class="skill-no-content" id="skills-no-content">请从左侧选择分类与技能。</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <script>
   window.ZAOBAO_DATA = {{ zaobao.daysByDate | json | safe }};
   window.ZAOBAO_TAGS = {{ zaobao.tagsIndex | json | safe }};
   window.ZAOBAO_TOTAL_BY_YEAR = {{ zaobao.totalByYear | json | safe }};
+  window.ZAOBAO_YEARS = {{ zaobao.years | json | safe }};
+  window.ZAOBAO_SITE_TITLE = {{ site.title | json | safe }};
+  {% if skillsIndex %}
+  window.ZAOBAO_SKILLS = {{ skillsIndex.skillsList | json | safe }};
+  window.ZAOBAO_SKILLS_SLUG_TO_NAME = {{ skillsIndex.slugToName | json | safe }};
+  window.ZAOBAO_TAG_SKILLS = {{ skillsIndex.tagToSkills | json | safe }};
+  window.ZAOBAO_SKILL_CONTENT = {{ zaobao.skillContentBySlug | json | safe }};
+  window.ZAOBAO_CATEGORY_TREE = {{ skillsIndex.categoryTreeWithCounts | json | safe }};
+  window.ZAOBAO_SKILLS_BY_CATEGORY = {{ skillsIndex.skillsByCategorySlug | json | safe }};
+  {% endif %}
 </script>

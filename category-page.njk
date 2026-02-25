@@ -1,0 +1,107 @@
+---
+layout: layout.njk
+navSection: skills
+pagination:
+  data: skillsCategoryPages
+  size: 1
+  alias: categoryPage
+permalink: "categories/{{ categoryPage.path }}/index.html"
+title: "{{ categoryPage.nameZh or categoryPage.name }}"
+description: "{{ categoryPage.nameZh or categoryPage.name }} 分类下的 Agent Skills"
+---
+
+{% if categoryPage.type == "parent" and categoryPage.children and categoryPage.children.length > 0 %}
+<script>document.addEventListener("DOMContentLoaded", function() { window.location.replace("/#/skills/{{ categoryPage.children[0].fullSlug }}"); });</script>
+{% elif categoryPage.type == "parent" %}
+<script>document.addEventListener("DOMContentLoaded", function() { window.location.replace("/#/skills/{{ categoryPage.path }}"); });</script>
+{% endif %}
+{% if categoryPage.type == "child" %}
+  {% set pageSkills = categoryPage.skills or skillsIndex.skillsByCategorySlug[categoryPage.path] or [] %}
+  {% if pageSkills.length > 0 %}
+<script>document.addEventListener("DOMContentLoaded", function() { window.location.replace("/#/skills/{{ pageSkills[0].slug }}"); });</script>
+  {% else %}
+<script>document.addEventListener("DOMContentLoaded", function() { window.location.replace("/#/skills/{{ categoryPage.path }}"); });</script>
+  {% endif %}
+{% endif %}
+
+<section class="skills-zaobao-layout" aria-hidden="true">
+  <aside class="skills-left">
+    <div class="skills-left-row">
+      <div class="skills-category-tabs" role="tablist" aria-label="分类">
+        {% for parent in skillsIndex.categoryTreeWithCounts %}
+        <a href="/categories/{{ parent.slug }}/" class="skills-category-tab {% if parent.slug == currentParentSlug %}is-active{% endif %}" role="tab">{{ parent.nameZh or parent.name }}</a>
+        {% endfor %}
+      </div>
+      <div class="skills-children-wrap">
+        {% for parent in skillsIndex.categoryTreeWithCounts %}
+          {% if parent.slug == currentParentSlug %}
+        <ul class="skills-children-list">
+            {% for child in parent.children %}
+          <li>
+            <a href="/categories/{{ child.fullSlug }}/" class="skills-child-link {% if categoryPage.type == "child" and child.fullSlug == categoryPage.path %}is-active{% endif %}">{{ child.nameZh or child.name }}</a>
+          </li>
+            {% endfor %}
+        </ul>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </aside>
+  <div class="skills-content">
+    {% if categoryPage.type == "parent" %}
+    <nav class="breadcrumb" aria-label="面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <a href="/categories/">Skills</a>
+      <span aria-hidden="true">/</span>
+      <span>{{ categoryPage.nameZh or categoryPage.name }}</span>
+    </nav>
+    <h1 class="skills-page-title">{{ categoryPage.nameZh or categoryPage.name }}</h1>
+    {% if categoryPage.description %}
+    <p class="skills-page-desc">{{ categoryPage.description }}</p>
+    {% endif %}
+    {% endif %}
+
+    {% if categoryPage.type == "parent" %}
+    <ul class="category-children-list category-children-grid">
+      {% for child in categoryPage.children %}
+      <li>
+        <a href="/categories/{{ child.fullSlug }}/">{{ child.nameZh or child.name }}</a>
+        <span class="category-count">{{ child.count }} 个技能</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    {% set pageSkills = categoryPage.skills or skillsIndex.skillsByCategorySlug[categoryPage.path] or [] %}
+    <div class="skills-content-inner">
+      <div class="skill-list-wrap">
+        <ul class="skill-list-inner">
+          {% for s in pageSkills %}
+          <li>
+            <a href="/skills/{{ s.slug }}/" class="skill-list-link-inner">{{ zaobao.skillTitleBySlug[s.slug] or s.slug }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="skill-detail-wrap">
+        {% if pageSkills.length > 0 %}
+        <nav class="breadcrumb" aria-label="面包屑">
+          <a href="/">首页</a>
+          <span aria-hidden="true">/</span>
+          <a href="/categories/">Skills</a>
+          <span aria-hidden="true">/</span>
+          <a href="/categories/{{ categoryPage.parentSlug }}/">{{ categoryPage.parentNameZh or categoryPage.parentName }}</a>
+          <span aria-hidden="true">/</span>
+          <span>{{ categoryPage.nameZh or categoryPage.name }}</span>
+        </nav>
+        {% endif %}
+        <h1 class="skills-page-title">{{ categoryPage.nameZh or categoryPage.name }}</h1>
+        {% if categoryPage.description %}
+        <p class="skills-page-desc">{{ categoryPage.description }}</p>
+        {% endif %}
+        <p class="skill-no-content">共 {{ pageSkills.length }} 个技能，点击左侧列表查看内容。</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>

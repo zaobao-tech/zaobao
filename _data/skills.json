@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "api-design",
+    "categorySlugs": [
+      "development/backend"
+    ]
+  },
+  {
+    "slug": "changelog-generator",
+    "categorySlugs": [
+      "development/devops"
+    ]
+  },
+  {
+    "slug": "docx",
+    "categorySlugs": [
+      "office/doc-processing"
+    ]
+  },
+  {
+    "slug": "pdf",
+    "categorySlugs": [
+      "office/doc-processing"
+    ]
+  },
+  {
+    "slug": "canvas-design",
+    "categorySlugs": [
+      "picture/canvas"
+    ]
+  },
+  {
+    "slug": "file-organizer",
+    "categorySlugs": [
+      "workplace/file-organizer"
+    ]
+  }
+]

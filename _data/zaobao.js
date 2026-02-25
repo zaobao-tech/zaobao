@@ -6,6 +6,40 @@ const md = new MarkdownIt({ html: true });
 const DATA_DIR = path.join(__dirname, "..", "data");
 const CONTENT_DIR = path.join(__dirname, "..", "content");
 
+/** Extract YAML frontmatter from markdown string. Returns { frontmatter: Record<string,string> | null, body: string }. */
+function extractFrontmatter(raw) {
+  if (!raw || !raw.startsWith("---\n")) return { frontmatter: null, body: raw };
+  const endFence = raw.indexOf("\n---", 4);
+  if (endFence === -1) return { frontmatter: null, body: raw };
+  const frontBlock = raw.slice(4, endFence);
+  const body = raw.slice(endFence + 4).replace(/^\n?/, "");
+  const frontmatter = {};
+  const lines = frontBlock.split(/\r?\n/);
+  for (const line of lines) {
+    const m = line.match(/^([a-zA-Z][a-zA-Z0-9_-]*):\s*(.*)$/);
+    if (m) frontmatter[m[1].trim()] = m[2].trim();
+  }
+  if (Object.keys(frontmatter).length === 0) return { frontmatter: null, body: raw };
+  return { frontmatter, body };
+}
+
+/** Turn frontmatter object into a markdown table (for rendering as HTML table). */
+function frontmatterToMarkdownTable(frontmatter) {
+  const header = "| 属性 | 值 |\n| --- | --- |";
+  const rows = Object.entries(frontmatter).map(([k, v]) => {
+    const cell = String(v).replace(/\|/g, "\\|").replace(/\n/g, " ");
+    return `| ${k} | ${cell} |`;
+  });
+  return header + "\n" + rows.join("\n") + "\n\n";
+}
+
+function markdownWithFrontmatterTable(raw) {
+  const { frontmatter, body } = extractFrontmatter(raw);
+  if (!frontmatter || Object.keys(frontmatter).length === 0) return md.render(raw);
+  const tableMd = frontmatterToMarkdownTable(frontmatter);
+  return md.render(tableMd + body);
+}
+
 function getISODay(d) {
   return (d.getDay() + 6) % 7;
 }
@@ -31,10 +65,10 @@ function loadAllDays() {
       const items = (data.items || []).map((item) => {
         let contentHtml = "";
         if (item.content) {
-          contentHtml = md.render(item.content);
+          contentHtml = markdownWithFrontmatterTable(item.content);
         } else if (item.contentRef && fs.existsSync(path.join(CONTENT_DIR, item.contentRef))) {
           const body = fs.readFileSync(path.join(CONTENT_DIR, item.contentRef), "utf-8");
-          contentHtml = md.render(body);
+          contentHtml = markdownWithFrontmatterTable(body);
         }
         return { ...item, contentHtml };
       });
@@ -156,6 +190,48 @@ module.exports = function () {
     });
   });
 
+  const skillContentBySlug = {};
+  const skillTitleBySlug = {};
+  const skillTagsBySlug = {};
+  const skillSummaryBySlug = {};
+  const skillInstallBySlug = {};
+  const skillRepoUrlBySlug = {};
+  const skillFirstDateBySlug = {};
+  const sortedDateKeys = Object.keys(daysByDate).sort();
+  for (const dateKey of sortedDateKeys) {
+    const day = daysByDate[dateKey];
+    if (!day || !day.items) continue;
+    for (const item of day.items) {
+      const ref = item.contentRef;
+      if (ref && typeof ref === "string" && ref.startsWith("skills/") && ref.endsWith(".md")) {
+        const slug = path.basename(ref, ".md");
+        if (!skillFirstDateBySlug[slug]) skillFirstDateBySlug[slug] = dateKey;
+        if (item.contentHtml) skillContentBySlug[slug] = item.contentHtml;
+        if (item.title) skillTitleBySlug[slug] = item.title;
+        if (item.tags && item.tags.length) skillTagsBySlug[slug] = item.tags;
+        if (item.summary) skillSummaryBySlug[slug] = item.summary;
+        if (item.install) skillInstallBySlug[slug] = item.install;
+        if (item.repoUrl) skillRepoUrlBySlug[slug] = item.repoUrl;
+      }
+    }
+  }
+  const skillsContentDir = path.join(CONTENT_DIR, "skills");
+  if (fs.existsSync(skillsContentDir)) {
+    const files = fs.readdirSync(skillsContentDir).filter((f) => f.endsWith(".md"));
+    for (const file of files) {
+      const slug = path.basename(file, ".md");
+      if (!skillContentBySlug[slug]) {
+        try {
+          const body = fs.readFileSync(path.join(skillsContentDir, file), "utf-8");
+          skillContentBySlug[slug] = markdownWithFrontmatterTable(body);
+        } catch (e) {
+          console.warn("Skip skill content " + file + ": " + e.message);
+        }
+      }
+      if (!skillTitleBySlug[slug]) skillTitleBySlug[slug] = slug;
+    }
+  }
+
   return {
     daysByDate,
     daysList,
@@ -166,5 +242,12 @@ module.exports = function () {
     calendarByYear,
     monthLabelsByYear,
     totalByYear,
+    skillContentBySlug,
+    skillTitleBySlug,
+    skillTagsBySlug,
+    skillSummaryBySlug,
+    skillInstallBySlug,
+    skillRepoUrlBySlug,
+    skillFirstDateBySlug,
   };
 };

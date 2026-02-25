@@ -1,0 +1,93 @@
+---
+layout: layout.njk
+navSection: skills
+pagination:
+  data: skillsWithContent
+  size: 1
+  alias: skill
+permalink: "skills/{{ skill.slug }}/index.html"
+title: "{{ (zaobao.skillTitleBySlug[skill.slug] or skill.slug) }}"
+description: ""
+---
+
+<script>document.addEventListener("DOMContentLoaded", function() { window.location.replace("/#/skills/{{ skill.slug }}"); });</script>
+{% set categorySlug = skill.categorySlugs[0] if skill.categorySlugs and skill.categorySlugs.length else "" %}
+{% set currentParentSlug = categorySlug.split("/")[0] if categorySlug else "" %}
+{% set categorySkills = skillsIndex.skillsByCategorySlug[categorySlug] or [] %}
+<section class="skills-zaobao-layout" aria-hidden="true">
+  <aside class="skills-left">
+    <div class="skills-left-row">
+      <div class="skills-category-tabs" role="tablist" aria-label="分类">
+        {% for parent in skillsIndex.categoryTreeWithCounts %}
+        <a href="/categories/{{ parent.slug }}/" class="skills-category-tab {% if parent.slug == currentParentSlug %}is-active{% endif %}" role="tab">{{ parent.nameZh or parent.name }}</a>
+        {% endfor %}
+      </div>
+      <div class="skills-children-wrap">
+        {% for parent in skillsIndex.categoryTreeWithCounts %}
+          {% if parent.slug == currentParentSlug %}
+        <ul class="skills-children-list">
+            {% for child in parent.children %}
+          <li>
+            <a href="/categories/{{ child.fullSlug }}/" class="skills-child-link {% if child.fullSlug == categorySlug %}is-active{% endif %}">{{ child.nameZh or child.name }}</a>
+          </li>
+            {% endfor %}
+        </ul>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </aside>
+  <div class="skills-content">
+    <div class="skills-content-inner">
+      <div class="skill-list-wrap">
+        <ul class="skill-list-inner">
+          {% for s in categorySkills %}
+          <li>
+            <a href="/skills/{{ s.slug }}/" class="skill-list-link-inner {% if s.slug == skill.slug %}is-active{% endif %}">{{ zaobao.skillTitleBySlug[s.slug] or s.slug }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="skill-detail-wrap">
+        <h1 class="skill-detail-title">{{ zaobao.skillTitleBySlug[skill.slug] or skill.slug }}</h1>
+
+        {% set skillTags = zaobao.skillTagsBySlug[skill.slug] or [] %}
+        {% if skillTags.length %}
+        <div class="detail-tags">
+          {% for tagName in skillTags %}
+          <a href="/#/tag/{{ tagName | encodeTagUri }}/" class="tag">{{ tagName }}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="detail-meta">
+          {% if zaobao.skillFirstDateBySlug[skill.slug] %}<span class="detail-date">{{ zaobao.skillFirstDateBySlug[skill.slug] | formatDateLine }}</span><span class="detail-meta-sep" aria-hidden="true">|</span>{% endif %}<span class="detail-views">阅读 <span id="page-pv-value">0</span> 次</span>
+        </div>
+        {% if zaobao.skillSummaryBySlug[skill.slug] %}
+        <p class="detail-summary">{{ zaobao.skillSummaryBySlug[skill.slug] }}</p>
+        {% endif %}
+        {% set skillInstall = zaobao.skillInstallBySlug[skill.slug] or skill.install %}
+        {% set skillRepoUrl = zaobao.skillRepoUrlBySlug[skill.slug] or skill.repoUrl %}
+        {% if skillInstall or skillRepoUrl %}
+        <dl class="detail-meta-extra">
+          {% if skillInstall %}
+          <dt>安装：</dt>
+          <dd><code class="detail-meta-install">{{ skillInstall }}</code></dd>
+          {% endif %}
+          {% if skillRepoUrl %}
+          <dt>仓库：</dt>
+          <dd><a href="{{ skillRepoUrl }}" target="_blank" rel="noopener noreferrer">{{ skillRepoUrl }}</a></dd>
+          {% endif %}
+        </dl>
+        {% endif %}
+
+        {% if skill.contentHtml %}
+        <div class="skill-detail-body detail-body">
+          {{ skill.contentHtml | safe }}
+        </div>
+        {% else %}
+        <p class="skill-no-content">暂无正文。</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

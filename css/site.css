@@ -50,6 +50,29 @@ body {
   margin-bottom: 1rem;
 }
 
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: auto;
+  margin-left: 3rem;
+}
+.header-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 5px;
+  transition: color 0.2s, background 0.2s;
+}
+.header-nav a:hover {
+  color: var(--theme);
+}
+
+.header-nav .nav-link.is-active {
+  color: var(--theme);
+}
+
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -142,6 +165,7 @@ body {
   min-height: 0;
   display: grid;
   grid-template-columns: 1fr 280px;
+  grid-template-rows: minmax(0, 1fr);
   gap: 2rem;
   overflow: hidden;
 }
@@ -158,6 +182,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  flex: 1;
 }
 
 .sidebar {
@@ -315,9 +340,13 @@ body {
   margin-bottom: 1.5rem;
 }
 
+.heatmap-section.hidden {
+  display: none;
+}
+
 .year-tabs {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
   margin-bottom: 0.75rem;
 }
 
@@ -326,14 +355,14 @@ body {
 }
 
 .year-tab {
-  padding: 0.4rem 0.9rem 0.65rem;
-  font-size: 16px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
   color: var(--text);
   background: transparent;
   border: none;
-  border-radius: 0;
+  border-radius: 5px;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.2s, background 0.2s;
   position: relative;
 }
 
@@ -341,9 +370,10 @@ body {
   opacity: 0.9;
 }
 
+/* 与早报左侧年份列表选中效果一致：主题色实心 */
 .year-tab.is-active {
-  color: var(--text);
-  background: transparent;
+  background: var(--theme);
+  color: #fff;
 }
 
 [data-theme="dark"] .year-tab {
@@ -351,18 +381,12 @@ body {
 }
 
 [data-theme="dark"] .year-tab.is-active {
+  background: var(--theme);
   color: #fff;
 }
 
 .year-tab.is-active::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0.25rem;
-  transform: translateX(-50%);
-  width: 18px;
-  height: 2px;
-  background: currentColor;
+  display: none;
 }
 
 .heatmap-year {
@@ -506,6 +530,203 @@ body {
   background: rgba(22, 119, 255, 0.85) !important;
 }
 
+.heatmap-section.hidden {
+  display: none;
+}
+
+/* 早报首页布局 / Skills 布局：统一结构，左侧边栏 + 右侧列表与详情 */
+.zaobao-home-layout,
+.skills-zaobao-layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+/* 早报左侧：年份列表与日列表左右并排；Skills 左侧：分类 tabs + 子分类列表 */
+.zaobao-left-row,
+.skills-left-row {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.zaobao-left,
+.skills-left {
+  width: 320px;
+  min-width: 260px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--border);
+  padding-right: 0.75rem;
+}
+
+.zaobao-left .year-tabs,
+.skills-left .year-tabs,
+.skills-left .skills-category-tabs {
+  display: flex;
+  flex-shrink: 0;
+  margin-bottom: 0;
+  flex-direction: column;
+  align-items: stretch;
+  width: 4rem;
+  min-width: 4rem;
+}
+
+.zaobao-left .year-tab,
+.skills-left .year-tab,
+.skills-category-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 8px;
+  line-height: 1.4;
+}
+
+a.year-tab {
+  text-decoration: none;
+}
+
+/* 早报左侧：年份选中 = 原日列表选中效果（主题实心）；Skills 分类 tab 选中同理 */
+.zaobao-left .year-tab.is-active,
+.skills-left .year-tab.is-active,
+.skills-category-tab.is-active {
+  background: var(--theme);
+  color: #fff;
+  border-radius: 5px;
+}
+
+.zaobao-left .year-tab.is-active::after {
+  display: none;
+}
+
+/* 左侧可滚动列表区：早报年份下的日列表 / Skills 子分类列表 */
+.year-days-wrap,
+.skills-children-wrap {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.year-days-list,
+.skills-children-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.year-day-link,
+.skills-child-link {
+  display: block;
+  padding: 0.45rem 8px;
+  line-height: 1.4;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.2s, color 0.2s;
+}
+
+.year-day-link:hover,
+.skills-child-link:hover {
+  color: var(--theme);
+}
+
+/* 早报日列表选中 = 原具体早报列表选中效果（边框灰底）；悬停不加选中背景 */
+.year-day-link.is-active,
+.skills-child-link.is-active {
+  background: var(--border);
+  color: var(--text);
+  font-weight: 500;
+}
+
+.year-day-link.is-active:hover,
+.skills-child-link.is-active:hover {
+  background: var(--border);
+  color: var(--text);
+  opacity: 1;
+}
+
+.year-days-loading,
+.year-days-empty {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0.5rem 0 0;
+  padding: 0 8px;
+}
+
+.year-days-loading.hidden,
+.year-days-empty.hidden {
+  display: none;
+}
+
+.zaobao-left-skills {
+  flex-shrink: 0;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.skills-category-link {
+  display: block;
+  padding: 0.4rem 8px;
+  font-size: 0.9rem;
+  color: var(--theme);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.skills-category-link:hover {
+  background: var(--border);
+  color: var(--theme);
+}
+
+.tag-list-sep {
+  list-style: none;
+  margin: 0.5rem 8px 0.25rem;
+  padding: 0.25rem 0 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.item-link-skill {
+  padding-left: 1rem;
+}
+
+body.is-zaobao-view .heatmap-section {
+  display: none;
+}
+
+/* 首页不展示左侧年份+日期列表，仅早报页展示 */
+body:not(.is-zaobao-view) .zaobao-left {
+  display: none;
+}
+
+.zaobao-content,
+.skills-content {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.zaobao-content.day-section {
+  padding-left: 0;
+}
+
 /* Day section：标题在滚动区外，始终固钉在顶部 */
 .day-section {
   flex: 1;
@@ -531,15 +752,18 @@ body {
   overflow-y: auto;
 }
 
-.day-panel {
+.day-panel,
+.skills-content-inner {
   flex: 0 0 auto;
   min-height: 0;
   display: flex;
   gap: 1rem;
 }
 
-.day-list {
-  width: 300px;
+/* 列表列：早报日列表与 Skills 技能列表统一宽度 */
+.day-list,
+.skill-list-wrap {
+  width: 160px;
   min-width: 160px;
   max-width: 80%;
   flex-shrink: 0;
@@ -560,7 +784,8 @@ body {
   background: var(--theme);
 }
 
-.day-detail {
+.day-detail,
+.skill-detail-wrap {
   flex: 1;
   min-width: 0;
   padding-left: 1rem;
@@ -573,32 +798,30 @@ body {
   padding: 0;
 }
 
-.item-list li {
-  margin-bottom: 0.25rem;
-}
-
-.item-list a {
+.item-list a,
+.skill-list-link-inner {
   display: block;
-  padding: 0.4rem 8px;
+  padding: 0.45rem 8px;
   color: var(--text);
   text-decoration: none;
-  font-size: 0.95rem;
-  transition: color 0.2s;
+  font-size: 0.9rem;
+  border-radius: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-radius: 3px;
+  transition: color 0.2s, background 0.2s;
 }
 
-.item-list a:hover {
+.item-list a:hover,
+.skill-list-link-inner:hover {
   color: var(--theme);
 }
 
-.item-list a.is-active {
+.item-list a.is-active,
+.skill-list-link-inner.is-active {
   background: var(--border);
   color: var(--text);
   font-weight: 500;
-  border-radius: 5px;
 }
 
 .empty-state {
@@ -627,6 +850,13 @@ body {
 .detail-meta .detail-views {
   margin: 0;
   padding: 0;
+}
+
+.detail-meta .detail-meta-sep {
+  margin: 0 16px;
+  padding: 0;
+  color: var(--text-muted);
+  user-select: none;
 }
 
 .detail-title {
@@ -912,4 +1142,299 @@ body {
 
 .detail-body .code-copy-btn.copied {
   color: var(--theme);
+}
+
+/* ========== Skills 市场 ========== */
+/* 首页内嵌 Skills 视图：默认隐藏，hash #/skills 时由 JS 加 body.is-skills-view 后显示 */
+.index-skills-view {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+body.is-skills-view .heatmap-section,
+body.is-skills-view .zaobao-home-layout {
+  display: none !important;
+}
+body.is-skills-view .index-skills-view {
+  display: flex !important;
+}
+
+.skills-section {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+/* Skills 分类布局：与早报共用 .zaobao-home-layout / .zaobao-left 等；分类 tabs 使用 year-tabs / year-tab 样式 */
+
+/* 子分类列表与 .year-days-wrap / .year-day-link 共用样式 */
+
+.skills-content {
+  overflow-y: auto;
+}
+
+.skill-list-heading {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 0 0 0.5rem 0;
+  padding: 0 8px;
+}
+
+.skill-list-inner {
+  list-style: none;
+  margin: 0 8px;
+  padding: 0;
+}
+
+.skill-list-inner li {
+  margin-bottom: 0.2rem;
+}
+
+/* 列表项样式已与 .item-list a 合并 */
+
+.skill-no-content {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 1rem 0 0;
+}
+
+.detail-summary {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0.5rem 0 0 0;
+}
+
+.skill-detail-meta,
+.detail-meta-extra {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+}
+
+.skill-detail-meta dt,
+.detail-meta-extra dt {
+  font-weight: 500;
+  margin: 0;
+}
+
+.skill-detail-meta dd,
+.detail-meta-extra dd {
+  margin: 0;
+}
+
+.skill-detail-meta .skill-install,
+.skill-detail-meta .detail-meta-install,
+.detail-meta-extra .detail-meta-install {
+  font-size: 0.85rem;
+  background: var(--code-bg);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+.skill-detail-meta a,
+.detail-meta-extra a {
+  color: var(--theme);
+  text-decoration: none;
+}
+
+.skill-detail-meta a:hover,
+.detail-meta-extra a:hover {
+  text-decoration: underline;
+}
+
+.skills-page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.skills-page-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.breadcrumb {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.breadcrumb a {
+  color: var(--theme);
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+.breadcrumb span:last-child {
+  color: var(--text);
+}
+
+.category-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.category-parent-block {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  background: var(--card-bg);
+}
+
+.category-parent-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+}
+.category-parent-title a {
+  color: var(--text);
+  text-decoration: none;
+}
+.category-parent-title a:hover {
+  color: var(--theme);
+}
+.category-count {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
+.category-parent-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0 0.75rem 0;
+}
+
+.category-children-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.category-children-list li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.category-children-list li:last-child {
+  border-bottom: none;
+}
+.category-children-list a {
+  color: var(--theme);
+  text-decoration: none;
+}
+.category-children-list a:hover {
+  text-decoration: underline;
+}
+.category-children-list .category-count {
+  margin-left: 0.5rem;
+}
+
+.category-children-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+.category-children-grid li {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  border-bottom: none;
+}
+
+.category-count-line {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0 1rem 0;
+}
+
+.skill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skill-list-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  background: var(--card-bg);
+}
+
+.skill-list-link {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--theme);
+  text-decoration: none;
+}
+.skill-list-link:hover {
+  text-decoration: underline;
+}
+
+.skill-list-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0.5rem 0 0.5rem 0;
+  line-height: 1.5;
+}
+
+.skill-install {
+  display: inline-block;
+  font-size: 0.85rem;
+  background: var(--code-bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.skill-detail {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.skill-detail-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.skill-detail-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0 0 1.25rem 0;
+  line-height: 1.6;
+}
+
+.skill-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+}
+.skill-meta dt {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.skill-meta dd {
+  margin: 0;
+}
+.skill-meta dd code {
+  font-size: 0.85rem;
+}
+.skill-meta a {
+  color: var(--theme);
+  text-decoration: none;
+}
+.skill-meta a:hover {
+  text-decoration: underline;
 }

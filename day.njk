@@ -1,5 +1,6 @@
 ---
 layout: layout.njk
+navSection: zaobao
 pagination:
   data: zaobao.daysList
   size: 1
@@ -73,8 +74,7 @@ permalink: "day/{{ dayInfo.dateKey }}/index.html"
         {% endfor %}
       </div>
       <div class="detail-meta" id="detail-meta">
-        <span class="detail-date" id="detail-date">{{ dayInfo.dateKey | formatDateLine }} | </span>
-        <span class="detail-views">阅读 <span id="busuanzi_value_page_pv">0</span> 次</span>
+        <span class="detail-date" id="detail-date">{{ dayInfo.dateKey | formatDateLine }}</span><span class="detail-meta-sep" aria-hidden="true">|</span><span class="detail-views">阅读 <span id="page-pv-value">0</span> 次</span>
       </div>
       <article class="detail-body" id="detail-body">
         {{ first.contentHtml | safe }}

@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "development",
+    "name": "Development",
+    "nameZh": "开发",
+    "description": "前端、后端、全栈与架构",
+    "children": [
+      {
+        "slug": "backend",
+        "name": "Backend",
+        "nameZh": "后端",
+        "description": ""
+      },
+      {
+        "slug": "devops",
+        "name": "DevOps",
+        "nameZh": "DevOps",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "slug": "office",
+    "name": "Office",
+    "nameZh": "办公",
+    "description": "",
+    "children": [
+      {
+        "slug": "doc-processing",
+        "name": "Document Processing",
+        "nameZh": "文档处理",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "slug": "picture",
+    "name": "Picture",
+    "nameZh": "图片",
+    "description": "视觉与设计",
+    "children": [
+      {
+        "slug": "canvas",
+        "name": "Canvas",
+        "nameZh": "画布",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "slug": "workplace",
+    "name": "Workplace",
+    "nameZh": "职场",
+    "description": "效率与文件管理",
+    "children": [
+      {
+        "slug": "file-organizer",
+        "name": "File Organizer",
+        "nameZh": "文件整理",
+        "description": ""
+      }
+    ]
+  }
+]

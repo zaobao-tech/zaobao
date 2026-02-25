@@ -59,6 +59,10 @@
         <img src="{{ site.logo }}" alt="{{ site.title }}" class="logo" onerror="this.style.display='none'"/>
         <span class="site-title">{{ site.title }}</span>
       </a>
+      <nav class="header-nav" aria-label="主导航">
+        <a href="/#/zaobao" class="nav-link nav-link-zaobao {% if navSection == 'zaobao' %}is-active{% endif %}">早报</a>
+        <a href="/#/skills" class="nav-link nav-link-skills {% if navSection == 'skills' %}is-active{% endif %}">Skills</a>
+      </nav>
       <div class="theme-toggle theme-switch" role="group" aria-label="主题切换">
         <button type="button" class="theme-btn is-active" id="theme-light" title="浅色模式" aria-label="浅色模式">
           <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
@@ -112,8 +116,23 @@
   <div class="detail-image-lightbox hidden" id="detail-image-lightbox" aria-hidden="true" title="点击关闭">
     <img src="" alt="" />
   </div>
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <script src="/js/site.js"></script>
+  <script>
+  (function() {
+    var el = document.getElementById("page-pv-value");
+    if (!el) return;
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      el.textContent = "—";
+      return;
+    }
+    var pathname = (window.location.pathname || "/").replace(/^\/|\/$/g, "").replace(/\//g, "_").replace(/-/g, "_") || "index";
+    var key = encodeURIComponent(pathname);
+    fetch("https://api.countapi.xyz/hit/zaobao_pv/" + key)
+      .then(function(r) { return r.json(); })
+      .then(function(d) { if (d && typeof d.value === "number") el.textContent = d.value; })
+      .catch(function() { el.textContent = "—"; });
+  })();
+  </script>
   {% if analytics.baiduAnalyticsId %}
   <script>
   var _hmt = _hmt || [];
