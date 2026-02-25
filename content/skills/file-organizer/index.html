@@ -1,0 +1,384 @@
+<h1>File Organizer</h1>
+<p>This skill acts as your personal organization assistant, helping you maintain a clean, logical file structure across your computer without the mental overhead of constant manual organization.</p>
+<h2>When to Use This Skill</h2>
+<ul>
+<li>Your Downloads folder is a chaotic mess</li>
+<li>You can't find files because they're scattered everywhere</li>
+<li>You have duplicate files taking up space</li>
+<li>Your folder structure doesn't make sense anymore</li>
+<li>You want to establish better organization habits</li>
+<li>You're starting a new project and need a good structure</li>
+<li>You're cleaning up before archiving old projects</li>
+</ul>
+<h2>What This Skill Does</h2>
+<ol>
+<li><strong>Analyzes Current Structure</strong>: Reviews your folders and files to understand what you have</li>
+<li><strong>Finds Duplicates</strong>: Identifies duplicate files across your system</li>
+<li><strong>Suggests Organization</strong>: Proposes logical folder structures based on your content</li>
+<li><strong>Automates Cleanup</strong>: Moves, renames, and organizes files with your approval</li>
+<li><strong>Maintains Context</strong>: Makes smart decisions based on file types, dates, and content</li>
+<li><strong>Reduces Clutter</strong>: Identifies old files you probably don't need anymore</li>
+</ol>
+<h2>How to Use</h2>
+<h3>From Your Home Directory</h3>
+<pre><code>cd ~
+</code></pre>
+<p>Then run Claude Code and ask for help:</p>
+<pre><code>Help me organize my Downloads folder
+</code></pre>
+<pre><code>Find duplicate files in my Documents folder
+</code></pre>
+<pre><code>Review my project directories and suggest improvements
+</code></pre>
+<h3>Specific Organization Tasks</h3>
+<pre><code>Organize these downloads into proper folders based on what they are
+</code></pre>
+<pre><code>Find duplicate files and help me decide which to keep
+</code></pre>
+<pre><code>Clean up old files I haven't touched in 6+ months
+</code></pre>
+<pre><code>Create a better folder structure for my [work/projects/photos/etc]
+</code></pre>
+<h2>Instructions</h2>
+<p>When a user requests file organization help:</p>
+<ol>
+<li>
+<p><strong>Understand the Scope</strong></p>
+<p>Ask clarifying questions:</p>
+<ul>
+<li>Which directory needs organization? (Downloads, Documents, entire home folder?)</li>
+<li>What's the main problem? (Can't find things, duplicates, too messy, no structure?)</li>
+<li>Any files or folders to avoid? (Current projects, sensitive data?)</li>
+<li>How aggressively to organize? (Conservative vs. comprehensive cleanup)</li>
+</ul>
+</li>
+<li>
+<p><strong>Analyze Current State</strong></p>
+<p>Review the target directory:</p>
+<pre><code class="language-bash"># Get overview of current structure
+ls -la [target_directory]
+
+# Check file types and sizes
+find [target_directory] -type f -exec file {} \; | head -20
+
+# Identify largest files
+du -sh [target_directory]/* | sort -rh | head -20
+
+# Count file types
+find [target_directory] -type f | sed 's/.*\.//' | sort | uniq -c | sort -rn
+</code></pre>
+<p>Summarize findings:</p>
+<ul>
+<li>Total files and folders</li>
+<li>File type breakdown</li>
+<li>Size distribution</li>
+<li>Date ranges</li>
+<li>Obvious organization issues</li>
+</ul>
+</li>
+<li>
+<p><strong>Identify Organization Patterns</strong></p>
+<p>Based on the files, determine logical groupings:</p>
+<p><strong>By Type</strong>:</p>
+<ul>
+<li>Documents (PDFs, DOCX, TXT)</li>
+<li>Images (JPG, PNG, SVG)</li>
+<li>Videos (MP4, MOV)</li>
+<li>Archives (ZIP, TAR, DMG)</li>
+<li>Code/Projects (directories with code)</li>
+<li>Spreadsheets (XLSX, CSV)</li>
+<li>Presentations (PPTX, KEY)</li>
+</ul>
+<p><strong>By Purpose</strong>:</p>
+<ul>
+<li>Work vs. Personal</li>
+<li>Active vs. Archive</li>
+<li>Project-specific</li>
+<li>Reference materials</li>
+<li>Temporary/scratch files</li>
+</ul>
+<p><strong>By Date</strong>:</p>
+<ul>
+<li>Current year/month</li>
+<li>Previous years</li>
+<li>Very old (archive candidates)</li>
+</ul>
+</li>
+<li>
+<p><strong>Find Duplicates</strong></p>
+<p>When requested, search for duplicates:</p>
+<pre><code class="language-bash"># Find exact duplicates by hash
+find [directory] -type f -exec md5 {} \; | sort | uniq -d
+
+# Find files with same name
+find [directory] -type f -printf '%f\n' | sort | uniq -d
+
+# Find similar-sized files
+find [directory] -type f -printf '%s %p\n' | sort -n
+</code></pre>
+<p>For each set of duplicates:</p>
+<ul>
+<li>Show all file paths</li>
+<li>Display sizes and modification dates</li>
+<li>Recommend which to keep (usually newest or best-named)</li>
+<li><strong>Important</strong>: Always ask for confirmation before deleting</li>
+</ul>
+</li>
+<li>
+<p><strong>Propose Organization Plan</strong></p>
+<p>Present a clear plan before making changes:</p>
+<pre><code class="language-markdown"># Organization Plan for [Directory]
+
+## Current State
+- X files across Y folders
+- [Size] total
+- File types: [breakdown]
+- Issues: [list problems]
+
+## Proposed Structure
+
+</code></pre>
+<p>[Directory]/
+├── Work/
+│   ├── Projects/
+│   ├── Documents/
+│   └── Archive/
+├── Personal/
+│   ├── Photos/
+│   ├── Documents/
+│   └── Media/
+└── Downloads/
+├── To-Sort/
+└── Archive/</p>
+<pre><code>
+## Changes I'll Make
+
+1. **Create new folders**: [list]
+2. **Move files**:
+   - X PDFs → Work/Documents/
+   - Y images → Personal/Photos/
+   - Z old files → Archive/
+3. **Rename files**: [any renaming patterns]
+4. **Delete**: [duplicates or trash files]
+
+## Files Needing Your Decision
+
+- [List any files you're unsure about]
+
+Ready to proceed? (yes/no/modify)
+</code></pre>
+</li>
+<li>
+<p><strong>Execute Organization</strong></p>
+<p>After approval, organize systematically:</p>
+<pre><code class="language-bash"># Create folder structure
+mkdir -p &quot;path/to/new/folders&quot;
+
+# Move files with clear logging
+mv &quot;old/path/file.pdf&quot; &quot;new/path/file.pdf&quot;
+
+# Rename files with consistent patterns
+# Example: &quot;YYYY-MM-DD - Description.ext&quot;
+</code></pre>
+<p><strong>Important Rules</strong>:</p>
+<ul>
+<li>Always confirm before deleting anything</li>
+<li>Log all moves for potential undo</li>
+<li>Preserve original modification dates</li>
+<li>Handle filename conflicts gracefully</li>
+<li>Stop and ask if you encounter unexpected situations</li>
+</ul>
+</li>
+<li>
+<p><strong>Provide Summary and Maintenance Tips</strong></p>
+<p>After organizing:</p>
+<pre><code class="language-markdown"># Organization Complete! ✨
+
+## What Changed
+
+- Created [X] new folders
+- Organized [Y] files
+- Freed [Z] GB by removing duplicates
+- Archived [W] old files
+
+## New Structure
+
+[Show the new folder tree]
+
+## Maintenance Tips
+
+To keep this organized:
+
+1. **Weekly**: Sort new downloads
+2. **Monthly**: Review and archive completed projects
+3. **Quarterly**: Check for new duplicates
+4. **Yearly**: Archive old files
+
+## Quick Commands for You
+
+```bash
+# Find files modified this week
+find . -type f -mtime -7
+
+# Sort downloads by type
+[custom command for their setup]
+
+# Find duplicates
+[custom command]
+</code></pre>
+<p>Want to organize another folder?</p>
+<pre><code>
+</code></pre>
+</li>
+</ol>
+<h2>Examples</h2>
+<h3>Example 1: Organizing Downloads (From Justin Dielmann)</h3>
+<p><strong>User</strong>: &quot;My Downloads folder is a mess with 500+ files. Help me organize it.&quot;</p>
+<p><strong>Process</strong>:</p>
+<ol>
+<li>Analyzes Downloads folder</li>
+<li>Finds patterns: work docs, personal photos, installers, random PDFs</li>
+<li>Proposes structure:
+<ul>
+<li>Downloads/
+<ul>
+<li>Work/</li>
+<li>Personal/</li>
+<li>Installers/ (DMG, PKG files)</li>
+<li>Archive/</li>
+<li>ToSort/ (things needing decisions)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Asks for confirmation</li>
+<li>Moves files intelligently based on content and names</li>
+<li>Results: 500 files → 5 organized folders</li>
+</ol>
+<h3>Example 2: Finding and Removing Duplicates</h3>
+<p><strong>User</strong>: &quot;Find duplicate files in my Documents and help me decide which to keep.&quot;</p>
+<p><strong>Output</strong>:</p>
+<pre><code class="language-markdown"># Found 23 Sets of Duplicates (156 MB total)
+
+## Duplicate Set 1: &quot;proposal.pdf&quot;
+- `/Documents/proposal.pdf` (2.3 MB, modified: 2024-03-15)
+- `/Documents/old/proposal.pdf` (2.3 MB, modified: 2024-03-15)
+- `/Desktop/proposal.pdf` (2.3 MB, modified: 2024-03-10)
+
+**Recommendation**: Keep `/Documents/proposal.pdf` (most recent in correct location)
+Delete the other 2 copies?
+
+[Continue for all duplicates...]
+</code></pre>
+<h3>Example 3: Restructuring Projects Folder</h3>
+<p><strong>User</strong>: &quot;Review my ~/Projects directory and suggest improvements.&quot;</p>
+<p><strong>Output</strong>:</p>
+<pre><code class="language-markdown"># Analysis of ~/Projects
+
+## Current Structure Issues
+- Mix of active and archived projects (3+ years old)
+- No consistent naming convention
+- Some projects at root, others in random subfolders
+- Duplicate folders (project-name, project-name-old, project-name-v2)
+
+## Proposed Structure
+
+</code></pre>
+<p>Projects/
+├── Active/
+│   ├── client-work/
+│   ├── side-projects/
+│   └── learning/
+├── Archive/
+│   ├── 2022/
+│   ├── 2023/
+│   └── 2024/
+└── Templates/</p>
+<pre><code>
+## Specific Changes
+1. Move 12 projects not touched since 2022 → Archive/
+2. Consolidate 4 duplicate project folders
+3. Rename projects to consistent format: &quot;client-name-project-name&quot;
+4. Create Archive for old work
+
+Want me to implement this?
+</code></pre>
+<h3>Example 4: Organizing Photos by Date</h3>
+<p><strong>User</strong>: &quot;Organize my photo folders by year and month.&quot;</p>
+<p><strong>Output</strong>: Creates structure like:</p>
+<pre><code>Photos/
+├── 2023/
+│   ├── 01-January/
+│   ├── 02-February/
+│   └── ...
+├── 2024/
+│   ├── 01-January/
+│   └── ...
+└── Unsorted/
+</code></pre>
+<p>Then moves photos based on EXIF data or file modification dates.</p>
+<h2>Common Organization Tasks</h2>
+<h3>Downloads Cleanup</h3>
+<pre><code>Organize my Downloads folder - move documents to Documents, 
+images to Pictures, keep installers separate, and archive files 
+older than 3 months.
+</code></pre>
+<h3>Project Organization</h3>
+<pre><code>Review my Projects folder structure and help me separate active 
+projects from old ones I should archive.
+</code></pre>
+<h3>Duplicate Removal</h3>
+<pre><code>Find all duplicate files in my Documents folder and help me 
+decide which ones to keep.
+</code></pre>
+<h3>Desktop Cleanup</h3>
+<pre><code>My Desktop is covered in files. Help me organize everything into 
+my Documents folder properly.
+</code></pre>
+<h3>Photo Organization</h3>
+<pre><code>Organize all photos in this folder by date (year/month) based 
+on when they were taken.
+</code></pre>
+<h3>Work/Personal Separation</h3>
+<pre><code>Help me separate my work files from personal files across my 
+Documents folder.
+</code></pre>
+<h2>Pro Tips</h2>
+<ol>
+<li><strong>Start Small</strong>: Begin with one messy folder (like Downloads) to build trust</li>
+<li><strong>Regular Maintenance</strong>: Run weekly cleanup on Downloads</li>
+<li><strong>Consistent Naming</strong>: Use &quot;YYYY-MM-DD - Description&quot; format for important files</li>
+<li><strong>Archive Aggressively</strong>: Move old projects to Archive instead of deleting</li>
+<li><strong>Keep Active Separate</strong>: Maintain clear boundaries between active and archived work</li>
+<li><strong>Trust the Process</strong>: Let Claude handle the cognitive load of where things go</li>
+</ol>
+<h2>Best Practices</h2>
+<h3>Folder Naming</h3>
+<ul>
+<li>Use clear, descriptive names</li>
+<li>Avoid spaces (use hyphens or underscores)</li>
+<li>Be specific: &quot;client-proposals&quot; not &quot;docs&quot;</li>
+<li>Use prefixes for ordering: &quot;01-current&quot;, &quot;02-archive&quot;</li>
+</ul>
+<h3>File Naming</h3>
+<ul>
+<li>Include dates: &quot;2024-10-17-meeting-notes.md&quot;</li>
+<li>Be descriptive: &quot;q3-financial-report.xlsx&quot;</li>
+<li>Avoid version numbers in names (use version control instead)</li>
+<li>Remove download artifacts: &quot;document-final-v2 (1).pdf&quot; → &quot;document.pdf&quot;</li>
+</ul>
+<h3>When to Archive</h3>
+<ul>
+<li>Projects not touched in 6+ months</li>
+<li>Completed work that might be referenced later</li>
+<li>Old versions after migration to new systems</li>
+<li>Files you're hesitant to delete (archive first)</li>
+</ul>
+<h2>Related Use Cases</h2>
+<ul>
+<li>Setting up organization for a new computer</li>
+<li>Preparing files for backup/archiving</li>
+<li>Cleaning up before storage cleanup</li>
+<li>Organizing shared team folders</li>
+<li>Structuring new project directories</li>
+</ul>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>docx - 科技早报</title>
+  
+  
+  
+  <meta name="description" content="用追踪修改、批注和格式化功能，轻松创建、编辑和分析 Word 文档。" />
+  <link rel="canonical" href="https://www.zaobao.tech/day/2026-02-24/6/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="docx - 科技早报" />
+  <meta property="og:description" content="用追踪修改、批注和格式化功能，轻松创建、编辑和分析 Word 文档。" />
+  <meta property="og:url" content="https://www.zaobao.tech/day/2026-02-24/6/" />
+  
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.zaobao.tech/" },
+      { "@type": "ListItem", "position": 2, "name": "2026年2月24日 周二 早报", "item": "https://www.zaobao.tech/day/2026-02-24/" },
+      { "@type": "ListItem", "position": 3, "name": "docx", "item": "https://www.zaobao.tech/day/2026-02-24/6/" }
+    ]
+  }
+  </script>
+  
+  <link rel="alternate" type="application/rss+xml" title="科技早报 RSS" href="https://www.zaobao.tech/rss.xml" />
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a href="/" class="logo-wrap">
+        <img src="/images/logo.jpg" alt="科技早报" class="logo" onerror="this.style.display='none'"/>
+        <span class="site-title">科技早报</span>
+      </a>
+      <nav class="header-nav" aria-label="主导航">
+        <a href="/#/zaobao" class="nav-link nav-link-zaobao is-active">早报</a>
+        <a href="/#/skills" class="nav-link nav-link-skills ">Skills</a>
+      </nav>
+      <div class="theme-toggle theme-switch" role="group" aria-label="主题切换">
+        <button type="button" class="theme-btn is-active" id="theme-light" title="浅色模式" aria-label="浅色模式">
+          <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button type="button" class="theme-btn" id="theme-dark" title="深色模式" aria-label="深色模式">
+          <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="main-wrap">
+      <main class="main">
+        
+<div class="article-page">
+  <article class="article-single">
+    <h1 class="detail-title">docx</h1>
+    
+    <div class="detail-tags">
+      
+      <a href="/" class="tag" data-tag="文档">文档</a>
+      
+      <a href="/" class="tag" data-tag="Word">Word</a>
+      
+    </div>
+    
+    <div class="detail-meta">
+      <span class="detail-date">2026-02-24 周二</span><span class="detail-meta-sep" aria-hidden="true">|</span><span class="detail-views">阅读 <span id="page-pv-value">0</span> 次</span>
+    </div>
+    <div class="detail-body">
+      <table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>docx</td>
+</tr>
+<tr>
+<td>description</td>
+<td>&quot;Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.&quot;</td>
+</tr>
+<tr>
+<td>license</td>
+<td>Proprietary. LICENSE.txt has complete terms</td>
+</tr>
+</tbody>
+</table>
+<h1>DOCX creation, editing, and analysis</h1>
+<h2>Overview</h2>
+<p>A .docx file is a ZIP archive containing XML files.</p>
+<h2>Quick Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read/analyze content</td>
+<td><code>pandoc</code> or unpack for raw XML</td>
+</tr>
+<tr>
+<td>Create new document</td>
+<td>Use <code>docx-js</code> - see Creating New Documents below</td>
+</tr>
+<tr>
+<td>Edit existing document</td>
+<td>Unpack → edit XML → repack - see Editing Existing Documents below</td>
+</tr>
+</tbody>
+</table>
+<h3>Converting .doc to .docx</h3>
+<p>Legacy <code>.doc</code> files must be converted before editing:</p>
+<pre><code class="language-bash">python scripts/office/soffice.py --headless --convert-to docx document.doc
+</code></pre>
+<h3>Reading Content</h3>
+<pre><code class="language-bash"># Text extraction with tracked changes
+pandoc --track-changes=all document.docx -o output.md
+
+# Raw XML access
+python scripts/office/unpack.py document.docx unpacked/
+</code></pre>
+<h3>Converting to Images</h3>
+<pre><code class="language-bash">python scripts/office/soffice.py --headless --convert-to pdf document.docx
+pdftoppm -jpeg -r 150 document.pdf page
+</code></pre>
+<h3>Accepting Tracked Changes</h3>
+<p>To produce a clean document with all tracked changes accepted (requires LibreOffice):</p>
+<pre><code class="language-bash">python scripts/accept_changes.py input.docx output.docx
+</code></pre>
+<hr>
+<h2>Creating New Documents</h2>
+<p>Generate .docx files with JavaScript, then validate. Install: <code>npm install -g docx</code></p>
+<h3>Setup</h3>
+<pre><code class="language-javascript">const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, ImageRun,
+        Header, Footer, AlignmentType, PageOrientation, LevelFormat, ExternalHyperlink,
+        InternalHyperlink, Bookmark, FootnoteReferenceRun, PositionalTab,
+        PositionalTabAlignment, PositionalTabRelativeTo, PositionalTabLeader,
+        TabStopType, TabStopPosition, Column, SectionType,
+        TableOfContents, HeadingLevel, BorderStyle, WidthType, ShadingType,
+        VerticalAlign, PageNumber, PageBreak } = require('docx');
+
+const doc = new Document({ sections: [{ children: [/* content */] }] });
+Packer.toBuffer(doc).then(buffer =&gt; fs.writeFileSync(&quot;doc.docx&quot;, buffer));
+</code></pre>
+<h3>Validation</h3>
+<p>After creating the file, validate it. If validation fails, unpack, fix the XML, and repack.</p>
+<pre><code class="language-bash">python scripts/office/validate.py doc.docx
+</code></pre>
+<h3>Page Size</h3>
+<pre><code class="language-javascript">// CRITICAL: docx-js defaults to A4, not US Letter
+// Always set page size explicitly for consistent results
+sections: [{
+  properties: {
+    page: {
+      size: {
+        width: 12240,   // 8.5 inches in DXA
+        height: 15840   // 11 inches in DXA
+      },
+      margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 } // 1 inch margins
+    }
+  },
+  children: [/* content */]
+}]
+</code></pre>
+<p><strong>Common page sizes (DXA units, 1440 DXA = 1 inch):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Width</th>
+<th>Height</th>
+<th>Content Width (1&quot; margins)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US Letter</td>
+<td>12,240</td>
+<td>15,840</td>
+<td>9,360</td>
+</tr>
+<tr>
+<td>A4 (default)</td>
+<td>11,906</td>
+<td>16,838</td>
+<td>9,026</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Landscape orientation:</strong> docx-js swaps width/height internally, so pass portrait dimensions and let it handle the swap:</p>
+<pre><code class="language-javascript">size: {
+  width: 12240,   // Pass SHORT edge as width
+  height: 15840,  // Pass LONG edge as height
+  orientation: PageOrientation.LANDSCAPE  // docx-js swaps them in the XML
+},
+// Content width = 15840 - left margin - right margin (uses the long edge)
+</code></pre>
+<h3>Styles (Override Built-in Headings)</h3>
+<p>Use Arial as the default font (universally supported). Keep titles black for readability.</p>
+<pre><code class="language-javascript">const doc = new Document({
+  styles: {
+    default: { document: { run: { font: &quot;Arial&quot;, size: 24 } } }, // 12pt default
+    paragraphStyles: [
+      // IMPORTANT: Use exact IDs to override built-in styles
+      { id: &quot;Heading1&quot;, name: &quot;Heading 1&quot;, basedOn: &quot;Normal&quot;, next: &quot;Normal&quot;, quickFormat: true,
+        run: { size: 32, bold: true, font: &quot;Arial&quot; },
+        paragraph: { spacing: { before: 240, after: 240 }, outlineLevel: 0 } }, // outlineLevel required for TOC
+      { id: &quot;Heading2&quot;, name: &quot;Heading 2&quot;, basedOn: &quot;Normal&quot;, next: &quot;Normal&quot;, quickFormat: true,
+        run: { size: 28, bold: true, font: &quot;Arial&quot; },
+        paragraph: { spacing: { before: 180, after: 180 }, outlineLevel: 1 } },
+    ]
+  },
+  sections: [{
+    children: [
+      new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun(&quot;Title&quot;)] }),
+    ]
+  }]
+});
+</code></pre>
+<h3>Lists (NEVER use unicode bullets)</h3>
+<pre><code class="language-javascript">// ❌ WRONG - never manually insert bullet characters
+new Paragraph({ children: [new TextRun(&quot;• Item&quot;)] })  // BAD
+new Paragraph({ children: [new TextRun(&quot;\u2022 Item&quot;)] })  // BAD
+
+// ✅ CORRECT - use numbering config with LevelFormat.BULLET
+const doc = new Document({
+  numbering: {
+    config: [
+      { reference: &quot;bullets&quot;,
+        levels: [{ level: 0, format: LevelFormat.BULLET, text: &quot;•&quot;, alignment: AlignmentType.LEFT,
+          style: { paragraph: { indent: { left: 720, hanging: 360 } } } }] },
+      { reference: &quot;numbers&quot;,
+        levels: [{ level: 0, format: LevelFormat.DECIMAL, text: &quot;%1.&quot;, alignment: AlignmentType.LEFT,
+          style: { paragraph: { indent: { left: 720, hanging: 360 } } } }] },
+    ]
+  },
+  sections: [{
+    children: [
+      new Paragraph({ numbering: { reference: &quot;bullets&quot;, level: 0 },
+        children: [new TextRun(&quot;Bullet item&quot;)] }),
+      new Paragraph({ numbering: { reference: &quot;numbers&quot;, level: 0 },
+        children: [new TextRun(&quot;Numbered item&quot;)] }),
+    ]
+  }]
+});
+
+// ⚠️ Each reference creates INDEPENDENT numbering
+// Same reference = continues (1,2,3 then 4,5,6)
+// Different reference = restarts (1,2,3 then 1,2,3)
+</code></pre>
+<h3>Tables</h3>
+<p><strong>CRITICAL: Tables need dual widths</strong> - set both <code>columnWidths</code> on the table AND <code>width</code> on each cell. Without both, tables render incorrectly on some platforms.</p>
+<pre><code class="language-javascript">// CRITICAL: Always set table width for consistent rendering
+// CRITICAL: Use ShadingType.CLEAR (not SOLID) to prevent black backgrounds
+const border = { style: BorderStyle.SINGLE, size: 1, color: &quot;CCCCCC&quot; };
+const borders = { top: border, bottom: border, left: border, right: border };
+
+new Table({
+  width: { size: 9360, type: WidthType.DXA }, // Always use DXA (percentages break in Google Docs)
+  columnWidths: [4680, 4680], // Must sum to table width (DXA: 1440 = 1 inch)
+  rows: [
+    new TableRow({
+      children: [
+        new TableCell({
+          borders,
+          width: { size: 4680, type: WidthType.DXA }, // Also set on each cell
+          shading: { fill: &quot;D5E8F0&quot;, type: ShadingType.CLEAR }, // CLEAR not SOLID
+          margins: { top: 80, bottom: 80, left: 120, right: 120 }, // Cell padding (internal, not added to width)
+          children: [new Paragraph({ children: [new TextRun(&quot;Cell&quot;)] })]
+        })
+      ]
+    })
+  ]
+})
+</code></pre>
+<p><strong>Table width calculation:</strong></p>
+<p>Always use <code>WidthType.DXA</code> — <code>WidthType.PERCENTAGE</code> breaks in Google Docs.</p>
+<pre><code class="language-javascript">// Table width = sum of columnWidths = content width
+// US Letter with 1&quot; margins: 12240 - 2880 = 9360 DXA
+width: { size: 9360, type: WidthType.DXA },
+columnWidths: [7000, 2360]  // Must sum to table width
+</code></pre>
+<p><strong>Width rules:</strong></p>
+<ul>
+<li><strong>Always use <code>WidthType.DXA</code></strong> — never <code>WidthType.PERCENTAGE</code> (incompatible with Google Docs)</li>
+<li>Table width must equal the sum of <code>columnWidths</code></li>
+<li>Cell <code>width</code> must match corresponding <code>columnWidth</code></li>
+<li>Cell <code>margins</code> are internal padding - they reduce content area, not add to cell width</li>
+<li>For full-width tables: use content width (page width minus left and right margins)</li>
+</ul>
+<h3>Images</h3>
+<pre><code class="language-javascript">// CRITICAL: type parameter is REQUIRED
+new Paragraph({
+  children: [new ImageRun({
+    type: &quot;png&quot;, // Required: png, jpg, jpeg, gif, bmp, svg
+    data: fs.readFileSync(&quot;image.png&quot;),
+    transformation: { width: 200, height: 150 },
+    altText: { title: &quot;Title&quot;, description: &quot;Desc&quot;, name: &quot;Name&quot; } // All three required
+  })]
+})
+</code></pre>
+<h3>Page Breaks</h3>
+<pre><code class="language-javascript">// CRITICAL: PageBreak must be inside a Paragraph
+new Paragraph({ children: [new PageBreak()] })
+
+// Or use pageBreakBefore
+new Paragraph({ pageBreakBefore: true, children: [new TextRun(&quot;New page&quot;)] })
+</code></pre>
+<h3>Hyperlinks</h3>
+<pre><code class="language-javascript">// External link
+new Paragraph({
+  children: [new ExternalHyperlink({
+    children: [new TextRun({ text: &quot;Click here&quot;, style: &quot;Hyperlink&quot; })],
+    link: &quot;https://example.com&quot;,
+  })]
+})
+
+// Internal link (bookmark + reference)
+// 1. Create bookmark at destination
+new Paragraph({ heading: HeadingLevel.HEADING_1, children: [
+  new Bookmark({ id: &quot;chapter1&quot;, children: [new TextRun(&quot;Chapter 1&quot;)] }),
+]})
+// 2. Link to it
+new Paragraph({ children: [new InternalHyperlink({
+  children: [new TextRun({ text: &quot;See Chapter 1&quot;, style: &quot;Hyperlink&quot; })],
+  anchor: &quot;chapter1&quot;,
+})]})
+</code></pre>
+<h3>Footnotes</h3>
+<pre><code class="language-javascript">const doc = new Document({
+  footnotes: {
+    1: { children: [new Paragraph(&quot;Source: Annual Report 2024&quot;)] },
+    2: { children: [new Paragraph(&quot;See appendix for methodology&quot;)] },
+  },
+  sections: [{
+    children: [new Paragraph({
+      children: [
+        new TextRun(&quot;Revenue grew 15%&quot;),
+        new FootnoteReferenceRun(1),
+        new TextRun(&quot; using adjusted metrics&quot;),
+        new FootnoteReferenceRun(2),
+      ],
+    })]
+  }]
+});
+</code></pre>
+<h3>Tab Stops</h3>
+<pre><code class="language-javascript">// Right-align text on same line (e.g., date opposite a title)
+new Paragraph({
+  children: [
+    new TextRun(&quot;Company Name&quot;),
+    new TextRun(&quot;\tJanuary 2025&quot;),
+  ],
+  tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }],
+})
+
+// Dot leader (e.g., TOC-style)
+new Paragraph({
+  children: [
+    new TextRun(&quot;Introduction&quot;),
+    new TextRun({ children: [
+      new PositionalTab({
+        alignment: PositionalTabAlignment.RIGHT,
+        relativeTo: PositionalTabRelativeTo.MARGIN,
+        leader: PositionalTabLeader.DOT,
+      }),
+      &quot;3&quot;,
+    ]}),
+  ],
+})
+</code></pre>
+<h3>Multi-Column Layouts</h3>
+<pre><code class="language-javascript">// Equal-width columns
+sections: [{
+  properties: {
+    column: {
+      count: 2,          // number of columns
+      space: 720,        // gap between columns in DXA (720 = 0.5 inch)
+      equalWidth: true,
+      separate: true,    // vertical line between columns
+    },
+  },
+  children: [/* content flows naturally across columns */]
+}]
+
+// Custom-width columns (equalWidth must be false)
+sections: [{
+  properties: {
+    column: {
+      equalWidth: false,
+      children: [
+        new Column({ width: 5400, space: 720 }),
+        new Column({ width: 3240 }),
+      ],
+    },
+  },
+  children: [/* content */]
+}]
+</code></pre>
+<p>Force a column break with a new section using <code>type: SectionType.NEXT_COLUMN</code>.</p>
+<h3>Table of Contents</h3>
+<pre><code class="language-javascript">// CRITICAL: Headings must use HeadingLevel ONLY - no custom styles
+new TableOfContents(&quot;Table of Contents&quot;, { hyperlink: true, headingStyleRange: &quot;1-3&quot; })
+</code></pre>
+<h3>Headers/Footers</h3>
+<pre><code class="language-javascript">sections: [{
+  properties: {
+    page: { margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 } } // 1440 = 1 inch
+  },
+  headers: {
+    default: new Header({ children: [new Paragraph({ children: [new TextRun(&quot;Header&quot;)] })] })
+  },
+  footers: {
+    default: new Footer({ children: [new Paragraph({
+      children: [new TextRun(&quot;Page &quot;), new TextRun({ children: [PageNumber.CURRENT] })]
+    })] })
+  },
+  children: [/* content */]
+}]
+</code></pre>
+<h3>Critical Rules for docx-js</h3>
+<ul>
+<li><strong>Set page size explicitly</strong> - docx-js defaults to A4; use US Letter (12240 x 15840 DXA) for US documents</li>
+<li><strong>Landscape: pass portrait dimensions</strong> - docx-js swaps width/height internally; pass short edge as <code>width</code>, long edge as <code>height</code>, and set <code>orientation: PageOrientation.LANDSCAPE</code></li>
+<li><strong>Never use <code>\n</code></strong> - use separate Paragraph elements</li>
+<li><strong>Never use unicode bullets</strong> - use <code>LevelFormat.BULLET</code> with numbering config</li>
+<li><strong>PageBreak must be in Paragraph</strong> - standalone creates invalid XML</li>
+<li><strong>ImageRun requires <code>type</code></strong> - always specify png/jpg/etc</li>
+<li><strong>Always set table <code>width</code> with DXA</strong> - never use <code>WidthType.PERCENTAGE</code> (breaks in Google Docs)</li>
+<li><strong>Tables need dual widths</strong> - <code>columnWidths</code> array AND cell <code>width</code>, both must match</li>
+<li><strong>Table width = sum of columnWidths</strong> - for DXA, ensure they add up exactly</li>
+<li><strong>Always add cell margins</strong> - use <code>margins: { top: 80, bottom: 80, left: 120, right: 120 }</code> for readable padding</li>
+<li><strong>Use <code>ShadingType.CLEAR</code></strong> - never SOLID for table shading</li>
+<li><strong>Never use tables as dividers/rules</strong> - cells have minimum height and render as empty boxes (including in headers/footers); use <code>border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: &quot;2E75B6&quot;, space: 1 } }</code> on a Paragraph instead. For two-column footers, use tab stops (see Tab Stops section), not tables</li>
+<li><strong>TOC requires HeadingLevel only</strong> - no custom styles on heading paragraphs</li>
+<li><strong>Override built-in styles</strong> - use exact IDs: &quot;Heading1&quot;, &quot;Heading2&quot;, etc.</li>
+<li><strong>Include <code>outlineLevel</code></strong> - required for TOC (0 for H1, 1 for H2, etc.)</li>
+</ul>
+<hr>
+<h2>Editing Existing Documents</h2>
+<p><strong>Follow all 3 steps in order.</strong></p>
+<h3>Step 1: Unpack</h3>
+<pre><code class="language-bash">python scripts/office/unpack.py document.docx unpacked/
+</code></pre>
+<p>Extracts XML, pretty-prints, merges adjacent runs, and converts smart quotes to XML entities (<code>&amp;#x201C;</code> etc.) so they survive editing. Use <code>--merge-runs false</code> to skip run merging.</p>
+<h3>Step 2: Edit XML</h3>
+<p>Edit files in <code>unpacked/word/</code>. See XML Reference below for patterns.</p>
+<p><strong>Use &quot;Claude&quot; as the author</strong> for tracked changes and comments, unless the user explicitly requests use of a different name.</p>
+<p><strong>Use the Edit tool directly for string replacement. Do not write Python scripts.</strong> Scripts introduce unnecessary complexity. The Edit tool shows exactly what is being replaced.</p>
+<p><strong>CRITICAL: Use smart quotes for new content.</strong> When adding text with apostrophes or quotes, use XML entities to produce smart quotes:</p>
+<pre><code class="language-xml">&lt;!-- Use these entities for professional typography --&gt;
+&lt;w:t&gt;Here&amp;#x2019;s a quote: &amp;#x201C;Hello&amp;#x201D;&lt;/w:t&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Entity</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;#x2018;</code></td>
+<td>‘ (left single)</td>
+</tr>
+<tr>
+<td><code>&amp;#x2019;</code></td>
+<td>’ (right single / apostrophe)</td>
+</tr>
+<tr>
+<td><code>&amp;#x201C;</code></td>
+<td>“ (left double)</td>
+</tr>
+<tr>
+<td><code>&amp;#x201D;</code></td>
+<td>” (right double)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Adding comments:</strong> Use <code>comment.py</code> to handle boilerplate across multiple XML files (text must be pre-escaped XML):</p>
+<pre><code class="language-bash">python scripts/comment.py unpacked/ 0 &quot;Comment text with &amp;amp; and &amp;#x2019;&quot;
+python scripts/comment.py unpacked/ 1 &quot;Reply text&quot; --parent 0  # reply to comment 0
+python scripts/comment.py unpacked/ 0 &quot;Text&quot; --author &quot;Custom Author&quot;  # custom author name
+</code></pre>
+<p>Then add markers to document.xml (see Comments in XML Reference).</p>
+<h3>Step 3: Pack</h3>
+<pre><code class="language-bash">python scripts/office/pack.py unpacked/ output.docx --original document.docx
+</code></pre>
+<p>Validates with auto-repair, condenses XML, and creates DOCX. Use <code>--validate false</code> to skip.</p>
+<p><strong>Auto-repair will fix:</strong></p>
+<ul>
+<li><code>durableId</code> &gt;= 0x7FFFFFFF (regenerates valid ID)</li>
+<li>Missing <code>xml:space=&quot;preserve&quot;</code> on <code>&lt;w:t&gt;</code> with whitespace</li>
+</ul>
+<p><strong>Auto-repair won't fix:</strong></p>
+<ul>
+<li>Malformed XML, invalid element nesting, missing relationships, schema violations</li>
+</ul>
+<h3>Common Pitfalls</h3>
+<ul>
+<li><strong>Replace entire <code>&lt;w:r&gt;</code> elements</strong>: When adding tracked changes, replace the whole <code>&lt;w:r&gt;...&lt;/w:r&gt;</code> block with <code>&lt;w:del&gt;...&lt;w:ins&gt;...</code> as siblings. Don't inject tracked change tags inside a run.</li>
+<li><strong>Preserve <code>&lt;w:rPr&gt;</code> formatting</strong>: Copy the original run's <code>&lt;w:rPr&gt;</code> block into your tracked change runs to maintain bold, font size, etc.</li>
+</ul>
+<hr>
+<h2>XML Reference</h2>
+<h3>Schema Compliance</h3>
+<ul>
+<li><strong>Element order in <code>&lt;w:pPr&gt;</code></strong>: <code>&lt;w:pStyle&gt;</code>, <code>&lt;w:numPr&gt;</code>, <code>&lt;w:spacing&gt;</code>, <code>&lt;w:ind&gt;</code>, <code>&lt;w:jc&gt;</code>, <code>&lt;w:rPr&gt;</code> last</li>
+<li><strong>Whitespace</strong>: Add <code>xml:space=&quot;preserve&quot;</code> to <code>&lt;w:t&gt;</code> with leading/trailing spaces</li>
+<li><strong>RSIDs</strong>: Must be 8-digit hex (e.g., <code>00AB1234</code>)</li>
+</ul>
+<h3>Tracked Changes</h3>
+<p><strong>Insertion:</strong></p>
+<pre><code class="language-xml">&lt;w:ins w:id=&quot;1&quot; w:author=&quot;Claude&quot; w:date=&quot;2025-01-01T00:00:00Z&quot;&gt;
+  &lt;w:r&gt;&lt;w:t&gt;inserted text&lt;/w:t&gt;&lt;/w:r&gt;
+&lt;/w:ins&gt;
+</code></pre>
+<p><strong>Deletion:</strong></p>
+<pre><code class="language-xml">&lt;w:del w:id=&quot;2&quot; w:author=&quot;Claude&quot; w:date=&quot;2025-01-01T00:00:00Z&quot;&gt;
+  &lt;w:r&gt;&lt;w:delText&gt;deleted text&lt;/w:delText&gt;&lt;/w:r&gt;
+&lt;/w:del&gt;
+</code></pre>
+<p><strong>Inside <code>&lt;w:del&gt;</code></strong>: Use <code>&lt;w:delText&gt;</code> instead of <code>&lt;w:t&gt;</code>, and <code>&lt;w:delInstrText&gt;</code> instead of <code>&lt;w:instrText&gt;</code>.</p>
+<p><strong>Minimal edits</strong> - only mark what changes:</p>
+<pre><code class="language-xml">&lt;!-- Change &quot;30 days&quot; to &quot;60 days&quot; --&gt;
+&lt;w:r&gt;&lt;w:t&gt;The term is &lt;/w:t&gt;&lt;/w:r&gt;
+&lt;w:del w:id=&quot;1&quot; w:author=&quot;Claude&quot; w:date=&quot;...&quot;&gt;
+  &lt;w:r&gt;&lt;w:delText&gt;30&lt;/w:delText&gt;&lt;/w:r&gt;
+&lt;/w:del&gt;
+&lt;w:ins w:id=&quot;2&quot; w:author=&quot;Claude&quot; w:date=&quot;...&quot;&gt;
+  &lt;w:r&gt;&lt;w:t&gt;60&lt;/w:t&gt;&lt;/w:r&gt;
+&lt;/w:ins&gt;
+&lt;w:r&gt;&lt;w:t&gt; days.&lt;/w:t&gt;&lt;/w:r&gt;
+</code></pre>
+<p><strong>Deleting entire paragraphs/list items</strong> - when removing ALL content from a paragraph, also mark the paragraph mark as deleted so it merges with the next paragraph. Add <code>&lt;w:del/&gt;</code> inside <code>&lt;w:pPr&gt;&lt;w:rPr&gt;</code>:</p>
+<pre><code class="language-xml">&lt;w:p&gt;
+  &lt;w:pPr&gt;
+    &lt;w:numPr&gt;...&lt;/w:numPr&gt;  &lt;!-- list numbering if present --&gt;
+    &lt;w:rPr&gt;
+      &lt;w:del w:id=&quot;1&quot; w:author=&quot;Claude&quot; w:date=&quot;2025-01-01T00:00:00Z&quot;/&gt;
+    &lt;/w:rPr&gt;
+  &lt;/w:pPr&gt;
+  &lt;w:del w:id=&quot;2&quot; w:author=&quot;Claude&quot; w:date=&quot;2025-01-01T00:00:00Z&quot;&gt;
+    &lt;w:r&gt;&lt;w:delText&gt;Entire paragraph content being deleted...&lt;/w:delText&gt;&lt;/w:r&gt;
+  &lt;/w:del&gt;
+&lt;/w:p&gt;
+</code></pre>
+<p>Without the <code>&lt;w:del/&gt;</code> in <code>&lt;w:pPr&gt;&lt;w:rPr&gt;</code>, accepting changes leaves an empty paragraph/list item.</p>
+<p><strong>Rejecting another author's insertion</strong> - nest deletion inside their insertion:</p>
+<pre><code class="language-xml">&lt;w:ins w:author=&quot;Jane&quot; w:id=&quot;5&quot;&gt;
+  &lt;w:del w:author=&quot;Claude&quot; w:id=&quot;10&quot;&gt;
+    &lt;w:r&gt;&lt;w:delText&gt;their inserted text&lt;/w:delText&gt;&lt;/w:r&gt;
+  &lt;/w:del&gt;
+&lt;/w:ins&gt;
+</code></pre>
+<p><strong>Restoring another author's deletion</strong> - add insertion after (don't modify their deletion):</p>
+<pre><code class="language-xml">&lt;w:del w:author=&quot;Jane&quot; w:id=&quot;5&quot;&gt;
+  &lt;w:r&gt;&lt;w:delText&gt;deleted text&lt;/w:delText&gt;&lt;/w:r&gt;
+&lt;/w:del&gt;
+&lt;w:ins w:author=&quot;Claude&quot; w:id=&quot;10&quot;&gt;
+  &lt;w:r&gt;&lt;w:t&gt;deleted text&lt;/w:t&gt;&lt;/w:r&gt;
+&lt;/w:ins&gt;
+</code></pre>
+<h3>Comments</h3>
+<p>After running <code>comment.py</code> (see Step 2), add markers to document.xml. For replies, use <code>--parent</code> flag and nest markers inside the parent's.</p>
+<p><strong>CRITICAL: <code>&lt;w:commentRangeStart&gt;</code> and <code>&lt;w:commentRangeEnd&gt;</code> are siblings of <code>&lt;w:r&gt;</code>, never inside <code>&lt;w:r&gt;</code>.</strong></p>
+<pre><code class="language-xml">&lt;!-- Comment markers are direct children of w:p, never inside w:r --&gt;
+&lt;w:commentRangeStart w:id=&quot;0&quot;/&gt;
+&lt;w:del w:id=&quot;1&quot; w:author=&quot;Claude&quot; w:date=&quot;2025-01-01T00:00:00Z&quot;&gt;
+  &lt;w:r&gt;&lt;w:delText&gt;deleted&lt;/w:delText&gt;&lt;/w:r&gt;
+&lt;/w:del&gt;
+&lt;w:r&gt;&lt;w:t&gt; more text&lt;/w:t&gt;&lt;/w:r&gt;
+&lt;w:commentRangeEnd w:id=&quot;0&quot;/&gt;
+&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:rStyle w:val=&quot;CommentReference&quot;/&gt;&lt;/w:rPr&gt;&lt;w:commentReference w:id=&quot;0&quot;/&gt;&lt;/w:r&gt;
+
+&lt;!-- Comment 0 with reply 1 nested inside --&gt;
+&lt;w:commentRangeStart w:id=&quot;0&quot;/&gt;
+  &lt;w:commentRangeStart w:id=&quot;1&quot;/&gt;
+  &lt;w:r&gt;&lt;w:t&gt;text&lt;/w:t&gt;&lt;/w:r&gt;
+  &lt;w:commentRangeEnd w:id=&quot;1&quot;/&gt;
+&lt;w:commentRangeEnd w:id=&quot;0&quot;/&gt;
+&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:rStyle w:val=&quot;CommentReference&quot;/&gt;&lt;/w:rPr&gt;&lt;w:commentReference w:id=&quot;0&quot;/&gt;&lt;/w:r&gt;
+&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:rStyle w:val=&quot;CommentReference&quot;/&gt;&lt;/w:rPr&gt;&lt;w:commentReference w:id=&quot;1&quot;/&gt;&lt;/w:r&gt;
+</code></pre>
+<h3>Images</h3>
+<ol>
+<li>Add image file to <code>word/media/</code></li>
+<li>Add relationship to <code>word/_rels/document.xml.rels</code>:</li>
+</ol>
+<pre><code class="language-xml">&lt;Relationship Id=&quot;rId5&quot; Type=&quot;.../image&quot; Target=&quot;media/image1.png&quot;/&gt;
+</code></pre>
+<ol start="3">
+<li>Add content type to <code>[Content_Types].xml</code>:</li>
+</ol>
+<pre><code class="language-xml">&lt;Default Extension=&quot;png&quot; ContentType=&quot;image/png&quot;/&gt;
+</code></pre>
+<ol start="4">
+<li>Reference in document.xml:</li>
+</ol>
+<pre><code class="language-xml">&lt;w:drawing&gt;
+  &lt;wp:inline&gt;
+    &lt;wp:extent cx=&quot;914400&quot; cy=&quot;914400&quot;/&gt;  &lt;!-- EMUs: 914400 = 1 inch --&gt;
+    &lt;a:graphic&gt;
+      &lt;a:graphicData uri=&quot;.../picture&quot;&gt;
+        &lt;pic:pic&gt;
+          &lt;pic:blipFill&gt;&lt;a:blip r:embed=&quot;rId5&quot;/&gt;&lt;/pic:blipFill&gt;
+        &lt;/pic:pic&gt;
+      &lt;/a:graphicData&gt;
+    &lt;/a:graphic&gt;
+  &lt;/wp:inline&gt;
+&lt;/w:drawing&gt;
+</code></pre>
+<hr>
+<h2>Dependencies</h2>
+<ul>
+<li><strong>pandoc</strong>: Text extraction</li>
+<li><strong>docx</strong>: <code>npm install -g docx</code> (new documents)</li>
+<li><strong>LibreOffice</strong>: PDF conversion (auto-configured for sandboxed environments via <code>scripts/office/soffice.py</code>)</li>
+<li><strong>Poppler</strong>: <code>pdftoppm</code> for images</li>
+</ul>
+
+    </div>
+  </article>
+  <p class="article-back">
+    <a href="/day/2026-02-24/">← 返回当日早报</a>
+  </p>
+</div>
+
+      </main>
+
+      <aside class="sidebar">
+        <section class="card author-card">
+          <h3 class="card-title">关于</h3>
+          <p class="author-name">作者：江湖</p>
+          <p class="author-intro">记录每天值得分享的科技内容，每天发布。</p>
+          <p class="author-links">
+            本早报<a href="https://github.com/zaobao-tech/zaobao" target="_blank" rel="noopener">开源</a>，欢迎<a href="https://github.com/zaobao-tech/zaobao/issues" target="_blank" rel="noopener">投稿</a>。
+          </p>
+          <div class="author-icons">
+            <a href="https://v.douyin.com/HBkTUfyow40/" target="_blank" rel="noopener" class="author-icon" title="抖音：科技早报" aria-label="抖音">
+              <svg class="icon-douyin" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+            </a>
+            <a href="https://github.com/zaobao-tech" target="_blank" rel="noopener" class="author-icon" title="GitHub" aria-label="GitHub">
+              <svg class="icon-github" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.653 1.653.241 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="author-icon" title="RSS 订阅" aria-label="RSS 订阅">
+              <svg class="icon-rss" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9 M4 4a16 16 0 0 1 16 16 M6 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+            </a>
+            <a href="https://tongji.baidu.com/" target="_blank" rel="noopener" class="author-icon" title="百度统计" aria-label="百度统计">
+              <svg class="icon-baidu-tongji" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3v18h3v-6h2v6h3v-6h2v6h3V3H5zm2 2h2v4H7V5zm6 0h2v4h-2V5zM7 13h2v4H7v-4zm6 0h2v4h-2v-4z"/></svg>
+            </a>
+          </div>
+        </section>
+        <section class="card tags-card">
+          <h3 class="card-title">标签</h3>
+          <div class="tags-list" id="tags-list">
+            
+            <a href="/#/tag/Anthropic" class="tag" data-tag="Anthropic">Anthropic (4)</a>
+            
+            <a href="/#/tag/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86" class="tag" data-tag="基础知识">基础知识 (4)</a>
+            
+            <a href="/#/tag/OpenClaw" class="tag" data-tag="OpenClaw">OpenClaw (3)</a>
+            
+            <a href="/#/tag/Skill" class="tag" data-tag="Skill">Skill (3)</a>
+            
+            <a href="/#/tag/Antigravity" class="tag" data-tag="Antigravity">Antigravity (2)</a>
+            
+            <a href="/#/tag/%E6%96%87%E6%A1%A3" class="tag" data-tag="文档">文档 (2)</a>
+            
+            <a href="/#/tag/Claude" class="tag" data-tag="Claude">Claude (1)</a>
+            
+            <a href="/#/tag/IDE" class="tag" data-tag="IDE">IDE (1)</a>
+            
+            <a href="/#/tag/Agent" class="tag" data-tag="Agent">Agent (1)</a>
+            
+            <a href="/#/tag/%E5%BC%80%E6%BA%90" class="tag" data-tag="开源">开源 (1)</a>
+            
+            <a href="/#/tag/%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86" class="tag" data-tag="文件整理">文件整理 (1)</a>
+            
+            <a href="/#/tag/%E8%81%8C%E5%9C%BA" class="tag" data-tag="职场">职场 (1)</a>
+            
+            <a href="/#/tag/Google" class="tag" data-tag="Google">Google (1)</a>
+            
+            <a href="/#/tag/Gemini" class="tag" data-tag="Gemini">Gemini (1)</a>
+            
+            <a href="/#/tag/Qwen" class="tag" data-tag="Qwen">Qwen (1)</a>
+            
+            <a href="/#/tag/TTS" class="tag" data-tag="TTS">TTS (1)</a>
+            
+            <a href="/#/tag/Kitten" class="tag" data-tag="Kitten">Kitten (1)</a>
+            
+            <a href="/#/tag/Changelog" class="tag" data-tag="Changelog">Changelog (1)</a>
+            
+            <a href="/#/tag/DevOps" class="tag" data-tag="DevOps">DevOps (1)</a>
+            
+            <a href="/#/tag/Canvas" class="tag" data-tag="Canvas">Canvas (1)</a>
+            
+            <a href="/#/tag/%E8%AE%BE%E8%AE%A1" class="tag" data-tag="设计">设计 (1)</a>
+            
+            <a href="/#/tag/Claude%20Code" class="tag" data-tag="Claude Code">Claude Code (1)</a>
+            
+            <a href="/#/tag/%E5%AE%9E%E6%97%B6%E8%99%9A%E6%8B%9F%E4%BA%BA" class="tag" data-tag="实时虚拟人">实时虚拟人 (1)</a>
+            
+            <a href="/#/tag/Tavus" class="tag" data-tag="Tavus">Tavus (1)</a>
+            
+            <a href="/#/tag/PDF" class="tag" data-tag="PDF">PDF (1)</a>
+            
+            <a href="/#/tag/%E5%AE%89%E5%85%A8" class="tag" data-tag="安全">安全 (1)</a>
+            
+            <a href="/#/tag/%E8%84%91%E7%94%B5%E5%9B%BE" class="tag" data-tag="脑电图">脑电图 (1)</a>
+            
+            <a href="/#/tag/DeepMind" class="tag" data-tag="DeepMind">DeepMind (1)</a>
+            
+            <a href="/#/tag/OpenCode" class="tag" data-tag="OpenCode">OpenCode (1)</a>
+            
+            <a href="/#/tag/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83" class="tag" data-tag="编码规范">编码规范 (1)</a>
+            
+            <a href="/#/tag/Cursor" class="tag" data-tag="Cursor">Cursor (1)</a>
+            
+            <a href="/#/tag/Word" class="tag" data-tag="Word">Word (1)</a>
+            
+            <a href="/#/tag/Cowork" class="tag" data-tag="Cowork">Cowork (1)</a>
+            
+            <a href="/#/tag/%E8%92%B8%E9%A6%8F" class="tag" data-tag="蒸馏">蒸馏 (1)</a>
+            
+            <a href="/#/tag/DeepSeek" class="tag" data-tag="DeepSeek">DeepSeek (1)</a>
+            
+            <a href="/#/tag/Kimi" class="tag" data-tag="Kimi">Kimi (1)</a>
+            
+            <a href="/#/tag/MiniMax" class="tag" data-tag="MiniMax">MiniMax (1)</a>
+            
+            <a href="/#/tag/API" class="tag" data-tag="API">API (1)</a>
+            
+            <a href="/#/tag/REST" class="tag" data-tag="REST">REST (1)</a>
+            
+          </div>
+        </section>
+        <p class="sidebar-copyright">Copyright © 2011-2026</p>
+      </aside>
+    </div>
+  </div>
+  <div class="detail-image-lightbox hidden" id="detail-image-lightbox" aria-hidden="true" title="点击关闭">
+    <img src="" alt="" />
+  </div>
+  <script src="/js/site.js"></script>
+  <script>
+  (function() {
+    var el = document.getElementById("page-pv-value");
+    if (!el) return;
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      el.textContent = "—";
+      return;
+    }
+    var pathname = (window.location.pathname || "/").replace(/^\/|\/$/g, "").replace(/\//g, "_").replace(/-/g, "_") || "index";
+    var key = encodeURIComponent(pathname);
+    fetch("https://api.countapi.xyz/hit/zaobao_pv/" + key)
+      .then(function(r) { return r.json(); })
+      .then(function(d) { if (d && typeof d.value === "number") el.textContent = d.value; })
+      .catch(function() { el.textContent = "—"; });
+  })();
+  </script>
+  
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?7d6fe9720c59df101c54f84979f89420";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>api-design - 科技早报</title>
+  
+  
+  
+  <meta name="description" content="REST API 设计规范 Skill。REST API 资源命名、状态码、分页、过滤、错误响应、版本与限流等生产级 API 设计模式与实现示例（TS/Python/Go）。" />
+  <link rel="canonical" href="https://www.zaobao.tech/day/2026-02-25/4/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="api-design - 科技早报" />
+  <meta property="og:description" content="REST API 设计规范 Skill。REST API 资源命名、状态码、分页、过滤、错误响应、版本与限流等生产级 API 设计模式与实现示例（TS/Python/Go）。" />
+  <meta property="og:url" content="https://www.zaobao.tech/day/2026-02-25/4/" />
+  
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.zaobao.tech/" },
+      { "@type": "ListItem", "position": 2, "name": "2026年2月25日 周三 早报", "item": "https://www.zaobao.tech/day/2026-02-25/" },
+      { "@type": "ListItem", "position": 3, "name": "api-design", "item": "https://www.zaobao.tech/day/2026-02-25/4/" }
+    ]
+  }
+  </script>
+  
+  <link rel="alternate" type="application/rss+xml" title="科技早报 RSS" href="https://www.zaobao.tech/rss.xml" />
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a href="/" class="logo-wrap">
+        <img src="/images/logo.jpg" alt="科技早报" class="logo" onerror="this.style.display='none'"/>
+        <span class="site-title">科技早报</span>
+      </a>
+      <nav class="header-nav" aria-label="主导航">
+        <a href="/#/zaobao" class="nav-link nav-link-zaobao is-active">早报</a>
+        <a href="/#/skills" class="nav-link nav-link-skills ">Skills</a>
+      </nav>
+      <div class="theme-toggle theme-switch" role="group" aria-label="主题切换">
+        <button type="button" class="theme-btn is-active" id="theme-light" title="浅色模式" aria-label="浅色模式">
+          <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button type="button" class="theme-btn" id="theme-dark" title="深色模式" aria-label="深色模式">
+          <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="main-wrap">
+      <main class="main">
+        
+<div class="article-page">
+  <article class="article-single">
+    <h1 class="detail-title">api-design</h1>
+    
+    <div class="detail-tags">
+      
+      <a href="/" class="tag" data-tag="API">API</a>
+      
+      <a href="/" class="tag" data-tag="REST">REST</a>
+      
+    </div>
+    
+    <div class="detail-meta">
+      <span class="detail-date">2026-02-25 周三</span><span class="detail-meta-sep" aria-hidden="true">|</span><span class="detail-views">阅读 <span id="page-pv-value">0</span> 次</span>
+    </div>
+    <div class="detail-body">
+      <table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>api-design</td>
+</tr>
+<tr>
+<td>description</td>
+<td>REST API design patterns including resource naming, status codes, pagination, filtering, error responses, versioning, and rate limiting for production APIs.</td>
+</tr>
+<tr>
+<td>origin</td>
+<td>ECC</td>
+</tr>
+</tbody>
+</table>
+<h1>API Design Patterns</h1>
+<p>Conventions and best practices for designing consistent, developer-friendly REST APIs.</p>
+<h2>When to Activate</h2>
+<ul>
+<li>Designing new API endpoints</li>
+<li>Reviewing existing API contracts</li>
+<li>Adding pagination, filtering, or sorting</li>
+<li>Implementing error handling for APIs</li>
+<li>Planning API versioning strategy</li>
+<li>Building public or partner-facing APIs</li>
+</ul>
+<h2>Resource Design</h2>
+<h3>URL Structure</h3>
+<pre><code># Resources are nouns, plural, lowercase, kebab-case
+GET    /api/v1/users
+GET    /api/v1/users/:id
+POST   /api/v1/users
+PUT    /api/v1/users/:id
+PATCH  /api/v1/users/:id
+DELETE /api/v1/users/:id
+
+# Sub-resources for relationships
+GET    /api/v1/users/:id/orders
+POST   /api/v1/users/:id/orders
+
+# Actions that don't map to CRUD (use verbs sparingly)
+POST   /api/v1/orders/:id/cancel
+POST   /api/v1/auth/login
+POST   /api/v1/auth/refresh
+</code></pre>
+<h3>Naming Rules</h3>
+<pre><code># GOOD
+/api/v1/team-members          # kebab-case for multi-word resources
+/api/v1/orders?status=active  # query params for filtering
+/api/v1/users/123/orders      # nested resources for ownership
+
+# BAD
+/api/v1/getUsers              # verb in URL
+/api/v1/user                  # singular (use plural)
+/api/v1/team_members          # snake_case in URLs
+/api/v1/users/123/getOrders   # verb in nested resource
+</code></pre>
+<h2>HTTP Methods and Status Codes</h2>
+<h3>Method Semantics</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Idempotent</th>
+<th>Safe</th>
+<th>Use For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Retrieve resources</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>No</td>
+<td>No</td>
+<td>Create resources, trigger actions</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>Yes</td>
+<td>No</td>
+<td>Full replacement of a resource</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>No*</td>
+<td>No</td>
+<td>Partial update of a resource</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Yes</td>
+<td>No</td>
+<td>Remove a resource</td>
+</tr>
+</tbody>
+</table>
+<p>*PATCH can be made idempotent with proper implementation</p>
+<h3>Status Code Reference</h3>
+<pre><code># Success
+200 OK                    — GET, PUT, PATCH (with response body)
+201 Created               — POST (include Location header)
+204 No Content            — DELETE, PUT (no response body)
+
+# Client Errors
+400 Bad Request           — Validation failure, malformed JSON
+401 Unauthorized          — Missing or invalid authentication
+403 Forbidden             — Authenticated but not authorized
+404 Not Found             — Resource doesn't exist
+409 Conflict              — Duplicate entry, state conflict
+422 Unprocessable Entity  — Semantically invalid (valid JSON, bad data)
+429 Too Many Requests     — Rate limit exceeded
+
+# Server Errors
+500 Internal Server Error — Unexpected failure (never expose details)
+502 Bad Gateway           — Upstream service failed
+503 Service Unavailable   — Temporary overload, include Retry-After
+</code></pre>
+<h3>Common Mistakes</h3>
+<pre><code># BAD: 200 for everything
+{ &quot;status&quot;: 200, &quot;success&quot;: false, &quot;error&quot;: &quot;Not found&quot; }
+
+# GOOD: Use HTTP status codes semantically
+HTTP/1.1 404 Not Found
+{ &quot;error&quot;: { &quot;code&quot;: &quot;not_found&quot;, &quot;message&quot;: &quot;User not found&quot; } }
+
+# BAD: 500 for validation errors
+# GOOD: 400 or 422 with field-level details
+
+# BAD: 200 for created resources
+# GOOD: 201 with Location header
+HTTP/1.1 201 Created
+Location: /api/v1/users/abc-123
+</code></pre>
+<h2>Response Format</h2>
+<h3>Success Response</h3>
+<pre><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;id&quot;: &quot;abc-123&quot;,
+    &quot;email&quot;: &quot;alice@example.com&quot;,
+    &quot;name&quot;: &quot;Alice&quot;,
+    &quot;created_at&quot;: &quot;2025-01-15T10:30:00Z&quot;
+  }
+}
+</code></pre>
+<h3>Collection Response (with Pagination)</h3>
+<pre><code class="language-json">{
+  &quot;data&quot;: [
+    { &quot;id&quot;: &quot;abc-123&quot;, &quot;name&quot;: &quot;Alice&quot; },
+    { &quot;id&quot;: &quot;def-456&quot;, &quot;name&quot;: &quot;Bob&quot; }
+  ],
+  &quot;meta&quot;: {
+    &quot;total&quot;: 142,
+    &quot;page&quot;: 1,
+    &quot;per_page&quot;: 20,
+    &quot;total_pages&quot;: 8
+  },
+  &quot;links&quot;: {
+    &quot;self&quot;: &quot;/api/v1/users?page=1&amp;per_page=20&quot;,
+    &quot;next&quot;: &quot;/api/v1/users?page=2&amp;per_page=20&quot;,
+    &quot;last&quot;: &quot;/api/v1/users?page=8&amp;per_page=20&quot;
+  }
+}
+</code></pre>
+<h3>Error Response</h3>
+<pre><code class="language-json">{
+  &quot;error&quot;: {
+    &quot;code&quot;: &quot;validation_error&quot;,
+    &quot;message&quot;: &quot;Request validation failed&quot;,
+    &quot;details&quot;: [
+      {
+        &quot;field&quot;: &quot;email&quot;,
+        &quot;message&quot;: &quot;Must be a valid email address&quot;,
+        &quot;code&quot;: &quot;invalid_format&quot;
+      },
+      {
+        &quot;field&quot;: &quot;age&quot;,
+        &quot;message&quot;: &quot;Must be between 0 and 150&quot;,
+        &quot;code&quot;: &quot;out_of_range&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+<h3>Response Envelope Variants</h3>
+<pre><code class="language-typescript">// Option A: Envelope with data wrapper (recommended for public APIs)
+interface ApiResponse&lt;T&gt; {
+  data: T;
+  meta?: PaginationMeta;
+  links?: PaginationLinks;
+}
+
+interface ApiError {
+  error: {
+    code: string;
+    message: string;
+    details?: FieldError[];
+  };
+}
+
+// Option B: Flat response (simpler, common for internal APIs)
+// Success: just return the resource directly
+// Error: return error object
+// Distinguish by HTTP status code
+</code></pre>
+<h2>Pagination</h2>
+<h3>Offset-Based (Simple)</h3>
+<pre><code>GET /api/v1/users?page=2&amp;per_page=20
+
+# Implementation
+SELECT * FROM users
+ORDER BY created_at DESC
+LIMIT 20 OFFSET 20;
+</code></pre>
+<p><strong>Pros:</strong> Easy to implement, supports &quot;jump to page N&quot;
+<strong>Cons:</strong> Slow on large offsets (OFFSET 100000), inconsistent with concurrent inserts</p>
+<h3>Cursor-Based (Scalable)</h3>
+<pre><code>GET /api/v1/users?cursor=eyJpZCI6MTIzfQ&amp;limit=20
+
+# Implementation
+SELECT * FROM users
+WHERE id &gt; :cursor_id
+ORDER BY id ASC
+LIMIT 21;  -- fetch one extra to determine has_next
+</code></pre>
+<pre><code class="language-json">{
+  &quot;data&quot;: [...],
+  &quot;meta&quot;: {
+    &quot;has_next&quot;: true,
+    &quot;next_cursor&quot;: &quot;eyJpZCI6MTQzfQ&quot;
+  }
+}
+</code></pre>
+<p><strong>Pros:</strong> Consistent performance regardless of position, stable with concurrent inserts
+<strong>Cons:</strong> Cannot jump to arbitrary page, cursor is opaque</p>
+<h3>When to Use Which</h3>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Pagination Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin dashboards, small datasets (&lt;10K)</td>
+<td>Offset</td>
+</tr>
+<tr>
+<td>Infinite scroll, feeds, large datasets</td>
+<td>Cursor</td>
+</tr>
+<tr>
+<td>Public APIs</td>
+<td>Cursor (default) with offset (optional)</td>
+</tr>
+<tr>
+<td>Search results</td>
+<td>Offset (users expect page numbers)</td>
+</tr>
+</tbody>
+</table>
+<h2>Filtering, Sorting, and Search</h2>
+<h3>Filtering</h3>
+<pre><code># Simple equality
+GET /api/v1/orders?status=active&amp;customer_id=abc-123
+
+# Comparison operators (use bracket notation)
+GET /api/v1/products?price[gte]=10&amp;price[lte]=100
+GET /api/v1/orders?created_at[after]=2025-01-01
+
+# Multiple values (comma-separated)
+GET /api/v1/products?category=electronics,clothing
+
+# Nested fields (dot notation)
+GET /api/v1/orders?customer.country=US
+</code></pre>
+<h3>Sorting</h3>
+<pre><code># Single field (prefix - for descending)
+GET /api/v1/products?sort=-created_at
+
+# Multiple fields (comma-separated)
+GET /api/v1/products?sort=-featured,price,-created_at
+</code></pre>
+<h3>Full-Text Search</h3>
+<pre><code># Search query parameter
+GET /api/v1/products?q=wireless+headphones
+
+# Field-specific search
+GET /api/v1/users?email=alice
+</code></pre>
+<h3>Sparse Fieldsets</h3>
+<pre><code># Return only specified fields (reduces payload)
+GET /api/v1/users?fields=id,name,email
+GET /api/v1/orders?fields=id,total,status&amp;include=customer.name
+</code></pre>
+<h2>Authentication and Authorization</h2>
+<h3>Token-Based Auth</h3>
+<pre><code># Bearer token in Authorization header
+GET /api/v1/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+
+# API key (for server-to-server)
+GET /api/v1/data
+X-API-Key: sk_live_abc123
+</code></pre>
+<h3>Authorization Patterns</h3>
+<pre><code class="language-typescript">// Resource-level: check ownership
+app.get(&quot;/api/v1/orders/:id&quot;, async (req, res) =&gt; {
+  const order = await Order.findById(req.params.id);
+  if (!order) return res.status(404).json({ error: { code: &quot;not_found&quot; } });
+  if (order.userId !== req.user.id) return res.status(403).json({ error: { code: &quot;forbidden&quot; } });
+  return res.json({ data: order });
+});
+
+// Role-based: check permissions
+app.delete(&quot;/api/v1/users/:id&quot;, requireRole(&quot;admin&quot;), async (req, res) =&gt; {
+  await User.delete(req.params.id);
+  return res.status(204).send();
+});
+</code></pre>
+<h2>Rate Limiting</h2>
+<h3>Headers</h3>
+<pre><code>HTTP/1.1 200 OK
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 95
+X-RateLimit-Reset: 1640000000
+
+# When exceeded
+HTTP/1.1 429 Too Many Requests
+Retry-After: 60
+{
+  &quot;error&quot;: {
+    &quot;code&quot;: &quot;rate_limit_exceeded&quot;,
+    &quot;message&quot;: &quot;Rate limit exceeded. Try again in 60 seconds.&quot;
+  }
+}
+</code></pre>
+<h3>Rate Limit Tiers</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Limit</th>
+<th>Window</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anonymous</td>
+<td>30/min</td>
+<td>Per IP</td>
+<td>Public endpoints</td>
+</tr>
+<tr>
+<td>Authenticated</td>
+<td>100/min</td>
+<td>Per user</td>
+<td>Standard API access</td>
+</tr>
+<tr>
+<td>Premium</td>
+<td>1000/min</td>
+<td>Per API key</td>
+<td>Paid API plans</td>
+</tr>
+<tr>
+<td>Internal</td>
+<td>10000/min</td>
+<td>Per service</td>
+<td>Service-to-service</td>
+</tr>
+</tbody>
+</table>
+<h2>Versioning</h2>
+<h3>URL Path Versioning (Recommended)</h3>
+<pre><code>/api/v1/users
+/api/v2/users
+</code></pre>
+<p><strong>Pros:</strong> Explicit, easy to route, cacheable
+<strong>Cons:</strong> URL changes between versions</p>
+<h3>Header Versioning</h3>
+<pre><code>GET /api/users
+Accept: application/vnd.myapp.v2+json
+</code></pre>
+<p><strong>Pros:</strong> Clean URLs
+<strong>Cons:</strong> Harder to test, easy to forget</p>
+<h3>Versioning Strategy</h3>
+<pre><code>1. Start with /api/v1/ — don't version until you need to
+2. Maintain at most 2 active versions (current + previous)
+3. Deprecation timeline:
+   - Announce deprecation (6 months notice for public APIs)
+   - Add Sunset header: Sunset: Sat, 01 Jan 2026 00:00:00 GMT
+   - Return 410 Gone after sunset date
+4. Non-breaking changes don't need a new version:
+   - Adding new fields to responses
+   - Adding new optional query parameters
+   - Adding new endpoints
+5. Breaking changes require a new version:
+   - Removing or renaming fields
+   - Changing field types
+   - Changing URL structure
+   - Changing authentication method
+</code></pre>
+<h2>Implementation Patterns</h2>
+<h3>TypeScript (Next.js API Route)</h3>
+<pre><code class="language-typescript">import { z } from &quot;zod&quot;;
+import { NextRequest, NextResponse } from &quot;next/server&quot;;
+
+const createUserSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(1).max(100),
+});
+
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const parsed = createUserSchema.safeParse(body);
+
+  if (!parsed.success) {
+    return NextResponse.json({
+      error: {
+        code: &quot;validation_error&quot;,
+        message: &quot;Request validation failed&quot;,
+        details: parsed.error.issues.map(i =&gt; ({
+          field: i.path.join(&quot;.&quot;),
+          message: i.message,
+          code: i.code,
+        })),
+      },
+    }, { status: 422 });
+  }
+
+  const user = await createUser(parsed.data);
+
+  return NextResponse.json(
+    { data: user },
+    {
+      status: 201,
+      headers: { Location: `/api/v1/users/${user.id}` },
+    },
+  );
+}
+</code></pre>
+<h3>Python (Django REST Framework)</h3>
+<pre><code class="language-python">from rest_framework import serializers, viewsets, status
+from rest_framework.response import Response
+
+class CreateUserSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    name = serializers.CharField(max_length=100)
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [&quot;id&quot;, &quot;email&quot;, &quot;name&quot;, &quot;created_at&quot;]
+
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.action == &quot;create&quot;:
+            return CreateUserSerializer
+        return UserSerializer
+
+    def create(self, request):
+        serializer = CreateUserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = UserService.create(**serializer.validated_data)
+        return Response(
+            {&quot;data&quot;: UserSerializer(user).data},
+            status=status.HTTP_201_CREATED,
+            headers={&quot;Location&quot;: f&quot;/api/v1/users/{user.id}&quot;},
+        )
+</code></pre>
+<h3>Go (net/http)</h3>
+<pre><code class="language-go">func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
+    var req CreateUserRequest
+    if err := json.NewDecoder(r.Body).Decode(&amp;req); err != nil {
+        writeError(w, http.StatusBadRequest, &quot;invalid_json&quot;, &quot;Invalid request body&quot;)
+        return
+    }
+
+    if err := req.Validate(); err != nil {
+        writeError(w, http.StatusUnprocessableEntity, &quot;validation_error&quot;, err.Error())
+        return
+    }
+
+    user, err := h.service.Create(r.Context(), req)
+    if err != nil {
+        switch {
+        case errors.Is(err, domain.ErrEmailTaken):
+            writeError(w, http.StatusConflict, &quot;email_taken&quot;, &quot;Email already registered&quot;)
+        default:
+            writeError(w, http.StatusInternalServerError, &quot;internal_error&quot;, &quot;Internal error&quot;)
+        }
+        return
+    }
+
+    w.Header().Set(&quot;Location&quot;, fmt.Sprintf(&quot;/api/v1/users/%s&quot;, user.ID))
+    writeJSON(w, http.StatusCreated, map[string]any{&quot;data&quot;: user})
+}
+</code></pre>
+<h2>API Design Checklist</h2>
+<p>Before shipping a new endpoint:</p>
+<ul>
+<li>[ ] Resource URL follows naming conventions (plural, kebab-case, no verbs)</li>
+<li>[ ] Correct HTTP method used (GET for reads, POST for creates, etc.)</li>
+<li>[ ] Appropriate status codes returned (not 200 for everything)</li>
+<li>[ ] Input validated with schema (Zod, Pydantic, Bean Validation)</li>
+<li>[ ] Error responses follow standard format with codes and messages</li>
+<li>[ ] Pagination implemented for list endpoints (cursor or offset)</li>
+<li>[ ] Authentication required (or explicitly marked as public)</li>
+<li>[ ] Authorization checked (user can only access their own resources)</li>
+<li>[ ] Rate limiting configured</li>
+<li>[ ] Response does not leak internal details (stack traces, SQL errors)</li>
+<li>[ ] Consistent naming with existing endpoints (camelCase vs snake_case)</li>
+<li>[ ] Documented (OpenAPI/Swagger spec updated)</li>
+</ul>
+
+    </div>
+  </article>
+  <p class="article-back">
+    <a href="/day/2026-02-25/">← 返回当日早报</a>
+  </p>
+</div>
+
+      </main>
+
+      <aside class="sidebar">
+        <section class="card author-card">
+          <h3 class="card-title">关于</h3>
+          <p class="author-name">作者：江湖</p>
+          <p class="author-intro">记录每天值得分享的科技内容，每天发布。</p>
+          <p class="author-links">
+            本早报<a href="https://github.com/zaobao-tech/zaobao" target="_blank" rel="noopener">开源</a>，欢迎<a href="https://github.com/zaobao-tech/zaobao/issues" target="_blank" rel="noopener">投稿</a>。
+          </p>
+          <div class="author-icons">
+            <a href="https://v.douyin.com/HBkTUfyow40/" target="_blank" rel="noopener" class="author-icon" title="抖音：科技早报" aria-label="抖音">
+              <svg class="icon-douyin" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+            </a>
+            <a href="https://github.com/zaobao-tech" target="_blank" rel="noopener" class="author-icon" title="GitHub" aria-label="GitHub">
+              <svg class="icon-github" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.653 1.653.241 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="author-icon" title="RSS 订阅" aria-label="RSS 订阅">
+              <svg class="icon-rss" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9 M4 4a16 16 0 0 1 16 16 M6 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+            </a>
+            <a href="https://tongji.baidu.com/" target="_blank" rel="noopener" class="author-icon" title="百度统计" aria-label="百度统计">
+              <svg class="icon-baidu-tongji" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3v18h3v-6h2v6h3v-6h2v6h3V3H5zm2 2h2v4H7V5zm6 0h2v4h-2V5zM7 13h2v4H7v-4zm6 0h2v4h-2v-4z"/></svg>
+            </a>
+          </div>
+        </section>
+        <section class="card tags-card">
+          <h3 class="card-title">标签</h3>
+          <div class="tags-list" id="tags-list">
+            
+            <a href="/#/tag/Anthropic" class="tag" data-tag="Anthropic">Anthropic (4)</a>
+            
+            <a href="/#/tag/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86" class="tag" data-tag="基础知识">基础知识 (4)</a>
+            
+            <a href="/#/tag/OpenClaw" class="tag" data-tag="OpenClaw">OpenClaw (3)</a>
+            
+            <a href="/#/tag/Skill" class="tag" data-tag="Skill">Skill (3)</a>
+            
+            <a href="/#/tag/Antigravity" class="tag" data-tag="Antigravity">Antigravity (2)</a>
+            
+            <a href="/#/tag/%E6%96%87%E6%A1%A3" class="tag" data-tag="文档">文档 (2)</a>
+            
+            <a href="/#/tag/Claude" class="tag" data-tag="Claude">Claude (1)</a>
+            
+            <a href="/#/tag/IDE" class="tag" data-tag="IDE">IDE (1)</a>
+            
+            <a href="/#/tag/Agent" class="tag" data-tag="Agent">Agent (1)</a>
+            
+            <a href="/#/tag/%E5%BC%80%E6%BA%90" class="tag" data-tag="开源">开源 (1)</a>
+            
+            <a href="/#/tag/%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86" class="tag" data-tag="文件整理">文件整理 (1)</a>
+            
+            <a href="/#/tag/%E8%81%8C%E5%9C%BA" class="tag" data-tag="职场">职场 (1)</a>
+            
+            <a href="/#/tag/Google" class="tag" data-tag="Google">Google (1)</a>
+            
+            <a href="/#/tag/Gemini" class="tag" data-tag="Gemini">Gemini (1)</a>
+            
+            <a href="/#/tag/Qwen" class="tag" data-tag="Qwen">Qwen (1)</a>
+            
+            <a href="/#/tag/TTS" class="tag" data-tag="TTS">TTS (1)</a>
+            
+            <a href="/#/tag/Kitten" class="tag" data-tag="Kitten">Kitten (1)</a>
+            
+            <a href="/#/tag/Changelog" class="tag" data-tag="Changelog">Changelog (1)</a>
+            
+            <a href="/#/tag/DevOps" class="tag" data-tag="DevOps">DevOps (1)</a>
+            
+            <a href="/#/tag/Canvas" class="tag" data-tag="Canvas">Canvas (1)</a>
+            
+            <a href="/#/tag/%E8%AE%BE%E8%AE%A1" class="tag" data-tag="设计">设计 (1)</a>
+            
+            <a href="/#/tag/Claude%20Code" class="tag" data-tag="Claude Code">Claude Code (1)</a>
+            
+            <a href="/#/tag/%E5%AE%9E%E6%97%B6%E8%99%9A%E6%8B%9F%E4%BA%BA" class="tag" data-tag="实时虚拟人">实时虚拟人 (1)</a>
+            
+            <a href="/#/tag/Tavus" class="tag" data-tag="Tavus">Tavus (1)</a>
+            
+            <a href="/#/tag/PDF" class="tag" data-tag="PDF">PDF (1)</a>
+            
+            <a href="/#/tag/%E5%AE%89%E5%85%A8" class="tag" data-tag="安全">安全 (1)</a>
+            
+            <a href="/#/tag/%E8%84%91%E7%94%B5%E5%9B%BE" class="tag" data-tag="脑电图">脑电图 (1)</a>
+            
+            <a href="/#/tag/DeepMind" class="tag" data-tag="DeepMind">DeepMind (1)</a>
+            
+            <a href="/#/tag/OpenCode" class="tag" data-tag="OpenCode">OpenCode (1)</a>
+            
+            <a href="/#/tag/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83" class="tag" data-tag="编码规范">编码规范 (1)</a>
+            
+            <a href="/#/tag/Cursor" class="tag" data-tag="Cursor">Cursor (1)</a>
+            
+            <a href="/#/tag/Word" class="tag" data-tag="Word">Word (1)</a>
+            
+            <a href="/#/tag/Cowork" class="tag" data-tag="Cowork">Cowork (1)</a>
+            
+            <a href="/#/tag/%E8%92%B8%E9%A6%8F" class="tag" data-tag="蒸馏">蒸馏 (1)</a>
+            
+            <a href="/#/tag/DeepSeek" class="tag" data-tag="DeepSeek">DeepSeek (1)</a>
+            
+            <a href="/#/tag/Kimi" class="tag" data-tag="Kimi">Kimi (1)</a>
+            
+            <a href="/#/tag/MiniMax" class="tag" data-tag="MiniMax">MiniMax (1)</a>
+            
+            <a href="/#/tag/API" class="tag" data-tag="API">API (1)</a>
+            
+            <a href="/#/tag/REST" class="tag" data-tag="REST">REST (1)</a>
+            
+          </div>
+        </section>
+        <p class="sidebar-copyright">Copyright © 2011-2026</p>
+      </aside>
+    </div>
+  </div>
+  <div class="detail-image-lightbox hidden" id="detail-image-lightbox" aria-hidden="true" title="点击关闭">
+    <img src="" alt="" />
+  </div>
+  <script src="/js/site.js"></script>
+  <script>
+  (function() {
+    var el = document.getElementById("page-pv-value");
+    if (!el) return;
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      el.textContent = "—";
+      return;
+    }
+    var pathname = (window.location.pathname || "/").replace(/^\/|\/$/g, "").replace(/\//g, "_").replace(/-/g, "_") || "index";
+    var key = encodeURIComponent(pathname);
+    fetch("https://api.countapi.xyz/hit/zaobao_pv/" + key)
+      .then(function(r) { return r.json(); })
+      .then(function(d) { if (d && typeof d.value === "number") el.textContent = d.value; })
+      .catch(function() { el.textContent = "—"; });
+  })();
+  </script>
+  
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?7d6fe9720c59df101c54f84979f89420";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>

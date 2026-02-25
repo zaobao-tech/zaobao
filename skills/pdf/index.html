@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ (zaobao.skillTitleBySlug[skill.slug] or skill.slug) }} - 科技早报</title>
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="科技早报 RSS" href="https://www.zaobao.tech/rss.xml" />
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a href="/" class="logo-wrap">
+        <img src="/images/logo.jpg" alt="科技早报" class="logo" onerror="this.style.display='none'"/>
+        <span class="site-title">科技早报</span>
+      </a>
+      <nav class="header-nav" aria-label="主导航">
+        <a href="/#/zaobao" class="nav-link nav-link-zaobao ">早报</a>
+        <a href="/#/skills" class="nav-link nav-link-skills is-active">Skills</a>
+      </nav>
+      <div class="theme-toggle theme-switch" role="group" aria-label="主题切换">
+        <button type="button" class="theme-btn is-active" id="theme-light" title="浅色模式" aria-label="浅色模式">
+          <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button type="button" class="theme-btn" id="theme-dark" title="深色模式" aria-label="深色模式">
+          <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="main-wrap">
+      <main class="main">
+        
+<script>document.addEventListener("DOMContentLoaded", function() { window.location.replace("/#/skills/pdf"); });</script>
+
+
+
+<section class="skills-zaobao-layout" aria-hidden="true">
+  <aside class="skills-left">
+    <div class="skills-left-row">
+      <div class="skills-category-tabs" role="tablist" aria-label="分类">
+        
+        <a href="/categories/development/" class="skills-category-tab " role="tab">开发</a>
+        
+        <a href="/categories/office/" class="skills-category-tab is-active" role="tab">办公</a>
+        
+        <a href="/categories/picture/" class="skills-category-tab " role="tab">图片</a>
+        
+        <a href="/categories/workplace/" class="skills-category-tab " role="tab">职场</a>
+        
+      </div>
+      <div class="skills-children-wrap">
+        
+          
+        
+          
+        <ul class="skills-children-list">
+            
+          <li>
+            <a href="/categories/office/doc-processing/" class="skills-child-link is-active">文档处理</a>
+          </li>
+            
+        </ul>
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+  </aside>
+  <div class="skills-content">
+    <div class="skills-content-inner">
+      <div class="skill-list-wrap">
+        <ul class="skill-list-inner">
+          
+          <li>
+            <a href="/skills/docx/" class="skill-list-link-inner ">docx</a>
+          </li>
+          
+          <li>
+            <a href="/skills/pdf/" class="skill-list-link-inner is-active">pdf</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="skill-detail-wrap">
+        <h1 class="skill-detail-title">pdf</h1>
+
+        
+        
+        <div class="detail-tags">
+          
+          <a href="/#/tag/Skill/" class="tag">Skill</a>
+          
+          <a href="/#/tag/PDF/" class="tag">PDF</a>
+          
+          <a href="/#/tag/%E6%96%87%E6%A1%A3/" class="tag">文档</a>
+          
+        </div>
+        
+        <div class="detail-meta">
+          <span class="detail-date">2026-02-23 周一</span><span class="detail-meta-sep" aria-hidden="true">|</span><span class="detail-views">阅读 <span id="page-pv-value">0</span> 次</span>
+        </div>
+        
+        <p class="detail-summary">提取文本、表格、元数据，合并与标注 PDF 文件。</p>
+        
+        
+        
+        
+        <dl class="detail-meta-extra">
+          
+          
+          <dt>仓库：</dt>
+          <dd><a href="https://github.com/anthropics/skills/tree/main/skills/pdf" target="_blank" rel="noopener noreferrer">https://github.com/anthropics/skills/tree/main/skills/pdf</a></dd>
+          
+        </dl>
+        
+
+        
+        <div class="skill-detail-body detail-body">
+          <table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>pdf</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.</td>
+</tr>
+<tr>
+<td>license</td>
+<td>Proprietary. LICENSE.txt has complete terms</td>
+</tr>
+</tbody>
+</table>
+<h1>PDF Processing Guide</h1>
+<h2>Overview</h2>
+<p>This guide covers essential PDF processing operations using Python libraries and command-line tools. For advanced features, JavaScript libraries, and detailed examples, see REFERENCE.md. If you need to fill out a PDF form, read FORMS.md and follow its instructions.</p>
+<h2>Quick Start</h2>
+<pre><code class="language-python">from pypdf import PdfReader, PdfWriter
+
+# Read a PDF
+reader = PdfReader(&quot;document.pdf&quot;)
+print(f&quot;Pages: {len(reader.pages)}&quot;)
+
+# Extract text
+text = &quot;&quot;
+for page in reader.pages:
+    text += page.extract_text()
+</code></pre>
+<h2>Python Libraries</h2>
+<h3>pypdf - Basic Operations</h3>
+<h4>Merge PDFs</h4>
+<pre><code class="language-python">from pypdf import PdfWriter, PdfReader
+
+writer = PdfWriter()
+for pdf_file in [&quot;doc1.pdf&quot;, &quot;doc2.pdf&quot;, &quot;doc3.pdf&quot;]:
+    reader = PdfReader(pdf_file)
+    for page in reader.pages:
+        writer.add_page(page)
+
+with open(&quot;merged.pdf&quot;, &quot;wb&quot;) as output:
+    writer.write(output)
+</code></pre>
+<h4>Split PDF</h4>
+<pre><code class="language-python">reader = PdfReader(&quot;input.pdf&quot;)
+for i, page in enumerate(reader.pages):
+    writer = PdfWriter()
+    writer.add_page(page)
+    with open(f&quot;page_{i+1}.pdf&quot;, &quot;wb&quot;) as output:
+        writer.write(output)
+</code></pre>
+<h4>Extract Metadata</h4>
+<pre><code class="language-python">reader = PdfReader(&quot;document.pdf&quot;)
+meta = reader.metadata
+print(f&quot;Title: {meta.title}&quot;)
+print(f&quot;Author: {meta.author}&quot;)
+print(f&quot;Subject: {meta.subject}&quot;)
+print(f&quot;Creator: {meta.creator}&quot;)
+</code></pre>
+<h4>Rotate Pages</h4>
+<pre><code class="language-python">reader = PdfReader(&quot;input.pdf&quot;)
+writer = PdfWriter()
+
+page = reader.pages[0]
+page.rotate(90)  # Rotate 90 degrees clockwise
+writer.add_page(page)
+
+with open(&quot;rotated.pdf&quot;, &quot;wb&quot;) as output:
+    writer.write(output)
+</code></pre>
+<h3>pdfplumber - Text and Table Extraction</h3>
+<h4>Extract Text with Layout</h4>
+<pre><code class="language-python">import pdfplumber
+
+with pdfplumber.open(&quot;document.pdf&quot;) as pdf:
+    for page in pdf.pages:
+        text = page.extract_text()
+        print(text)
+</code></pre>
+<h4>Extract Tables</h4>
+<pre><code class="language-python">with pdfplumber.open(&quot;document.pdf&quot;) as pdf:
+    for i, page in enumerate(pdf.pages):
+        tables = page.extract_tables()
+        for j, table in enumerate(tables):
+            print(f&quot;Table {j+1} on page {i+1}:&quot;)
+            for row in table:
+                print(row)
+</code></pre>
+<h4>Advanced Table Extraction</h4>
+<pre><code class="language-python">import pandas as pd
+
+with pdfplumber.open(&quot;document.pdf&quot;) as pdf:
+    all_tables = []
+    for page in pdf.pages:
+        tables = page.extract_tables()
+        for table in tables:
+            if table:  # Check if table is not empty
+                df = pd.DataFrame(table[1:], columns=table[0])
+                all_tables.append(df)
+
+# Combine all tables
+if all_tables:
+    combined_df = pd.concat(all_tables, ignore_index=True)
+    combined_df.to_excel(&quot;extracted_tables.xlsx&quot;, index=False)
+</code></pre>
+<h3>reportlab - Create PDFs</h3>
+<h4>Basic PDF Creation</h4>
+<pre><code class="language-python">from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+
+c = canvas.Canvas(&quot;hello.pdf&quot;, pagesize=letter)
+width, height = letter
+
+# Add text
+c.drawString(100, height - 100, &quot;Hello World!&quot;)
+c.drawString(100, height - 120, &quot;This is a PDF created with reportlab&quot;)
+
+# Add a line
+c.line(100, height - 140, 400, height - 140)
+
+# Save
+c.save()
+</code></pre>
+<h4>Create PDF with Multiple Pages</h4>
+<pre><code class="language-python">from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
+from reportlab.lib.styles import getSampleStyleSheet
+
+doc = SimpleDocTemplate(&quot;report.pdf&quot;, pagesize=letter)
+styles = getSampleStyleSheet()
+story = []
+
+# Add content
+title = Paragraph(&quot;Report Title&quot;, styles['Title'])
+story.append(title)
+story.append(Spacer(1, 12))
+
+body = Paragraph(&quot;This is the body of the report. &quot; * 20, styles['Normal'])
+story.append(body)
+story.append(PageBreak())
+
+# Page 2
+story.append(Paragraph(&quot;Page 2&quot;, styles['Heading1']))
+story.append(Paragraph(&quot;Content for page 2&quot;, styles['Normal']))
+
+# Build PDF
+doc.build(story)
+</code></pre>
+<h4>Subscripts and Superscripts</h4>
+<p><strong>IMPORTANT</strong>: Never use Unicode subscript/superscript characters (₀₁₂₃₄₅₆₇₈₉, ⁰¹²³⁴⁵⁶⁷⁸⁹) in ReportLab PDFs. The built-in fonts do not include these glyphs, causing them to render as solid black boxes.</p>
+<p>Instead, use ReportLab's XML markup tags in Paragraph objects:</p>
+<pre><code class="language-python">from reportlab.platypus import Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
+
+styles = getSampleStyleSheet()
+
+# Subscripts: use &lt;sub&gt; tag
+chemical = Paragraph(&quot;H&lt;sub&gt;2&lt;/sub&gt;O&quot;, styles['Normal'])
+
+# Superscripts: use &lt;super&gt; tag
+squared = Paragraph(&quot;x&lt;super&gt;2&lt;/super&gt; + y&lt;super&gt;2&lt;/super&gt;&quot;, styles['Normal'])
+</code></pre>
+<p>For canvas-drawn text (not Paragraph objects), manually adjust font the size and position rather than using Unicode subscripts/superscripts.</p>
+<h2>Command-Line Tools</h2>
+<h3>pdftotext (poppler-utils)</h3>
+<pre><code class="language-bash"># Extract text
+pdftotext input.pdf output.txt
+
+# Extract text preserving layout
+pdftotext -layout input.pdf output.txt
+
+# Extract specific pages
+pdftotext -f 1 -l 5 input.pdf output.txt  # Pages 1-5
+</code></pre>
+<h3>qpdf</h3>
+<pre><code class="language-bash"># Merge PDFs
+qpdf --empty --pages file1.pdf file2.pdf -- merged.pdf
+
+# Split pages
+qpdf input.pdf --pages . 1-5 -- pages1-5.pdf
+qpdf input.pdf --pages . 6-10 -- pages6-10.pdf
+
+# Rotate pages
+qpdf input.pdf output.pdf --rotate=+90:1  # Rotate page 1 by 90 degrees
+
+# Remove password
+qpdf --password=mypassword --decrypt encrypted.pdf decrypted.pdf
+</code></pre>
+<h3>pdftk (if available)</h3>
+<pre><code class="language-bash"># Merge
+pdftk file1.pdf file2.pdf cat output merged.pdf
+
+# Split
+pdftk input.pdf burst
+
+# Rotate
+pdftk input.pdf rotate 1east output rotated.pdf
+</code></pre>
+<h2>Common Tasks</h2>
+<h3>Extract Text from Scanned PDFs</h3>
+<pre><code class="language-python"># Requires: pip install pytesseract pdf2image
+import pytesseract
+from pdf2image import convert_from_path
+
+# Convert PDF to images
+images = convert_from_path('scanned.pdf')
+
+# OCR each page
+text = &quot;&quot;
+for i, image in enumerate(images):
+    text += f&quot;Page {i+1}:\n&quot;
+    text += pytesseract.image_to_string(image)
+    text += &quot;\n\n&quot;
+
+print(text)
+</code></pre>
+<h3>Add Watermark</h3>
+<pre><code class="language-python">from pypdf import PdfReader, PdfWriter
+
+# Create watermark (or load existing)
+watermark = PdfReader(&quot;watermark.pdf&quot;).pages[0]
+
+# Apply to all pages
+reader = PdfReader(&quot;document.pdf&quot;)
+writer = PdfWriter()
+
+for page in reader.pages:
+    page.merge_page(watermark)
+    writer.add_page(page)
+
+with open(&quot;watermarked.pdf&quot;, &quot;wb&quot;) as output:
+    writer.write(output)
+</code></pre>
+<h3>Extract Images</h3>
+<pre><code class="language-bash"># Using pdfimages (poppler-utils)
+pdfimages -j input.pdf output_prefix
+
+# This extracts all images as output_prefix-000.jpg, output_prefix-001.jpg, etc.
+</code></pre>
+<h3>Password Protection</h3>
+<pre><code class="language-python">from pypdf import PdfReader, PdfWriter
+
+reader = PdfReader(&quot;input.pdf&quot;)
+writer = PdfWriter()
+
+for page in reader.pages:
+    writer.add_page(page)
+
+# Add password
+writer.encrypt(&quot;userpassword&quot;, &quot;ownerpassword&quot;)
+
+with open(&quot;encrypted.pdf&quot;, &quot;wb&quot;) as output:
+    writer.write(output)
+</code></pre>
+<h2>Quick Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Best Tool</th>
+<th>Command/Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Merge PDFs</td>
+<td>pypdf</td>
+<td><code>writer.add_page(page)</code></td>
+</tr>
+<tr>
+<td>Split PDFs</td>
+<td>pypdf</td>
+<td>One page per file</td>
+</tr>
+<tr>
+<td>Extract text</td>
+<td>pdfplumber</td>
+<td><code>page.extract_text()</code></td>
+</tr>
+<tr>
+<td>Extract tables</td>
+<td>pdfplumber</td>
+<td><code>page.extract_tables()</code></td>
+</tr>
+<tr>
+<td>Create PDFs</td>
+<td>reportlab</td>
+<td>Canvas or Platypus</td>
+</tr>
+<tr>
+<td>Command line merge</td>
+<td>qpdf</td>
+<td><code>qpdf --empty --pages ...</code></td>
+</tr>
+<tr>
+<td>OCR scanned PDFs</td>
+<td>pytesseract</td>
+<td>Convert to image first</td>
+</tr>
+<tr>
+<td>Fill PDF forms</td>
+<td>pdf-lib or pypdf (see FORMS.md)</td>
+<td>See FORMS.md</td>
+</tr>
+</tbody>
+</table>
+<h2>Next Steps</h2>
+<ul>
+<li>For advanced pypdfium2 usage, see REFERENCE.md</li>
+<li>For JavaScript libraries (pdf-lib), see REFERENCE.md</li>
+<li>If you need to fill out a PDF form, follow the instructions in FORMS.md</li>
+<li>For troubleshooting guides, see REFERENCE.md</li>
+</ul>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+      </main>
+
+      <aside class="sidebar">
+        <section class="card author-card">
+          <h3 class="card-title">关于</h3>
+          <p class="author-name">作者：江湖</p>
+          <p class="author-intro">记录每天值得分享的科技内容，每天发布。</p>
+          <p class="author-links">
+            本早报<a href="https://github.com/zaobao-tech/zaobao" target="_blank" rel="noopener">开源</a>，欢迎<a href="https://github.com/zaobao-tech/zaobao/issues" target="_blank" rel="noopener">投稿</a>。
+          </p>
+          <div class="author-icons">
+            <a href="https://v.douyin.com/HBkTUfyow40/" target="_blank" rel="noopener" class="author-icon" title="抖音：科技早报" aria-label="抖音">
+              <svg class="icon-douyin" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+            </a>
+            <a href="https://github.com/zaobao-tech" target="_blank" rel="noopener" class="author-icon" title="GitHub" aria-label="GitHub">
+              <svg class="icon-github" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.653 1.653.241 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="author-icon" title="RSS 订阅" aria-label="RSS 订阅">
+              <svg class="icon-rss" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9 M4 4a16 16 0 0 1 16 16 M6 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+            </a>
+            <a href="https://tongji.baidu.com/" target="_blank" rel="noopener" class="author-icon" title="百度统计" aria-label="百度统计">
+              <svg class="icon-baidu-tongji" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3v18h3v-6h2v6h3v-6h2v6h3V3H5zm2 2h2v4H7V5zm6 0h2v4h-2V5zM7 13h2v4H7v-4zm6 0h2v4h-2v-4z"/></svg>
+            </a>
+          </div>
+        </section>
+        <section class="card tags-card">
+          <h3 class="card-title">标签</h3>
+          <div class="tags-list" id="tags-list">
+            
+            <a href="/#/tag/Anthropic" class="tag" data-tag="Anthropic">Anthropic (4)</a>
+            
+            <a href="/#/tag/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86" class="tag" data-tag="基础知识">基础知识 (4)</a>
+            
+            <a href="/#/tag/OpenClaw" class="tag" data-tag="OpenClaw">OpenClaw (3)</a>
+            
+            <a href="/#/tag/Skill" class="tag" data-tag="Skill">Skill (3)</a>
+            
+            <a href="/#/tag/Antigravity" class="tag" data-tag="Antigravity">Antigravity (2)</a>
+            
+            <a href="/#/tag/%E6%96%87%E6%A1%A3" class="tag" data-tag="文档">文档 (2)</a>
+            
+            <a href="/#/tag/Claude" class="tag" data-tag="Claude">Claude (1)</a>
+            
+            <a href="/#/tag/IDE" class="tag" data-tag="IDE">IDE (1)</a>
+            
+            <a href="/#/tag/Agent" class="tag" data-tag="Agent">Agent (1)</a>
+            
+            <a href="/#/tag/%E5%BC%80%E6%BA%90" class="tag" data-tag="开源">开源 (1)</a>
+            
+            <a href="/#/tag/%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86" class="tag" data-tag="文件整理">文件整理 (1)</a>
+            
+            <a href="/#/tag/%E8%81%8C%E5%9C%BA" class="tag" data-tag="职场">职场 (1)</a>
+            
+            <a href="/#/tag/Google" class="tag" data-tag="Google">Google (1)</a>
+            
+            <a href="/#/tag/Gemini" class="tag" data-tag="Gemini">Gemini (1)</a>
+            
+            <a href="/#/tag/Qwen" class="tag" data-tag="Qwen">Qwen (1)</a>
+            
+            <a href="/#/tag/TTS" class="tag" data-tag="TTS">TTS (1)</a>
+            
+            <a href="/#/tag/Kitten" class="tag" data-tag="Kitten">Kitten (1)</a>
+            
+            <a href="/#/tag/Changelog" class="tag" data-tag="Changelog">Changelog (1)</a>
+            
+            <a href="/#/tag/DevOps" class="tag" data-tag="DevOps">DevOps (1)</a>
+            
+            <a href="/#/tag/Canvas" class="tag" data-tag="Canvas">Canvas (1)</a>
+            
+            <a href="/#/tag/%E8%AE%BE%E8%AE%A1" class="tag" data-tag="设计">设计 (1)</a>
+            
+            <a href="/#/tag/Claude%20Code" class="tag" data-tag="Claude Code">Claude Code (1)</a>
+            
+            <a href="/#/tag/%E5%AE%9E%E6%97%B6%E8%99%9A%E6%8B%9F%E4%BA%BA" class="tag" data-tag="实时虚拟人">实时虚拟人 (1)</a>
+            
+            <a href="/#/tag/Tavus" class="tag" data-tag="Tavus">Tavus (1)</a>
+            
+            <a href="/#/tag/PDF" class="tag" data-tag="PDF">PDF (1)</a>
+            
+            <a href="/#/tag/%E5%AE%89%E5%85%A8" class="tag" data-tag="安全">安全 (1)</a>
+            
+            <a href="/#/tag/%E8%84%91%E7%94%B5%E5%9B%BE" class="tag" data-tag="脑电图">脑电图 (1)</a>
+            
+            <a href="/#/tag/DeepMind" class="tag" data-tag="DeepMind">DeepMind (1)</a>
+            
+            <a href="/#/tag/OpenCode" class="tag" data-tag="OpenCode">OpenCode (1)</a>
+            
+            <a href="/#/tag/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83" class="tag" data-tag="编码规范">编码规范 (1)</a>
+            
+            <a href="/#/tag/Cursor" class="tag" data-tag="Cursor">Cursor (1)</a>
+            
+            <a href="/#/tag/Word" class="tag" data-tag="Word">Word (1)</a>
+            
+            <a href="/#/tag/Cowork" class="tag" data-tag="Cowork">Cowork (1)</a>
+            
+            <a href="/#/tag/%E8%92%B8%E9%A6%8F" class="tag" data-tag="蒸馏">蒸馏 (1)</a>
+            
+            <a href="/#/tag/DeepSeek" class="tag" data-tag="DeepSeek">DeepSeek (1)</a>
+            
+            <a href="/#/tag/Kimi" class="tag" data-tag="Kimi">Kimi (1)</a>
+            
+            <a href="/#/tag/MiniMax" class="tag" data-tag="MiniMax">MiniMax (1)</a>
+            
+            <a href="/#/tag/API" class="tag" data-tag="API">API (1)</a>
+            
+            <a href="/#/tag/REST" class="tag" data-tag="REST">REST (1)</a>
+            
+          </div>
+        </section>
+        <p class="sidebar-copyright">Copyright © 2011-2026</p>
+      </aside>
+    </div>
+  </div>
+  <div class="detail-image-lightbox hidden" id="detail-image-lightbox" aria-hidden="true" title="点击关闭">
+    <img src="" alt="" />
+  </div>
+  <script src="/js/site.js"></script>
+  <script>
+  (function() {
+    var el = document.getElementById("page-pv-value");
+    if (!el) return;
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      el.textContent = "—";
+      return;
+    }
+    var pathname = (window.location.pathname || "/").replace(/^\/|\/$/g, "").replace(/\//g, "_").replace(/-/g, "_") || "index";
+    var key = encodeURIComponent(pathname);
+    fetch("https://api.countapi.xyz/hit/zaobao_pv/" + key)
+      .then(function(r) { return r.json(); })
+      .then(function(d) { if (d && typeof d.value === "number") el.textContent = d.value; })
+      .catch(function() { el.textContent = "—"; });
+  })();
+  </script>
+  
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?7d6fe9720c59df101c54f84979f89420";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>

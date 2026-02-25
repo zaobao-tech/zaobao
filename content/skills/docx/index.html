@@ -1,0 +1,536 @@
+<h1>DOCX creation, editing, and analysis</h1>
+<h2>Overview</h2>
+<p>A .docx file is a ZIP archive containing XML files.</p>
+<h2>Quick Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read/analyze content</td>
+<td><code>pandoc</code> or unpack for raw XML</td>
+</tr>
+<tr>
+<td>Create new document</td>
+<td>Use <code>docx-js</code> - see Creating New Documents below</td>
+</tr>
+<tr>
+<td>Edit existing document</td>
+<td>Unpack → edit XML → repack - see Editing Existing Documents below</td>
+</tr>
+</tbody>
+</table>
+<h3>Converting .doc to .docx</h3>
+<p>Legacy <code>.doc</code> files must be converted before editing:</p>
+<pre><code class="language-bash">python scripts/office/soffice.py --headless --convert-to docx document.doc
+</code></pre>
+<h3>Reading Content</h3>
+<pre><code class="language-bash"># Text extraction with tracked changes
+pandoc --track-changes=all document.docx -o output.md
+
+# Raw XML access
+python scripts/office/unpack.py document.docx unpacked/
+</code></pre>
+<h3>Converting to Images</h3>
+<pre><code class="language-bash">python scripts/office/soffice.py --headless --convert-to pdf document.docx
+pdftoppm -jpeg -r 150 document.pdf page
+</code></pre>
+<h3>Accepting Tracked Changes</h3>
+<p>To produce a clean document with all tracked changes accepted (requires LibreOffice):</p>
+<pre><code class="language-bash">python scripts/accept_changes.py input.docx output.docx
+</code></pre>
+<hr>
+<h2>Creating New Documents</h2>
+<p>Generate .docx files with JavaScript, then validate. Install: <code>npm install -g docx</code></p>
+<h3>Setup</h3>
+<pre><code class="language-javascript">const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, ImageRun,
+        Header, Footer, AlignmentType, PageOrientation, LevelFormat, ExternalHyperlink,
+        InternalHyperlink, Bookmark, FootnoteReferenceRun, PositionalTab,
+        PositionalTabAlignment, PositionalTabRelativeTo, PositionalTabLeader,
+        TabStopType, TabStopPosition, Column, SectionType,
+        TableOfContents, HeadingLevel, BorderStyle, WidthType, ShadingType,
+        VerticalAlign, PageNumber, PageBreak } = require('docx');
+
+const doc = new Document({ sections: [{ children: [/* content */] }] });
+Packer.toBuffer(doc).then(buffer =&gt; fs.writeFileSync(&quot;doc.docx&quot;, buffer));
+</code></pre>
+<h3>Validation</h3>
+<p>After creating the file, validate it. If validation fails, unpack, fix the XML, and repack.</p>
+<pre><code class="language-bash">python scripts/office/validate.py doc.docx
+</code></pre>
+<h3>Page Size</h3>
+<pre><code class="language-javascript">// CRITICAL: docx-js defaults to A4, not US Letter
+// Always set page size explicitly for consistent results
+sections: [{
+  properties: {
+    page: {
+      size: {
+        width: 12240,   // 8.5 inches in DXA
+        height: 15840   // 11 inches in DXA
+      },
+      margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 } // 1 inch margins
+    }
+  },
+  children: [/* content */]
+}]
+</code></pre>
+<p><strong>Common page sizes (DXA units, 1440 DXA = 1 inch):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>Width</th>
+<th>Height</th>
+<th>Content Width (1&quot; margins)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US Letter</td>
+<td>12,240</td>
+<td>15,840</td>
+<td>9,360</td>
+</tr>
+<tr>
+<td>A4 (default)</td>
+<td>11,906</td>
+<td>16,838</td>
+<td>9,026</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Landscape orientation:</strong> docx-js swaps width/height internally, so pass portrait dimensions and let it handle the swap:</p>
+<pre><code class="language-javascript">size: {
+  width: 12240,   // Pass SHORT edge as width
+  height: 15840,  // Pass LONG edge as height
+  orientation: PageOrientation.LANDSCAPE  // docx-js swaps them in the XML
+},
+// Content width = 15840 - left margin - right margin (uses the long edge)
+</code></pre>
+<h3>Styles (Override Built-in Headings)</h3>
+<p>Use Arial as the default font (universally supported). Keep titles black for readability.</p>
+<pre><code class="language-javascript">const doc = new Document({
+  styles: {
+    default: { document: { run: { font: &quot;Arial&quot;, size: 24 } } }, // 12pt default
+    paragraphStyles: [
+      // IMPORTANT: Use exact IDs to override built-in styles
+      { id: &quot;Heading1&quot;, name: &quot;Heading 1&quot;, basedOn: &quot;Normal&quot;, next: &quot;Normal&quot;, quickFormat: true,
+        run: { size: 32, bold: true, font: &quot;Arial&quot; },
+        paragraph: { spacing: { before: 240, after: 240 }, outlineLevel: 0 } }, // outlineLevel required for TOC
+      { id: &quot;Heading2&quot;, name: &quot;Heading 2&quot;, basedOn: &quot;Normal&quot;, next: &quot;Normal&quot;, quickFormat: true,
+        run: { size: 28, bold: true, font: &quot;Arial&quot; },
+        paragraph: { spacing: { before: 180, after: 180 }, outlineLevel: 1 } },
+    ]
+  },
+  sections: [{
+    children: [
+      new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun(&quot;Title&quot;)] }),
+    ]
+  }]
+});
+</code></pre>
+<h3>Lists (NEVER use unicode bullets)</h3>
+<pre><code class="language-javascript">// ❌ WRONG - never manually insert bullet characters
+new Paragraph({ children: [new TextRun(&quot;• Item&quot;)] })  // BAD
+new Paragraph({ children: [new TextRun(&quot;\u2022 Item&quot;)] })  // BAD
+
+// ✅ CORRECT - use numbering config with LevelFormat.BULLET
+const doc = new Document({
+  numbering: {
+    config: [
+      { reference: &quot;bullets&quot;,
+        levels: [{ level: 0, format: LevelFormat.BULLET, text: &quot;•&quot;, alignment: AlignmentType.LEFT,
+          style: { paragraph: { indent: { left: 720, hanging: 360 } } } }] },
+      { reference: &quot;numbers&quot;,
+        levels: [{ level: 0, format: LevelFormat.DECIMAL, text: &quot;%1.&quot;, alignment: AlignmentType.LEFT,
+          style: { paragraph: { indent: { left: 720, hanging: 360 } } } }] },
+    ]
+  },
+  sections: [{
+    children: [
+      new Paragraph({ numbering: { reference: &quot;bullets&quot;, level: 0 },
+        children: [new TextRun(&quot;Bullet item&quot;)] }),
+      new Paragraph({ numbering: { reference: &quot;numbers&quot;, level: 0 },
+        children: [new TextRun(&quot;Numbered item&quot;)] }),
+    ]
+  }]
+});
+
+// ⚠️ Each reference creates INDEPENDENT numbering
+// Same reference = continues (1,2,3 then 4,5,6)
+// Different reference = restarts (1,2,3 then 1,2,3)
+</code></pre>
+<h3>Tables</h3>
+<p><strong>CRITICAL: Tables need dual widths</strong> - set both <code>columnWidths</code> on the table AND <code>width</code> on each cell. Without both, tables render incorrectly on some platforms.</p>
+<pre><code class="language-javascript">// CRITICAL: Always set table width for consistent rendering
+// CRITICAL: Use ShadingType.CLEAR (not SOLID) to prevent black backgrounds
+const border = { style: BorderStyle.SINGLE, size: 1, color: &quot;CCCCCC&quot; };
+const borders = { top: border, bottom: border, left: border, right: border };
+
+new Table({
+  width: { size: 9360, type: WidthType.DXA }, // Always use DXA (percentages break in Google Docs)
+  columnWidths: [4680, 4680], // Must sum to table width (DXA: 1440 = 1 inch)
+  rows: [
+    new TableRow({
+      children: [
+        new TableCell({
+          borders,
+          width: { size: 4680, type: WidthType.DXA }, // Also set on each cell
+          shading: { fill: &quot;D5E8F0&quot;, type: ShadingType.CLEAR }, // CLEAR not SOLID
+          margins: { top: 80, bottom: 80, left: 120, right: 120 }, // Cell padding (internal, not added to width)
+          children: [new Paragraph({ children: [new TextRun(&quot;Cell&quot;)] })]
+        })
+      ]
+    })
+  ]
+})
+</code></pre>
+<p><strong>Table width calculation:</strong></p>
+<p>Always use <code>WidthType.DXA</code> — <code>WidthType.PERCENTAGE</code> breaks in Google Docs.</p>
+<pre><code class="language-javascript">// Table width = sum of columnWidths = content width
+// US Letter with 1&quot; margins: 12240 - 2880 = 9360 DXA
+width: { size: 9360, type: WidthType.DXA },
+columnWidths: [7000, 2360]  // Must sum to table width
+</code></pre>
+<p><strong>Width rules:</strong></p>
+<ul>
+<li><strong>Always use <code>WidthType.DXA</code></strong> — never <code>WidthType.PERCENTAGE</code> (incompatible with Google Docs)</li>
+<li>Table width must equal the sum of <code>columnWidths</code></li>
+<li>Cell <code>width</code> must match corresponding <code>columnWidth</code></li>
+<li>Cell <code>margins</code> are internal padding - they reduce content area, not add to cell width</li>
+<li>For full-width tables: use content width (page width minus left and right margins)</li>
+</ul>
+<h3>Images</h3>
+<pre><code class="language-javascript">// CRITICAL: type parameter is REQUIRED
+new Paragraph({
+  children: [new ImageRun({
+    type: &quot;png&quot;, // Required: png, jpg, jpeg, gif, bmp, svg
+    data: fs.readFileSync(&quot;image.png&quot;),
+    transformation: { width: 200, height: 150 },
+    altText: { title: &quot;Title&quot;, description: &quot;Desc&quot;, name: &quot;Name&quot; } // All three required
+  })]
+})
+</code></pre>
+<h3>Page Breaks</h3>
+<pre><code class="language-javascript">// CRITICAL: PageBreak must be inside a Paragraph
+new Paragraph({ children: [new PageBreak()] })
+
+// Or use pageBreakBefore
+new Paragraph({ pageBreakBefore: true, children: [new TextRun(&quot;New page&quot;)] })
+</code></pre>
+<h3>Hyperlinks</h3>
+<pre><code class="language-javascript">// External link
+new Paragraph({
+  children: [new ExternalHyperlink({
+    children: [new TextRun({ text: &quot;Click here&quot;, style: &quot;Hyperlink&quot; })],
+    link: &quot;https://example.com&quot;,
+  })]
+})
+
+// Internal link (bookmark + reference)
+// 1. Create bookmark at destination
+new Paragraph({ heading: HeadingLevel.HEADING_1, children: [
+  new Bookmark({ id: &quot;chapter1&quot;, children: [new TextRun(&quot;Chapter 1&quot;)] }),
+]})
+// 2. Link to it
+new Paragraph({ children: [new InternalHyperlink({
+  children: [new TextRun({ text: &quot;See Chapter 1&quot;, style: &quot;Hyperlink&quot; })],
+  anchor: &quot;chapter1&quot;,
+})]})
+</code></pre>
+<h3>Footnotes</h3>
+<pre><code class="language-javascript">const doc = new Document({
+  footnotes: {
+    1: { children: [new Paragraph(&quot;Source: Annual Report 2024&quot;)] },
+    2: { children: [new Paragraph(&quot;See appendix for methodology&quot;)] },
+  },
+  sections: [{
+    children: [new Paragraph({
+      children: [
+        new TextRun(&quot;Revenue grew 15%&quot;),
+        new FootnoteReferenceRun(1),
+        new TextRun(&quot; using adjusted metrics&quot;),
+        new FootnoteReferenceRun(2),
+      ],
+    })]
+  }]
+});
+</code></pre>
+<h3>Tab Stops</h3>
+<pre><code class="language-javascript">// Right-align text on same line (e.g., date opposite a title)
+new Paragraph({
+  children: [
+    new TextRun(&quot;Company Name&quot;),
+    new TextRun(&quot;\tJanuary 2025&quot;),
+  ],
+  tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }],
+})
+
+// Dot leader (e.g., TOC-style)
+new Paragraph({
+  children: [
+    new TextRun(&quot;Introduction&quot;),
+    new TextRun({ children: [
+      new PositionalTab({
+        alignment: PositionalTabAlignment.RIGHT,
+        relativeTo: PositionalTabRelativeTo.MARGIN,
+        leader: PositionalTabLeader.DOT,
+      }),
+      &quot;3&quot;,
+    ]}),
+  ],
+})
+</code></pre>
+<h3>Multi-Column Layouts</h3>
+<pre><code class="language-javascript">// Equal-width columns
+sections: [{
+  properties: {
+    column: {
+      count: 2,          // number of columns
+      space: 720,        // gap between columns in DXA (720 = 0.5 inch)
+      equalWidth: true,
+      separate: true,    // vertical line between columns
+    },
+  },
+  children: [/* content flows naturally across columns */]
+}]
+
+// Custom-width columns (equalWidth must be false)
+sections: [{
+  properties: {
+    column: {
+      equalWidth: false,
+      children: [
+        new Column({ width: 5400, space: 720 }),
+        new Column({ width: 3240 }),
+      ],
+    },
+  },
+  children: [/* content */]
+}]
+</code></pre>
+<p>Force a column break with a new section using <code>type: SectionType.NEXT_COLUMN</code>.</p>
+<h3>Table of Contents</h3>
+<pre><code class="language-javascript">// CRITICAL: Headings must use HeadingLevel ONLY - no custom styles
+new TableOfContents(&quot;Table of Contents&quot;, { hyperlink: true, headingStyleRange: &quot;1-3&quot; })
+</code></pre>
+<h3>Headers/Footers</h3>
+<pre><code class="language-javascript">sections: [{
+  properties: {
+    page: { margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 } } // 1440 = 1 inch
+  },
+  headers: {
+    default: new Header({ children: [new Paragraph({ children: [new TextRun(&quot;Header&quot;)] })] })
+  },
+  footers: {
+    default: new Footer({ children: [new Paragraph({
+      children: [new TextRun(&quot;Page &quot;), new TextRun({ children: [PageNumber.CURRENT] })]
+    })] })
+  },
+  children: [/* content */]
+}]
+</code></pre>
+<h3>Critical Rules for docx-js</h3>
+<ul>
+<li><strong>Set page size explicitly</strong> - docx-js defaults to A4; use US Letter (12240 x 15840 DXA) for US documents</li>
+<li><strong>Landscape: pass portrait dimensions</strong> - docx-js swaps width/height internally; pass short edge as <code>width</code>, long edge as <code>height</code>, and set <code>orientation: PageOrientation.LANDSCAPE</code></li>
+<li><strong>Never use <code>\n</code></strong> - use separate Paragraph elements</li>
+<li><strong>Never use unicode bullets</strong> - use <code>LevelFormat.BULLET</code> with numbering config</li>
+<li><strong>PageBreak must be in Paragraph</strong> - standalone creates invalid XML</li>
+<li><strong>ImageRun requires <code>type</code></strong> - always specify png/jpg/etc</li>
+<li><strong>Always set table <code>width</code> with DXA</strong> - never use <code>WidthType.PERCENTAGE</code> (breaks in Google Docs)</li>
+<li><strong>Tables need dual widths</strong> - <code>columnWidths</code> array AND cell <code>width</code>, both must match</li>
+<li><strong>Table width = sum of columnWidths</strong> - for DXA, ensure they add up exactly</li>
+<li><strong>Always add cell margins</strong> - use <code>margins: { top: 80, bottom: 80, left: 120, right: 120 }</code> for readable padding</li>
+<li><strong>Use <code>ShadingType.CLEAR</code></strong> - never SOLID for table shading</li>
+<li><strong>Never use tables as dividers/rules</strong> - cells have minimum height and render as empty boxes (including in headers/footers); use <code>border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: &quot;2E75B6&quot;, space: 1 } }</code> on a Paragraph instead. For two-column footers, use tab stops (see Tab Stops section), not tables</li>
+<li><strong>TOC requires HeadingLevel only</strong> - no custom styles on heading paragraphs</li>
+<li><strong>Override built-in styles</strong> - use exact IDs: &quot;Heading1&quot;, &quot;Heading2&quot;, etc.</li>
+<li><strong>Include <code>outlineLevel</code></strong> - required for TOC (0 for H1, 1 for H2, etc.)</li>
+</ul>
+<hr>
+<h2>Editing Existing Documents</h2>
+<p><strong>Follow all 3 steps in order.</strong></p>
+<h3>Step 1: Unpack</h3>
+<pre><code class="language-bash">python scripts/office/unpack.py document.docx unpacked/
+</code></pre>
+<p>Extracts XML, pretty-prints, merges adjacent runs, and converts smart quotes to XML entities (<code>&amp;#x201C;</code> etc.) so they survive editing. Use <code>--merge-runs false</code> to skip run merging.</p>
+<h3>Step 2: Edit XML</h3>
+<p>Edit files in <code>unpacked/word/</code>. See XML Reference below for patterns.</p>
+<p><strong>Use &quot;Claude&quot; as the author</strong> for tracked changes and comments, unless the user explicitly requests use of a different name.</p>
+<p><strong>Use the Edit tool directly for string replacement. Do not write Python scripts.</strong> Scripts introduce unnecessary complexity. The Edit tool shows exactly what is being replaced.</p>
+<p><strong>CRITICAL: Use smart quotes for new content.</strong> When adding text with apostrophes or quotes, use XML entities to produce smart quotes:</p>
+<pre><code class="language-xml">&lt;!-- Use these entities for professional typography --&gt;
+&lt;w:t&gt;Here&amp;#x2019;s a quote: &amp;#x201C;Hello&amp;#x201D;&lt;/w:t&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Entity</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;#x2018;</code></td>
+<td>‘ (left single)</td>
+</tr>
+<tr>
+<td><code>&amp;#x2019;</code></td>
+<td>’ (right single / apostrophe)</td>
+</tr>
+<tr>
+<td><code>&amp;#x201C;</code></td>
+<td>“ (left double)</td>
+</tr>
+<tr>
+<td><code>&amp;#x201D;</code></td>
+<td>” (right double)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Adding comments:</strong> Use <code>comment.py</code> to handle boilerplate across multiple XML files (text must be pre-escaped XML):</p>
+<pre><code class="language-bash">python scripts/comment.py unpacked/ 0 &quot;Comment text with &amp;amp; and &amp;#x2019;&quot;
+python scripts/comment.py unpacked/ 1 &quot;Reply text&quot; --parent 0  # reply to comment 0
+python scripts/comment.py unpacked/ 0 &quot;Text&quot; --author &quot;Custom Author&quot;  # custom author name
+</code></pre>
+<p>Then add markers to document.xml (see Comments in XML Reference).</p>
+<h3>Step 3: Pack</h3>
+<pre><code class="language-bash">python scripts/office/pack.py unpacked/ output.docx --original document.docx
+</code></pre>
+<p>Validates with auto-repair, condenses XML, and creates DOCX. Use <code>--validate false</code> to skip.</p>
+<p><strong>Auto-repair will fix:</strong></p>
+<ul>
+<li><code>durableId</code> &gt;= 0x7FFFFFFF (regenerates valid ID)</li>
+<li>Missing <code>xml:space=&quot;preserve&quot;</code> on <code>&lt;w:t&gt;</code> with whitespace</li>
+</ul>
+<p><strong>Auto-repair won't fix:</strong></p>
+<ul>
+<li>Malformed XML, invalid element nesting, missing relationships, schema violations</li>
+</ul>
+<h3>Common Pitfalls</h3>
+<ul>
+<li><strong>Replace entire <code>&lt;w:r&gt;</code> elements</strong>: When adding tracked changes, replace the whole <code>&lt;w:r&gt;...&lt;/w:r&gt;</code> block with <code>&lt;w:del&gt;...&lt;w:ins&gt;...</code> as siblings. Don't inject tracked change tags inside a run.</li>
+<li><strong>Preserve <code>&lt;w:rPr&gt;</code> formatting</strong>: Copy the original run's <code>&lt;w:rPr&gt;</code> block into your tracked change runs to maintain bold, font size, etc.</li>
+</ul>
+<hr>
+<h2>XML Reference</h2>
+<h3>Schema Compliance</h3>
+<ul>
+<li><strong>Element order in <code>&lt;w:pPr&gt;</code></strong>: <code>&lt;w:pStyle&gt;</code>, <code>&lt;w:numPr&gt;</code>, <code>&lt;w:spacing&gt;</code>, <code>&lt;w:ind&gt;</code>, <code>&lt;w:jc&gt;</code>, <code>&lt;w:rPr&gt;</code> last</li>
+<li><strong>Whitespace</strong>: Add <code>xml:space=&quot;preserve&quot;</code> to <code>&lt;w:t&gt;</code> with leading/trailing spaces</li>
+<li><strong>RSIDs</strong>: Must be 8-digit hex (e.g., <code>00AB1234</code>)</li>
+</ul>
+<h3>Tracked Changes</h3>
+<p><strong>Insertion:</strong></p>
+<pre><code class="language-xml">&lt;w:ins w:id=&quot;1&quot; w:author=&quot;Claude&quot; w:date=&quot;2025-01-01T00:00:00Z&quot;&gt;
+  &lt;w:r&gt;&lt;w:t&gt;inserted text&lt;/w:t&gt;&lt;/w:r&gt;
+&lt;/w:ins&gt;
+</code></pre>
+<p><strong>Deletion:</strong></p>
+<pre><code class="language-xml">&lt;w:del w:id=&quot;2&quot; w:author=&quot;Claude&quot; w:date=&quot;2025-01-01T00:00:00Z&quot;&gt;
+  &lt;w:r&gt;&lt;w:delText&gt;deleted text&lt;/w:delText&gt;&lt;/w:r&gt;
+&lt;/w:del&gt;
+</code></pre>
+<p><strong>Inside <code>&lt;w:del&gt;</code></strong>: Use <code>&lt;w:delText&gt;</code> instead of <code>&lt;w:t&gt;</code>, and <code>&lt;w:delInstrText&gt;</code> instead of <code>&lt;w:instrText&gt;</code>.</p>
+<p><strong>Minimal edits</strong> - only mark what changes:</p>
+<pre><code class="language-xml">&lt;!-- Change &quot;30 days&quot; to &quot;60 days&quot; --&gt;
+&lt;w:r&gt;&lt;w:t&gt;The term is &lt;/w:t&gt;&lt;/w:r&gt;
+&lt;w:del w:id=&quot;1&quot; w:author=&quot;Claude&quot; w:date=&quot;...&quot;&gt;
+  &lt;w:r&gt;&lt;w:delText&gt;30&lt;/w:delText&gt;&lt;/w:r&gt;
+&lt;/w:del&gt;
+&lt;w:ins w:id=&quot;2&quot; w:author=&quot;Claude&quot; w:date=&quot;...&quot;&gt;
+  &lt;w:r&gt;&lt;w:t&gt;60&lt;/w:t&gt;&lt;/w:r&gt;
+&lt;/w:ins&gt;
+&lt;w:r&gt;&lt;w:t&gt; days.&lt;/w:t&gt;&lt;/w:r&gt;
+</code></pre>
+<p><strong>Deleting entire paragraphs/list items</strong> - when removing ALL content from a paragraph, also mark the paragraph mark as deleted so it merges with the next paragraph. Add <code>&lt;w:del/&gt;</code> inside <code>&lt;w:pPr&gt;&lt;w:rPr&gt;</code>:</p>
+<pre><code class="language-xml">&lt;w:p&gt;
+  &lt;w:pPr&gt;
+    &lt;w:numPr&gt;...&lt;/w:numPr&gt;  &lt;!-- list numbering if present --&gt;
+    &lt;w:rPr&gt;
+      &lt;w:del w:id=&quot;1&quot; w:author=&quot;Claude&quot; w:date=&quot;2025-01-01T00:00:00Z&quot;/&gt;
+    &lt;/w:rPr&gt;
+  &lt;/w:pPr&gt;
+  &lt;w:del w:id=&quot;2&quot; w:author=&quot;Claude&quot; w:date=&quot;2025-01-01T00:00:00Z&quot;&gt;
+    &lt;w:r&gt;&lt;w:delText&gt;Entire paragraph content being deleted...&lt;/w:delText&gt;&lt;/w:r&gt;
+  &lt;/w:del&gt;
+&lt;/w:p&gt;
+</code></pre>
+<p>Without the <code>&lt;w:del/&gt;</code> in <code>&lt;w:pPr&gt;&lt;w:rPr&gt;</code>, accepting changes leaves an empty paragraph/list item.</p>
+<p><strong>Rejecting another author's insertion</strong> - nest deletion inside their insertion:</p>
+<pre><code class="language-xml">&lt;w:ins w:author=&quot;Jane&quot; w:id=&quot;5&quot;&gt;
+  &lt;w:del w:author=&quot;Claude&quot; w:id=&quot;10&quot;&gt;
+    &lt;w:r&gt;&lt;w:delText&gt;their inserted text&lt;/w:delText&gt;&lt;/w:r&gt;
+  &lt;/w:del&gt;
+&lt;/w:ins&gt;
+</code></pre>
+<p><strong>Restoring another author's deletion</strong> - add insertion after (don't modify their deletion):</p>
+<pre><code class="language-xml">&lt;w:del w:author=&quot;Jane&quot; w:id=&quot;5&quot;&gt;
+  &lt;w:r&gt;&lt;w:delText&gt;deleted text&lt;/w:delText&gt;&lt;/w:r&gt;
+&lt;/w:del&gt;
+&lt;w:ins w:author=&quot;Claude&quot; w:id=&quot;10&quot;&gt;
+  &lt;w:r&gt;&lt;w:t&gt;deleted text&lt;/w:t&gt;&lt;/w:r&gt;
+&lt;/w:ins&gt;
+</code></pre>
+<h3>Comments</h3>
+<p>After running <code>comment.py</code> (see Step 2), add markers to document.xml. For replies, use <code>--parent</code> flag and nest markers inside the parent's.</p>
+<p><strong>CRITICAL: <code>&lt;w:commentRangeStart&gt;</code> and <code>&lt;w:commentRangeEnd&gt;</code> are siblings of <code>&lt;w:r&gt;</code>, never inside <code>&lt;w:r&gt;</code>.</strong></p>
+<pre><code class="language-xml">&lt;!-- Comment markers are direct children of w:p, never inside w:r --&gt;
+&lt;w:commentRangeStart w:id=&quot;0&quot;/&gt;
+&lt;w:del w:id=&quot;1&quot; w:author=&quot;Claude&quot; w:date=&quot;2025-01-01T00:00:00Z&quot;&gt;
+  &lt;w:r&gt;&lt;w:delText&gt;deleted&lt;/w:delText&gt;&lt;/w:r&gt;
+&lt;/w:del&gt;
+&lt;w:r&gt;&lt;w:t&gt; more text&lt;/w:t&gt;&lt;/w:r&gt;
+&lt;w:commentRangeEnd w:id=&quot;0&quot;/&gt;
+&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:rStyle w:val=&quot;CommentReference&quot;/&gt;&lt;/w:rPr&gt;&lt;w:commentReference w:id=&quot;0&quot;/&gt;&lt;/w:r&gt;
+
+&lt;!-- Comment 0 with reply 1 nested inside --&gt;
+&lt;w:commentRangeStart w:id=&quot;0&quot;/&gt;
+  &lt;w:commentRangeStart w:id=&quot;1&quot;/&gt;
+  &lt;w:r&gt;&lt;w:t&gt;text&lt;/w:t&gt;&lt;/w:r&gt;
+  &lt;w:commentRangeEnd w:id=&quot;1&quot;/&gt;
+&lt;w:commentRangeEnd w:id=&quot;0&quot;/&gt;
+&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:rStyle w:val=&quot;CommentReference&quot;/&gt;&lt;/w:rPr&gt;&lt;w:commentReference w:id=&quot;0&quot;/&gt;&lt;/w:r&gt;
+&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:rStyle w:val=&quot;CommentReference&quot;/&gt;&lt;/w:rPr&gt;&lt;w:commentReference w:id=&quot;1&quot;/&gt;&lt;/w:r&gt;
+</code></pre>
+<h3>Images</h3>
+<ol>
+<li>Add image file to <code>word/media/</code></li>
+<li>Add relationship to <code>word/_rels/document.xml.rels</code>:</li>
+</ol>
+<pre><code class="language-xml">&lt;Relationship Id=&quot;rId5&quot; Type=&quot;.../image&quot; Target=&quot;media/image1.png&quot;/&gt;
+</code></pre>
+<ol start="3">
+<li>Add content type to <code>[Content_Types].xml</code>:</li>
+</ol>
+<pre><code class="language-xml">&lt;Default Extension=&quot;png&quot; ContentType=&quot;image/png&quot;/&gt;
+</code></pre>
+<ol start="4">
+<li>Reference in document.xml:</li>
+</ol>
+<pre><code class="language-xml">&lt;w:drawing&gt;
+  &lt;wp:inline&gt;
+    &lt;wp:extent cx=&quot;914400&quot; cy=&quot;914400&quot;/&gt;  &lt;!-- EMUs: 914400 = 1 inch --&gt;
+    &lt;a:graphic&gt;
+      &lt;a:graphicData uri=&quot;.../picture&quot;&gt;
+        &lt;pic:pic&gt;
+          &lt;pic:blipFill&gt;&lt;a:blip r:embed=&quot;rId5&quot;/&gt;&lt;/pic:blipFill&gt;
+        &lt;/pic:pic&gt;
+      &lt;/a:graphicData&gt;
+    &lt;/a:graphic&gt;
+  &lt;/wp:inline&gt;
+&lt;/w:drawing&gt;
+</code></pre>
+<hr>
+<h2>Dependencies</h2>
+<ul>
+<li><strong>pandoc</strong>: Text extraction</li>
+<li><strong>docx</strong>: <code>npm install -g docx</code> (new documents)</li>
+<li><strong>LibreOffice</strong>: PDF conversion (auto-configured for sandboxed environments via <code>scripts/office/soffice.py</code>)</li>
+<li><strong>Poppler</strong>: <code>pdftoppm</code> for images</li>
+</ul>

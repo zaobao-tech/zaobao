@@ -33,6 +33,14 @@
     </item>
 
     <item>
+      <title>api-design</title>
+      <link>https://www.zaobao.tech/day/2026-02-25/4/</link>
+      <description>REST API 设计规范 Skill。REST API 资源命名、状态码、分页、过滤、错误响应、版本与限流等生产级 API 设计模式与实现示例（TS/Python/Go）。</description>
+      <pubDate>Wed, 25 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-25/4/</guid>
+    </item>
+
+    <item>
       <title>微软紧急警告：AI 助手 OpenClaw 不适合在企业工作站运行</title>
       <link>https://www.zaobao.tech/day/2026-02-24/1/</link>
       <description>微软建议 OpenClaw 仅部署于完全隔离环境，高权限与持久状态带来提示注入、技能恶意软件等风险，全球数万实例暴露 RCE。</description>
@@ -57,11 +65,27 @@
     </item>
 
     <item>
-      <title>谷歌对反代 Anitgravity 的账号采取封禁措施</title>
+      <title>谷歌对反代 Antigravity 的账号采取封禁措施</title>
       <link>https://www.zaobao.tech/day/2026-02-24/4/</link>
-      <description>将 Anitgravity 模型通过反代接入 OpenCode/OpenClaw 等会触发会员失效，官方将开放申诉。</description>
+      <description>将 Antigravity 模型通过反代接入 OpenCode/OpenClaw 等会触发会员失效，官方将开放申诉。</description>
       <pubDate>Tue, 24 Feb 2026 12:00:00 GMT</pubDate>
       <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-24/4/</guid>
+    </item>
+
+    <item>
+      <title>coding-standards</title>
+      <link>https://www.zaobao.tech/day/2026-02-24/5/</link>
+      <description>affaan-m/everything-claude-code 中的 coding-standards Skill，提供可读性、KISS/DRY/YAGNI、命名、不可变、错误处理与 React 等最佳实践。</description>
+      <pubDate>Tue, 24 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-24/5/</guid>
+    </item>
+
+    <item>
+      <title>docx</title>
+      <link>https://www.zaobao.tech/day/2026-02-24/6/</link>
+      <description>用追踪修改、批注和格式化功能，轻松创建、编辑和分析 Word 文档。</description>
+      <pubDate>Tue, 24 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-24/6/</guid>
     </item>
 
     <item>
@@ -89,6 +113,22 @@
     </item>
 
     <item>
+      <title>pdf</title>
+      <link>https://www.zaobao.tech/day/2026-02-23/4/</link>
+      <description>提取文本、表格、元数据，合并与标注 PDF 文件。</description>
+      <pubDate>Mon, 23 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-23/4/</guid>
+    </item>
+
+    <item>
+      <title>Canvas Design</title>
+      <link>https://www.zaobao.tech/day/2026-02-22/1/</link>
+      <description>通过设计哲学和美学原则，为海报、设计和静态作品创作精美的 PNG 和 PDF 视觉艺术。</description>
+      <pubDate>Sun, 22 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-22/1/</guid>
+    </item>
+
+    <item>
       <title>谷歌发布 Gemini 3.1 Pro</title>
       <link>https://www.zaobao.tech/day/2026-02-20/1/</link>
       <description>推理与代码能力增强，前端表现领先同类；对隐喻与复杂语义的理解明显提升，已登陆 Gemini APP 与 AI Studio。</description>
@@ -110,6 +150,38 @@
       <description>参数量仅约 15M，体积极小，目前仅支持英文，适合资源受限场景。</description>
       <pubDate>Fri, 20 Feb 2026 12:00:00 GMT</pubDate>
       <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-20/3/</guid>
+    </item>
+
+    <item>
+      <title>Changelog Generator</title>
+      <link>https://www.zaobao.tech/day/2026-02-20/4/</link>
+      <description>通过分析 Git 提交历史，自动将技术性提交转换为用户友好的发布说明，生成面向用户的变更日志。</description>
+      <pubDate>Fri, 20 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-20/4/</guid>
+    </item>
+
+    <item>
+      <title>File Organizer</title>
+      <link>https://www.zaobao.tech/day/2026-02-19/1/</link>
+      <description>通过理解上下文智能整理文件和文件夹，自动识别重复文件，并推荐更合理的组织结构。</description>
+      <pubDate>Thu, 19 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-19/1/</guid>
+    </item>
+
+    <item>
+      <title>OpenClaw</title>
+      <link>https://www.zaobao.tech/day/2026-02-01/1/</link>
+      <description>2026 年爆火的开源 AI 代理运行时，将 Claude/GPT/DeepSeek 变成 24 小时在线的「数字管家」，支持本地部署、心跳机制与聊天即 UI。</description>
+      <pubDate>Sun, 01 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-01/1/</guid>
+    </item>
+
+    <item>
+      <title>Antigravity</title>
+      <link>https://www.zaobao.tech/day/2025-12-31/1/</link>
+      <description>谷歌 2025 年底发布的智能体优先 IDE，具备自主规划、工具使用与多智能体并行能力，从「AI 辅助编程」迈向「AI 自主开发」。</description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2025-12-31/1/</guid>
     </item>
 
     <item>

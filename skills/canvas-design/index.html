@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ (zaobao.skillTitleBySlug[skill.slug] or skill.slug) }} - 科技早报</title>
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="科技早报 RSS" href="https://www.zaobao.tech/rss.xml" />
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a href="/" class="logo-wrap">
+        <img src="/images/logo.jpg" alt="科技早报" class="logo" onerror="this.style.display='none'"/>
+        <span class="site-title">科技早报</span>
+      </a>
+      <nav class="header-nav" aria-label="主导航">
+        <a href="/#/zaobao" class="nav-link nav-link-zaobao ">早报</a>
+        <a href="/#/skills" class="nav-link nav-link-skills is-active">Skills</a>
+      </nav>
+      <div class="theme-toggle theme-switch" role="group" aria-label="主题切换">
+        <button type="button" class="theme-btn is-active" id="theme-light" title="浅色模式" aria-label="浅色模式">
+          <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button type="button" class="theme-btn" id="theme-dark" title="深色模式" aria-label="深色模式">
+          <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="main-wrap">
+      <main class="main">
+        
+<script>document.addEventListener("DOMContentLoaded", function() { window.location.replace("/#/skills/canvas-design"); });</script>
+
+
+
+<section class="skills-zaobao-layout" aria-hidden="true">
+  <aside class="skills-left">
+    <div class="skills-left-row">
+      <div class="skills-category-tabs" role="tablist" aria-label="分类">
+        
+        <a href="/categories/development/" class="skills-category-tab " role="tab">开发</a>
+        
+        <a href="/categories/office/" class="skills-category-tab " role="tab">办公</a>
+        
+        <a href="/categories/picture/" class="skills-category-tab is-active" role="tab">图片</a>
+        
+        <a href="/categories/workplace/" class="skills-category-tab " role="tab">职场</a>
+        
+      </div>
+      <div class="skills-children-wrap">
+        
+          
+        
+          
+        
+          
+        <ul class="skills-children-list">
+            
+          <li>
+            <a href="/categories/picture/canvas/" class="skills-child-link is-active">画布</a>
+          </li>
+            
+        </ul>
+          
+        
+          
+        
+      </div>
+    </div>
+  </aside>
+  <div class="skills-content">
+    <div class="skills-content-inner">
+      <div class="skill-list-wrap">
+        <ul class="skill-list-inner">
+          
+          <li>
+            <a href="/skills/canvas-design/" class="skill-list-link-inner is-active">Canvas Design</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="skill-detail-wrap">
+        <h1 class="skill-detail-title">Canvas Design</h1>
+
+        
+        
+        <div class="detail-tags">
+          
+          <a href="/#/tag/Canvas/" class="tag">Canvas</a>
+          
+          <a href="/#/tag/%E8%AE%BE%E8%AE%A1/" class="tag">设计</a>
+          
+        </div>
+        
+        <div class="detail-meta">
+          <span class="detail-date">2026-02-22 周日</span><span class="detail-meta-sep" aria-hidden="true">|</span><span class="detail-views">阅读 <span id="page-pv-value">0</span> 次</span>
+        </div>
+        
+        <p class="detail-summary">通过设计哲学和美学原则，为海报、设计和静态作品创作精美的 PNG 和 PDF 视觉艺术。</p>
+        
+        
+        
+        
+        <dl class="detail-meta-extra">
+          
+          
+          <dt>仓库：</dt>
+          <dd><a href="https://github.com/ComposioHQ/awesome-claude-skills/blob/master/canvas-design" target="_blank" rel="noopener noreferrer">https://github.com/ComposioHQ/awesome-claude-skills/blob/master/canvas-design</a></dd>
+          
+        </dl>
+        
+
+        
+        <div class="skill-detail-body detail-body">
+          <table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>canvas-design</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.</td>
+</tr>
+<tr>
+<td>license</td>
+<td>Complete terms in LICENSE.txt</td>
+</tr>
+</tbody>
+</table>
+<p>These are instructions for creating design philosophies - aesthetic movements that are then EXPRESSED VISUALLY. Output only .md files, .pdf files, and .png files.</p>
+<p>Complete this in two steps:</p>
+<ol>
+<li>Design Philosophy Creation (.md file)</li>
+<li>Express by creating it on a canvas (.pdf file or .png file)</li>
+</ol>
+<p>First, undertake this task:</p>
+<h2>DESIGN PHILOSOPHY CREATION</h2>
+<p>To begin, create a VISUAL PHILOSOPHY (not layouts or templates) that will be interpreted through:</p>
+<ul>
+<li>Form, space, color, composition</li>
+<li>Images, graphics, shapes, patterns</li>
+<li>Minimal text as visual accent</li>
+</ul>
+<h3>THE CRITICAL UNDERSTANDING</h3>
+<ul>
+<li>What is received: Some subtle input or instructions by the user that should be taken into account, but used as a foundation; it should not constrain creative freedom.</li>
+<li>What is created: A design philosophy/aesthetic movement.</li>
+<li>What happens next: Then, the same version receives the philosophy and EXPRESSES IT VISUALLY - creating artifacts that are 90% visual design, 10% essential text.</li>
+</ul>
+<p>Consider this approach:</p>
+<ul>
+<li>Write a manifesto for an art movement</li>
+<li>The next phase involves making the artwork</li>
+</ul>
+<p>The philosophy must emphasize: Visual expression. Spatial communication. Artistic interpretation. Minimal words.</p>
+<h3>HOW TO GENERATE A VISUAL PHILOSOPHY</h3>
+<p><strong>Name the movement</strong> (1-2 words): &quot;Brutalist Joy&quot; / &quot;Chromatic Silence&quot; / &quot;Metabolist Dreams&quot;</p>
+<p><strong>Articulate the philosophy</strong> (4-6 paragraphs - concise but complete):</p>
+<p>To capture the VISUAL essence, express how the philosophy manifests through:</p>
+<ul>
+<li>Space and form</li>
+<li>Color and material</li>
+<li>Scale and rhythm</li>
+<li>Composition and balance</li>
+<li>Visual hierarchy</li>
+</ul>
+<p><strong>CRITICAL GUIDELINES:</strong></p>
+<ul>
+<li><strong>Avoid redundancy</strong>: Each design aspect should be mentioned once. Avoid repeating points about color theory, spatial relationships, or typographic principles unless adding new depth.</li>
+<li><strong>Emphasize craftsmanship REPEATEDLY</strong>: The philosophy MUST stress multiple times that the final work should appear as though it took countless hours to create, was labored over with care, and comes from someone at the absolute top of their field. This framing is essential - repeat phrases like &quot;meticulously crafted,&quot; &quot;the product of deep expertise,&quot; &quot;painstaking attention,&quot; &quot;master-level execution.&quot;</li>
+<li><strong>Leave creative space</strong>: Remain specific about the aesthetic direction, but concise enough that the next Claude has room to make interpretive choices also at a extremely high level of craftmanship.</li>
+</ul>
+<p>The philosophy must guide the next version to express ideas VISUALLY, not through text. Information lives in design, not paragraphs.</p>
+<h3>PHILOSOPHY EXAMPLES</h3>
+<p><strong>&quot;Concrete Poetry&quot;</strong>
+Philosophy: Communication through monumental form and bold geometry.
+Visual expression: Massive color blocks, sculptural typography (huge single words, tiny labels), Brutalist spatial divisions, Polish poster energy meets Le Corbusier. Ideas expressed through visual weight and spatial tension, not explanation. Text as rare, powerful gesture - never paragraphs, only essential words integrated into the visual architecture. Every element placed with the precision of a master craftsman.</p>
+<p><strong>&quot;Chromatic Language&quot;</strong>
+Philosophy: Color as the primary information system.
+Visual expression: Geometric precision where color zones create meaning. Typography minimal - small sans-serif labels letting chromatic fields communicate. Think Josef Albers' interaction meets data visualization. Information encoded spatially and chromatically. Words only to anchor what color already shows. The result of painstaking chromatic calibration.</p>
+<p><strong>&quot;Analog Meditation&quot;</strong>
+Philosophy: Quiet visual contemplation through texture and breathing room.
+Visual expression: Paper grain, ink bleeds, vast negative space. Photography and illustration dominate. Typography whispered (small, restrained, serving the visual). Japanese photobook aesthetic. Images breathe across pages. Text appears sparingly - short phrases, never explanatory blocks. Each composition balanced with the care of a meditation practice.</p>
+<p><strong>&quot;Organic Systems&quot;</strong>
+Philosophy: Natural clustering and modular growth patterns.
+Visual expression: Rounded forms, organic arrangements, color from nature through architecture. Information shown through visual diagrams, spatial relationships, iconography. Text only for key labels floating in space. The composition tells the story through expert spatial orchestration.</p>
+<p><strong>&quot;Geometric Silence&quot;</strong>
+Philosophy: Pure order and restraint.
+Visual expression: Grid-based precision, bold photography or stark graphics, dramatic negative space. Typography precise but minimal - small essential text, large quiet zones. Swiss formalism meets Brutalist material honesty. Structure communicates, not words. Every alignment the work of countless refinements.</p>
+<p><em>These are condensed examples. The actual design philosophy should be 4-6 substantial paragraphs.</em></p>
+<h3>ESSENTIAL PRINCIPLES</h3>
+<ul>
+<li><strong>VISUAL PHILOSOPHY</strong>: Create an aesthetic worldview to be expressed through design</li>
+<li><strong>MINIMAL TEXT</strong>: Always emphasize that text is sparse, essential-only, integrated as visual element - never lengthy</li>
+<li><strong>SPATIAL EXPRESSION</strong>: Ideas communicate through space, form, color, composition - not paragraphs</li>
+<li><strong>ARTISTIC FREEDOM</strong>: The next Claude interprets the philosophy visually - provide creative room</li>
+<li><strong>PURE DESIGN</strong>: This is about making ART OBJECTS, not documents with decoration</li>
+<li><strong>EXPERT CRAFTSMANSHIP</strong>: Repeatedly emphasize the final work must look meticulously crafted, labored over with care, the product of countless hours by someone at the top of their field</li>
+</ul>
+<p><strong>The design philosophy should be 4-6 paragraphs long.</strong> Fill it with poetic design philosophy that brings together the core vision. Avoid repeating the same points. Keep the design philosophy generic without mentioning the intention of the art, as if it can be used wherever. Output the design philosophy as a .md file.</p>
+<hr>
+<h2>DEDUCING THE SUBTLE REFERENCE</h2>
+<p><strong>CRITICAL STEP</strong>: Before creating the canvas, identify the subtle conceptual thread from the original request.</p>
+<p><strong>THE ESSENTIAL PRINCIPLE</strong>:
+The topic is a <strong>subtle, niche reference embedded within the art itself</strong> - not always literal, always sophisticated. Someone familiar with the subject should feel it intuitively, while others simply experience a masterful abstract composition. The design philosophy provides the aesthetic language. The deduced topic provides the soul - the quiet conceptual DNA woven invisibly into form, color, and composition.</p>
+<p>This is <strong>VERY IMPORTANT</strong>: The reference must be refined so it enhances the work's depth without announcing itself. Think like a jazz musician quoting another song - only those who know will catch it, but everyone appreciates the music.</p>
+<hr>
+<h2>CANVAS CREATION</h2>
+<p>With both the philosophy and the conceptual framework established, express it on a canvas. Take a moment to gather thoughts and clear the mind. Use the design philosophy created and the instructions below to craft a masterpiece, embodying all aspects of the philosophy with expert craftsmanship.</p>
+<p><strong>IMPORTANT</strong>: For any type of content, even if the user requests something for a movie/game/book, the approach should still be sophisticated. Never lose sight of the idea that this should be art, not something that's cartoony or amateur.</p>
+<p>To create museum or magazine quality work, use the design philosophy as the foundation. Create one single page, highly visual, design-forward PDF or PNG output (unless asked for more pages). Generally use repeating patterns and perfect shapes. Treat the abstract philosophical design as if it were a scientific bible, borrowing the visual language of systematic observation—dense accumulation of marks, repeated elements, or layered patterns that build meaning through patient repetition and reward sustained viewing. Add sparse, clinical typography and systematic reference markers that suggest this could be a diagram from an imaginary discipline, treating the invisible subject with the same reverence typically reserved for documenting observable phenomena. Anchor the piece with simple phrase(s) or details positioned subtly, using a limited color palette that feels intentional and cohesive. Embrace the paradox of using analytical visual language to express ideas about human experience: the result should feel like an artifact that proves something ephemeral can be studied, mapped, and understood through careful attention. This is true art.</p>
+<p><strong>Text as a contextual element</strong>: Text is always minimal and visual-first, but let context guide whether that means whisper-quiet labels or bold typographic gestures. A punk venue poster might have larger, more aggressive type than a minimalist ceramics studio identity. Most of the time, font should be thin. All use of fonts must be design-forward and prioritize visual communication. Regardless of text scale, nothing falls off the page and nothing overlaps. Every element must be contained within the canvas boundaries with proper margins. Check carefully that all text, graphics, and visual elements have breathing room and clear separation. This is non-negotiable for professional execution. <strong>IMPORTANT: Use different fonts if writing text. Search the <code>./canvas-fonts</code> directory. Regardless of approach, sophistication is non-negotiable.</strong></p>
+<p>Download and use whatever fonts are needed to make this a reality. Get creative by making the typography actually part of the art itself -- if the art is abstract, bring the font onto the canvas, not typeset digitally.</p>
+<p>To push boundaries, follow design instinct/intuition while using the philosophy as a guiding principle. Embrace ultimate design freedom and choice. Push aesthetics and design to the frontier.</p>
+<p><strong>CRITICAL</strong>: To achieve human-crafted quality (not AI-generated), create work that looks like it took countless hours. Make it appear as though someone at the absolute top of their field labored over every detail with painstaking care. Ensure the composition, spacing, color choices, typography - everything screams expert-level craftsmanship. Double-check that nothing overlaps, formatting is flawless, every detail perfect. Create something that could be shown to people to prove expertise and rank as undeniably impressive.</p>
+<p>Output the final result as a single, downloadable .pdf or .png file, alongside the design philosophy used as a .md file.</p>
+<hr>
+<h2>FINAL STEP</h2>
+<p><strong>IMPORTANT</strong>: The user ALREADY said &quot;It isn't perfect enough. It must be pristine, a masterpiece if craftsmanship, as if it were about to be displayed in a museum.&quot;</p>
+<p><strong>CRITICAL</strong>: To refine the work, avoid adding more graphics; instead refine what has been created and make it extremely crisp, respecting the design philosophy and the principles of minimalism entirely. Rather than adding a fun filter or refactoring a font, consider how to make the existing composition more cohesive with the art. If the instinct is to call a new function or draw a new shape, STOP and instead ask: &quot;How can I make what's already here more of a piece of art?&quot;</p>
+<p>Take a second pass. Go back to the code and refine/polish further to make this a philosophically designed masterpiece.</p>
+<h2>MULTI-PAGE OPTION</h2>
+<p>To create additional pages when requested, create more creative pages along the same lines as the design philosophy but distinctly different as well. Bundle those pages in the same .pdf or many .pngs. Treat the first page as just a single page in a whole coffee table book waiting to be filled. Make the next pages unique twists and memories of the original. Have them almost tell a story in a very tasteful way. Exercise full creative freedom.</p>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+      </main>
+
+      <aside class="sidebar">
+        <section class="card author-card">
+          <h3 class="card-title">关于</h3>
+          <p class="author-name">作者：江湖</p>
+          <p class="author-intro">记录每天值得分享的科技内容，每天发布。</p>
+          <p class="author-links">
+            本早报<a href="https://github.com/zaobao-tech/zaobao" target="_blank" rel="noopener">开源</a>，欢迎<a href="https://github.com/zaobao-tech/zaobao/issues" target="_blank" rel="noopener">投稿</a>。
+          </p>
+          <div class="author-icons">
+            <a href="https://v.douyin.com/HBkTUfyow40/" target="_blank" rel="noopener" class="author-icon" title="抖音：科技早报" aria-label="抖音">
+              <svg class="icon-douyin" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+            </a>
+            <a href="https://github.com/zaobao-tech" target="_blank" rel="noopener" class="author-icon" title="GitHub" aria-label="GitHub">
+              <svg class="icon-github" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.653 1.653.241 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="author-icon" title="RSS 订阅" aria-label="RSS 订阅">
+              <svg class="icon-rss" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9 M4 4a16 16 0 0 1 16 16 M6 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+            </a>
+            <a href="https://tongji.baidu.com/" target="_blank" rel="noopener" class="author-icon" title="百度统计" aria-label="百度统计">
+              <svg class="icon-baidu-tongji" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3v18h3v-6h2v6h3v-6h2v6h3V3H5zm2 2h2v4H7V5zm6 0h2v4h-2V5zM7 13h2v4H7v-4zm6 0h2v4h-2v-4z"/></svg>
+            </a>
+          </div>
+        </section>
+        <section class="card tags-card">
+          <h3 class="card-title">标签</h3>
+          <div class="tags-list" id="tags-list">
+            
+            <a href="/#/tag/Anthropic" class="tag" data-tag="Anthropic">Anthropic (4)</a>
+            
+            <a href="/#/tag/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86" class="tag" data-tag="基础知识">基础知识 (4)</a>
+            
+            <a href="/#/tag/OpenClaw" class="tag" data-tag="OpenClaw">OpenClaw (3)</a>
+            
+            <a href="/#/tag/Skill" class="tag" data-tag="Skill">Skill (3)</a>
+            
+            <a href="/#/tag/Antigravity" class="tag" data-tag="Antigravity">Antigravity (2)</a>
+            
+            <a href="/#/tag/%E6%96%87%E6%A1%A3" class="tag" data-tag="文档">文档 (2)</a>
+            
+            <a href="/#/tag/Claude" class="tag" data-tag="Claude">Claude (1)</a>
+            
+            <a href="/#/tag/IDE" class="tag" data-tag="IDE">IDE (1)</a>
+            
+            <a href="/#/tag/Agent" class="tag" data-tag="Agent">Agent (1)</a>
+            
+            <a href="/#/tag/%E5%BC%80%E6%BA%90" class="tag" data-tag="开源">开源 (1)</a>
+            
+            <a href="/#/tag/%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86" class="tag" data-tag="文件整理">文件整理 (1)</a>
+            
+            <a href="/#/tag/%E8%81%8C%E5%9C%BA" class="tag" data-tag="职场">职场 (1)</a>
+            
+            <a href="/#/tag/Google" class="tag" data-tag="Google">Google (1)</a>
+            
+            <a href="/#/tag/Gemini" class="tag" data-tag="Gemini">Gemini (1)</a>
+            
+            <a href="/#/tag/Qwen" class="tag" data-tag="Qwen">Qwen (1)</a>
+            
+            <a href="/#/tag/TTS" class="tag" data-tag="TTS">TTS (1)</a>
+            
+            <a href="/#/tag/Kitten" class="tag" data-tag="Kitten">Kitten (1)</a>
+            
+            <a href="/#/tag/Changelog" class="tag" data-tag="Changelog">Changelog (1)</a>
+            
+            <a href="/#/tag/DevOps" class="tag" data-tag="DevOps">DevOps (1)</a>
+            
+            <a href="/#/tag/Canvas" class="tag" data-tag="Canvas">Canvas (1)</a>
+            
+            <a href="/#/tag/%E8%AE%BE%E8%AE%A1" class="tag" data-tag="设计">设计 (1)</a>
+            
+            <a href="/#/tag/Claude%20Code" class="tag" data-tag="Claude Code">Claude Code (1)</a>
+            
+            <a href="/#/tag/%E5%AE%9E%E6%97%B6%E8%99%9A%E6%8B%9F%E4%BA%BA" class="tag" data-tag="实时虚拟人">实时虚拟人 (1)</a>
+            
+            <a href="/#/tag/Tavus" class="tag" data-tag="Tavus">Tavus (1)</a>
+            
+            <a href="/#/tag/PDF" class="tag" data-tag="PDF">PDF (1)</a>
+            
+            <a href="/#/tag/%E5%AE%89%E5%85%A8" class="tag" data-tag="安全">安全 (1)</a>
+            
+            <a href="/#/tag/%E8%84%91%E7%94%B5%E5%9B%BE" class="tag" data-tag="脑电图">脑电图 (1)</a>
+            
+            <a href="/#/tag/DeepMind" class="tag" data-tag="DeepMind">DeepMind (1)</a>
+            
+            <a href="/#/tag/OpenCode" class="tag" data-tag="OpenCode">OpenCode (1)</a>
+            
+            <a href="/#/tag/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83" class="tag" data-tag="编码规范">编码规范 (1)</a>
+            
+            <a href="/#/tag/Cursor" class="tag" data-tag="Cursor">Cursor (1)</a>
+            
+            <a href="/#/tag/Word" class="tag" data-tag="Word">Word (1)</a>
+            
+            <a href="/#/tag/Cowork" class="tag" data-tag="Cowork">Cowork (1)</a>
+            
+            <a href="/#/tag/%E8%92%B8%E9%A6%8F" class="tag" data-tag="蒸馏">蒸馏 (1)</a>
+            
+            <a href="/#/tag/DeepSeek" class="tag" data-tag="DeepSeek">DeepSeek (1)</a>
+            
+            <a href="/#/tag/Kimi" class="tag" data-tag="Kimi">Kimi (1)</a>
+            
+            <a href="/#/tag/MiniMax" class="tag" data-tag="MiniMax">MiniMax (1)</a>
+            
+            <a href="/#/tag/API" class="tag" data-tag="API">API (1)</a>
+            
+            <a href="/#/tag/REST" class="tag" data-tag="REST">REST (1)</a>
+            
+          </div>
+        </section>
+        <p class="sidebar-copyright">Copyright © 2011-2026</p>
+      </aside>
+    </div>
+  </div>
+  <div class="detail-image-lightbox hidden" id="detail-image-lightbox" aria-hidden="true" title="点击关闭">
+    <img src="" alt="" />
+  </div>
+  <script src="/js/site.js"></script>
+  <script>
+  (function() {
+    var el = document.getElementById("page-pv-value");
+    if (!el) return;
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      el.textContent = "—";
+      return;
+    }
+    var pathname = (window.location.pathname || "/").replace(/^\/|\/$/g, "").replace(/\//g, "_").replace(/-/g, "_") || "index";
+    var key = encodeURIComponent(pathname);
+    fetch("https://api.countapi.xyz/hit/zaobao_pv/" + key)
+      .then(function(r) { return r.json(); })
+      .then(function(d) { if (d && typeof d.value === "number") el.textContent = d.value; })
+      .catch(function() { el.textContent = "—"; });
+  })();
+  </script>
+  
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?7d6fe9720c59df101c54f84979f89420";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+</body>
+</html>
