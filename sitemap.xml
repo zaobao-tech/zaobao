@@ -7,6 +7,12 @@
   </url>
 
   <url>
+    <loc>https://www.zaobao.tech/day/2026-02-25/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.zaobao.tech/day/2026-02-24/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -24,6 +30,30 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://www.zaobao.tech/day/2025-11-11/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>https://www.zaobao.tech/day/2026-02-25/1/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.zaobao.tech/day/2026-02-25/2/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.zaobao.tech/day/2026-02-25/3/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
   <url>
     <loc>https://www.zaobao.tech/day/2026-02-24/1/</loc>
@@ -81,6 +111,12 @@
 
   <url>
     <loc>https://www.zaobao.tech/day/2026-02-20/3/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.zaobao.tech/day/2025-11-11/1/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

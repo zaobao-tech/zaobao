@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>谷歌对反代 Anitgravity 的账号采取封禁措施 - 科技早报</title>
+  <title>蒸馏 - 科技早报</title>
   
   
   
-  <meta name="description" content="将 Anitgravity 模型通过反代接入 OpenCode/OpenClaw 等会触发会员失效，官方将开放申诉。" />
-  <link rel="canonical" href="https://www.zaobao.tech/day/2026-02-24/4/" />
+  <meta name="description" content="从核心痛点、本质定义、技术路径到四种主流方案，一文搞懂大模型蒸馏。" />
+  <link rel="canonical" href="https://www.zaobao.tech/day/2026-02-25/3/" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="谷歌对反代 Anitgravity 的账号采取封禁措施 - 科技早报" />
-  <meta property="og:description" content="将 Anitgravity 模型通过反代接入 OpenCode/OpenClaw 等会触发会员失效，官方将开放申诉。" />
-  <meta property="og:url" content="https://www.zaobao.tech/day/2026-02-24/4/" />
+  <meta property="og:title" content="蒸馏 - 科技早报" />
+  <meta property="og:description" content="从核心痛点、本质定义、技术路径到四种主流方案，一文搞懂大模型蒸馏。" />
+  <meta property="og:url" content="https://www.zaobao.tech/day/2026-02-25/3/" />
   
   
   <script type="application/ld+json">
@@ -21,8 +21,8 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.zaobao.tech/" },
-      { "@type": "ListItem", "position": 2, "name": "2026年2月24日 周二 早报", "item": "https://www.zaobao.tech/day/2026-02-24/" },
-      { "@type": "ListItem", "position": 3, "name": "谷歌对反代 Anitgravity 的账号采取封禁措施", "item": "https://www.zaobao.tech/day/2026-02-24/4/" }
+      { "@type": "ListItem", "position": 2, "name": "2026年2月25日 周三 早报", "item": "https://www.zaobao.tech/day/2026-02-25/" },
+      { "@type": "ListItem", "position": 3, "name": "蒸馏", "item": "https://www.zaobao.tech/day/2026-02-25/3/" }
     ]
   }
   </script>
@@ -52,30 +52,74 @@
         
 <div class="article-page">
   <article class="article-single">
-    <h1 class="detail-title">谷歌对反代 Anitgravity 的账号采取封禁措施</h1>
+    <h1 class="detail-title">蒸馏</h1>
     
     <div class="detail-tags">
       
-      <a href="/" class="tag" data-tag="Anitgravity">Anitgravity</a>
-      
-      <a href="/" class="tag" data-tag="OpenClaw">OpenClaw</a>
-      
-      <a href="/" class="tag" data-tag="OpenCode">OpenCode</a>
+      <a href="/" class="tag" data-tag="基础知识">基础知识</a>
       
     </div>
     
     <div class="detail-meta">
-      <span class="detail-date">2026-02-24 周二 | </span>
+      <span class="detail-date">2026-02-25 周三 | </span>
       <span class="detail-views">阅读 <span id="busuanzi_value_page_pv">0</span> 次</span>
     </div>
     <div class="detail-body">
-      <p>谷歌已<strong>正式对外说明</strong>：对通过反代方式使用 Anitgravity 内模型、并接入 OpenCode 或 OpenClaw 等客户端的账号，将采取限制措施，相关 Anitgravity 会员权益会失效。</p>
-<p>此前已有用户反馈遇到类似情况，此次为官方明确表态。公告中称后续会提供<strong>申诉渠道</strong>，受影响的账号可通过指定流程申请复核。</p>
+      <p>在大模型（LLM）的算力竞赛中，并不是模型越大越好。为了让 AI 走进手机、走进低成本服务器，**“蒸馏”（Distillation）**成为了行业的核心技术。</p>
+<h2>一、为什么蒸馏？（核心痛点）</h2>
+<p><strong>一句话总结：大模型太贵太慢，我们需要「平替」。</strong></p>
+<p>虽然 GPT-4 这种「巨无霸」模型无所不知，但它运行起来极其烧钱，且响应速度慢。蒸馏存在的意义，就是在尽量不损失智商的前提下，把模型变小、变快、变便宜，从而实现商业化落地。</p>
+<h2>二、什么是蒸馏？（本质定义）</h2>
+<p><strong>一句话总结：名师带高徒，知识的「降维打击」。</strong></p>
+<p>蒸馏（Knowledge Distillation）是一种模型压缩技术。它让一个表现优异的大模型（<strong>教师模型</strong>，Teacher）去教一个轻量级的小模型（<strong>学生模型</strong>，Student）。学生不只是背答案，更是在学习老师处理问题的「逻辑分布」。</p>
+<h2>三、如何蒸馏？（技术路径）</h2>
+<p>蒸馏的标准化过程可以分为三个关键动作：</p>
+<ul>
+<li><strong>老师出题：</strong> 给老师和学生同一批数据。</li>
+<li><strong>老师传道：</strong> 老师给出自己的预测结果。注意，这里不仅有正确答案，还包含了老师对各个选项的「概率分布」（即软标签）。例如：这道题选 A 的概率是 90%，选 B 的可能也有 9%，但绝不可能是 C。</li>
+<li><strong>学生模拟：</strong> 学生模型通过算法（如 KL 散度）不断缩小自己与老师输出之间的差距。</li>
+</ul>
+<p><strong>行业黑话：我们要对齐 logits（逻辑回归输出），让学生的概率分布曲线无限接近老师。</strong></p>
+<h2>四、相关蒸馏技术全览</h2>
+<p>为了应对不同的业务场景，行业内衍生出了四种主流方案：</p>
+<table>
+<thead>
+<tr>
+<th>技术名称</th>
+<th>一句话直白说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>黑盒蒸馏</strong></td>
+<td>只看老师给的「最终答案」，通过 API 调取数据。</td>
+<td>无法获取模型源码，只能通过接口调用时。</td>
+</tr>
+<tr>
+<td><strong>白盒蒸馏</strong></td>
+<td>潜入老师「大脑」，学习其神经元权重和注意力分布。</td>
+<td>老师模型开源（如 Llama 3），学习更彻底。</td>
+</tr>
+<tr>
+<td><strong>数据蒸馏</strong></td>
+<td>把海量低质数据「提纯」成高质量教材。</td>
+<td>训练资源有限，想用少量数据达到更好效果。</td>
+</tr>
+<tr>
+<td><strong>思维链蒸馏</strong></td>
+<td>不仅学答案，还学老师「解题的步骤和逻辑」。</td>
+<td>需要提升小模型的逻辑推理能力（CoT）。</td>
+</tr>
+</tbody>
+</table>
+<h2>五、总结</h2>
+<p>蒸馏，就是 AI 界的「浓缩就是精华」。它让大模型的智慧得以平民化，是 AI 从实验室走向千家万户的关键敲门砖。</p>
 
     </div>
   </article>
   <p class="article-back">
-    <a href="/day/2026-02-24/">← 返回当日早报</a>
+    <a href="/day/2026-02-25/">← 返回当日早报</a>
   </p>
 </div>
 
