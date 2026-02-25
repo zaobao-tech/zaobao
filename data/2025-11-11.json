@@ -1,0 +1,12 @@
+{
+  "date": "2025-11-11",
+  "items": [
+    {
+      "id": "1",
+      "title": "Anthropic",
+      "summary": "由 OpenAI 前高管创立的 AI 安全研究公司，以 Claude 与宪法 AI 著称，强调安全与原则的学院派旗手。",
+      "tags": ["Anthropic", "Claude", "宪法AI"],
+      "contentRef": "2025-11-11-1-anthropic.md"
+    }
+  ]
+}

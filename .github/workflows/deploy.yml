@@ -43,6 +43,9 @@ jobs:
         run: |
           if grep -r "hm.baidu.com" dist/ 1>/dev/null; then
             echo "✅ 构建产物中已包含百度统计脚本"
+            echo "--- 构建产物中的统计脚本行（ID 已脱敏）---"
+            grep -rh "hm.baidu.com" dist/ | head -1 | sed 's/hm.js?[^"]*/hm.js?***ID***/'
+            echo "--- 若线上仍无此脚本，请检查：Settings → Pages → 发布源为 Branch: gh-pages ---"
           else
             echo "❌ 构建产物中未找到 hm.baidu.com，请确认："
             echo "  1. Repository secret 名称确为 BAIDU_ANALYTICS_ID（区分大小写）"

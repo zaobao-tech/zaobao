@@ -245,7 +245,6 @@ body {
 .tags-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 .tag {
@@ -711,17 +710,56 @@ body {
   display: none;
 }
 
-.detail-body h1,
-.detail-body h2,
-.detail-body h3 {
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-  line-height: 1.4;
+/* 标题 h1~h6 层级间距 */
+.detail-body h1 {
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.35;
+  font-weight: 700;
 }
-
+.detail-body h2 {
+  margin-top: 2.75rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.detail-body h3 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.detail-body h4 {
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  font-weight: 600;
+}
+.detail-body h5 {
+  margin-top: 2rem;
+  margin-bottom: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.45;
+  font-weight: 600;
+}
+.detail-body h6 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--text-muted);
+}
 .detail-body h1:first-child,
 .detail-body h2:first-child,
-.detail-body h3:first-child {
+.detail-body h3:first-child,
+.detail-body h4:first-child,
+.detail-body h5:first-child,
+.detail-body h6:first-child {
   margin-top: 0;
 }
 
@@ -776,6 +814,50 @@ body {
 .detail-body ol {
   margin: 1rem 0;
   padding-left: 1.5rem;
+}
+
+/* Markdown 表格样式 */
+.detail-body table {
+  width: 100%;
+  margin: 1.25rem 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+.detail-body thead {
+  background: var(--theme-light);
+}
+.detail-body th {
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 2px solid var(--border);
+}
+.detail-body td {
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.detail-body tbody tr:last-child td {
+  border-bottom: none;
+}
+.detail-body tbody tr:nth-child(even) {
+  background: var(--bg-soft);
+}
+.detail-body tbody tr:hover {
+  background: var(--theme-light);
+}
+[data-theme="dark"] .detail-body table {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+[data-theme="dark"] .detail-body tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.04);
+}
+[data-theme="dark"] .detail-body tbody tr:hover {
+  background: var(--theme-light);
 }
 
 .detail-body code {

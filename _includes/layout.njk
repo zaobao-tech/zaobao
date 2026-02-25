@@ -75,14 +75,6 @@
       </main>
 
       <aside class="sidebar">
-        <section class="card tags-card">
-          <h3 class="card-title">标签</h3>
-          <div class="tags-list" id="tags-list">
-            {% for t in zaobao.tagsList %}
-            <a href="/#/tag/{{ t.name | encodeTagUri }}" class="tag" data-tag="{{ t.name }}">{{ t.name }} ({{ t.count }})</a>
-            {% endfor %}
-          </div>
-        </section>
         <section class="card author-card">
           <h3 class="card-title">关于</h3>
           <p class="author-name">作者：{{ site.author }}</p>
@@ -103,6 +95,14 @@
             <a href="https://tongji.baidu.com/" target="_blank" rel="noopener" class="author-icon" title="百度统计" aria-label="百度统计">
               <svg class="icon-baidu-tongji" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3v18h3v-6h2v6h3v-6h2v6h3V3H5zm2 2h2v4H7V5zm6 0h2v4h-2V5zM7 13h2v4H7v-4zm6 0h2v4h-2v-4z"/></svg>
             </a>
+          </div>
+        </section>
+        <section class="card tags-card">
+          <h3 class="card-title">标签</h3>
+          <div class="tags-list" id="tags-list">
+            {% for t in zaobao.tagsList %}
+            <a href="/#/tag/{{ t.name | encodeTagUri }}" class="tag" data-tag="{{ t.name }}">{{ t.name }} ({{ t.count }})</a>
+            {% endfor %}
           </div>
         </section>
         <p class="sidebar-copyright">Copyright © 2011-2026</p>
