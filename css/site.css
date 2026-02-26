@@ -534,18 +534,15 @@ body {
   display: none;
 }
 
-/* 早报首页布局 / Skills 布局：统一结构，左侧边栏 + 右侧列表与详情 */
-.zaobao-home-layout,
-.skills-zaobao-layout {
+/* 导航布局：早报与 Skills 共用同一 DOM 和样式 */
+.nav-layout {
   flex: 1;
   min-height: 0;
   display: flex;
   gap: 1rem;
 }
 
-/* 早报左侧：年份列表与日列表左右并排；Skills 左侧：分类 tabs + 子分类列表 */
-.zaobao-left-row,
-.skills-left-row {
+.nav-left-row {
   flex: 1;
   min-height: 0;
   display: flex;
@@ -554,8 +551,7 @@ body {
   min-width: 0;
 }
 
-.zaobao-left,
-.skills-left {
+.nav-left {
   width: 320px;
   min-width: 260px;
   flex-shrink: 0;
@@ -566,9 +562,8 @@ body {
   padding-right: 0.75rem;
 }
 
-.zaobao-left .year-tabs,
-.skills-left .year-tabs,
-.skills-left .skills-category-tabs {
+/* 通用一二三级列表：早报与 Skills 共用 list-first / list-second / list-third */
+.list-first {
   display: flex;
   flex-shrink: 0;
   margin-bottom: 0;
@@ -578,51 +573,59 @@ body {
   min-width: 4rem;
 }
 
-.zaobao-left .year-tab,
-.skills-left .year-tab,
-.skills-category-tab {
+.list-first-item {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.45rem 8px;
   line-height: 1.4;
-}
-
-a.year-tab {
+  color: var(--text);
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s, color 0.2s;
   text-decoration: none;
 }
 
-/* 早报左侧：年份选中 = 原日列表选中效果（主题实心）；Skills 分类 tab 选中同理 */
-.zaobao-left .year-tab.is-active,
-.skills-left .year-tab.is-active,
-.skills-category-tab.is-active {
+a.list-first-item {
+  text-decoration: none;
+}
+
+.list-first-item:hover {
+  opacity: 0.9;
+}
+
+.list-first-item.is-active {
   background: var(--theme);
   color: #fff;
   border-radius: 5px;
 }
 
-.zaobao-left .year-tab.is-active::after {
-  display: none;
+[data-theme="dark"] .list-first-item {
+  color: #fff;
 }
 
-/* 左侧可滚动列表区：早报年份下的日列表 / Skills 子分类列表 */
-.year-days-wrap,
-.skills-children-wrap {
+[data-theme="dark"] .list-first-item.is-active {
+  background: var(--theme);
+  color: #fff;
+}
+
+.list-second {
   flex: 1;
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
 }
 
-.year-days-list,
-.skills-children-list {
+.list-second-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.year-day-link,
-.skills-child-link {
+.list-second-item {
   display: block;
   padding: 0.45rem 8px;
   line-height: 1.4;
@@ -636,59 +639,71 @@ a.year-tab {
   transition: background 0.2s, color 0.2s;
 }
 
-.year-day-link:hover,
-.skills-child-link:hover {
+.list-second-item:hover {
   color: var(--theme);
 }
 
-/* 早报日列表选中 = 原具体早报列表选中效果（边框灰底）；悬停不加选中背景 */
-.year-day-link.is-active,
-.skills-child-link.is-active {
+.list-second-item.is-active {
   background: var(--border);
   color: var(--text);
   font-weight: 500;
 }
 
-.year-day-link.is-active:hover,
-.skills-child-link.is-active:hover {
+.list-second-item.is-active:hover {
   background: var(--border);
   color: var(--text);
   opacity: 1;
 }
 
-.year-days-loading,
-.year-days-empty {
+.list-third {
+  width: 160px;
+  min-width: 160px;
+  max-width: 80%;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.list-third-list {
+  list-style: none;
+  margin: 0 8px;
+  padding: 0;
+}
+
+.list-third-item {
+  display: block;
+  padding: 0.45rem 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s, background 0.2s;
+}
+
+.list-third-item:hover {
+  color: var(--theme);
+}
+
+.list-third-item.is-active {
+  background: var(--border);
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* 左侧 loading/empty 提示（在 .nav-second 内） */
+.nav-second-loading,
+.nav-second-empty {
   font-size: 0.9rem;
   color: var(--text-muted);
   margin: 0.5rem 0 0;
   padding: 0 8px;
 }
 
-.year-days-loading.hidden,
-.year-days-empty.hidden {
+.nav-second-loading.hidden,
+.nav-second-empty.hidden {
   display: none;
-}
-
-.zaobao-left-skills {
-  flex-shrink: 0;
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--border);
-}
-
-.skills-category-link {
-  display: block;
-  padding: 0.4rem 8px;
-  font-size: 0.9rem;
-  color: var(--theme);
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background 0.2s, color 0.2s;
-}
-
-.skills-category-link:hover {
-  background: var(--border);
-  color: var(--theme);
 }
 
 .tag-list-sep {
@@ -709,34 +724,31 @@ body.is-zaobao-view .heatmap-section {
   display: none;
 }
 
-/* 首页不展示左侧年份+日期列表，仅早报页展示 */
-body:not(.is-zaobao-view) .zaobao-left {
+/* 首页非早报视图时隐藏早报左侧栏 */
+body:not(.is-zaobao-view) .nav-layout--zaobao .nav-left {
   display: none;
 }
 
-.zaobao-content,
-.skills-content {
+.nav-content {
   flex: 1;
   min-width: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
-.zaobao-content.day-section {
+.nav-content.nav-content--with-title {
   padding-left: 0;
 }
 
-/* Day section：标题在滚动区外，始终固钉在顶部 */
-.day-section {
+.nav-content-scroll {
   flex: 1;
   min-height: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
+  overflow-y: auto;
 }
 
-.day-title {
+.nav-title {
   margin: 0 0 0.75rem;
   font-size: 2rem;
   font-weight: 600;
@@ -745,32 +757,15 @@ body:not(.is-zaobao-view) .zaobao-left {
   padding: 0.5rem 0;
 }
 
-/* 仅此区域可纵向滚动，标题在上方不参与滚动 */
-.day-section-scroll {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
-
-.day-panel,
-.skills-content-inner {
-  flex: 0 0 auto;
+.nav-panel {
+  flex: 1 1 0%;
+  min-width: 0;
   min-height: 0;
   display: flex;
   gap: 1rem;
 }
 
-/* 列表列：早报日列表与 Skills 技能列表统一宽度 */
-.day-list,
-.skill-list-wrap {
-  width: 160px;
-  min-width: 160px;
-  max-width: 80%;
-  flex-shrink: 0;
-  overflow-y: auto;
-}
-
-.day-resizer {
+.nav-resizer {
   width: 2px;
   height: 200px;
   align-self: flex-start;
@@ -780,57 +775,24 @@ body:not(.is-zaobao-view) .zaobao-left {
   user-select: none;
 }
 
-.day-resizer:hover {
+.nav-resizer:hover {
   background: var(--theme);
 }
 
-.day-detail,
-.skill-detail-wrap {
+.nav-detail {
   flex: 1;
   min-width: 0;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.item-list {
-  list-style: none;
-  margin: 0 8px;
-  padding: 0;
-}
-
-.item-list a,
-.skill-list-link-inner {
-  display: block;
-  padding: 0.45rem 8px;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 0.9rem;
-  border-radius: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: color 0.2s, background 0.2s;
-}
-
-.item-list a:hover,
-.skill-list-link-inner:hover {
-  color: var(--theme);
-}
-
-.item-list a.is-active,
-.skill-list-link-inner.is-active {
-  background: var(--border);
-  color: var(--text);
-  font-weight: 500;
-}
-
-.empty-state {
+.nav-empty-state {
   color: var(--text-muted);
   font-size: 0.9rem;
   margin: 0;
 }
 
-.empty-state.hidden {
+.nav-empty-state.hidden {
   display: none;
 }
 
@@ -983,14 +945,6 @@ body:not(.is-zaobao-view) .zaobao-left {
   line-height: 1.5;
   font-weight: 600;
   color: var(--text-muted);
-}
-.detail-body h1:first-child,
-.detail-body h2:first-child,
-.detail-body h3:first-child,
-.detail-body h4:first-child,
-.detail-body h5:first-child,
-.detail-body h6:first-child {
-  margin-top: 0;
 }
 
 .detail-body p {
@@ -1153,7 +1107,7 @@ body:not(.is-zaobao-view) .zaobao-left {
   min-width: 0;
 }
 body.is-skills-view .heatmap-section,
-body.is-skills-view .zaobao-home-layout {
+body.is-skills-view .nav-layout--zaobao {
   display: none !important;
 }
 body.is-skills-view .index-skills-view {
@@ -1165,38 +1119,29 @@ body.is-skills-view .index-skills-view {
   margin: 0 auto;
 }
 
-/* Skills 分类布局：与早报共用 .zaobao-home-layout / .zaobao-left 等；分类 tabs 使用 year-tabs / year-tab 样式 */
-
-/* 子分类列表与 .year-days-wrap / .year-day-link 共用样式 */
-
-.skills-content {
-  overflow-y: auto;
-}
-
-.skill-list-heading {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-muted);
+/* 导航布局与 Skills 静态页共用 .nav-* */
+.nav-detail-title {
+  font-size: 1.5rem;
+  font-weight: 700;
   margin: 0 0 0.5rem 0;
-  padding: 0 8px;
 }
 
-.skill-list-inner {
-  list-style: none;
-  margin: 0 8px;
-  padding: 0;
-}
-
-.skill-list-inner li {
-  margin-bottom: 0.2rem;
-}
-
-/* 列表项样式已与 .item-list a 合并 */
-
-.skill-no-content {
+.nav-no-content {
   color: var(--text-muted);
   font-size: 0.95rem;
   margin: 1rem 0 0;
+}
+
+.nav-page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.nav-page-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0 0 1.5rem 0;
 }
 
 .detail-summary {
@@ -1206,7 +1151,6 @@ body.is-skills-view .index-skills-view {
   margin: 0.5rem 0 0 0;
 }
 
-.skill-detail-meta,
 .detail-meta-extra {
   font-size: 0.9rem;
   color: var(--text-muted);
@@ -1217,19 +1161,15 @@ body.is-skills-view .index-skills-view {
   gap: 0.25rem 1rem;
 }
 
-.skill-detail-meta dt,
 .detail-meta-extra dt {
   font-weight: 500;
   margin: 0;
 }
 
-.skill-detail-meta dd,
 .detail-meta-extra dd {
   margin: 0;
 }
 
-.skill-detail-meta .skill-install,
-.skill-detail-meta .detail-meta-install,
 .detail-meta-extra .detail-meta-install {
   font-size: 0.85rem;
   background: var(--code-bg);
@@ -1237,27 +1177,13 @@ body.is-skills-view .index-skills-view {
   border-radius: 4px;
 }
 
-.skill-detail-meta a,
 .detail-meta-extra a {
   color: var(--theme);
   text-decoration: none;
 }
 
-.skill-detail-meta a:hover,
 .detail-meta-extra a:hover {
   text-decoration: underline;
-}
-
-.skills-page-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem 0;
-}
-
-.skills-page-desc {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  margin: 0 0 1.5rem 0;
 }
 
 .breadcrumb {
@@ -1355,39 +1281,6 @@ body.is-skills-view .index-skills-view {
   margin: 0 0 1rem 0;
 }
 
-.skill-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.skill-list-item {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
-  background: var(--card-bg);
-}
-
-.skill-list-link {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--theme);
-  text-decoration: none;
-}
-.skill-list-link:hover {
-  text-decoration: underline;
-}
-
-.skill-list-desc {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin: 0.5rem 0 0.5rem 0;
-  line-height: 1.5;
-}
-
 .skill-install {
   display: inline-block;
   font-size: 0.85rem;
@@ -1395,24 +1288,6 @@ body.is-skills-view .index-skills-view {
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   border: 1px solid var(--border);
-}
-
-.skill-detail {
-  max-width: 52rem;
-  margin: 0 auto;
-}
-
-.skill-detail-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem 0;
-}
-
-.skill-detail-desc {
-  font-size: 1rem;
-  color: var(--text-muted);
-  margin: 0 0 1.25rem 0;
-  line-height: 1.6;
 }
 
 .skill-meta {

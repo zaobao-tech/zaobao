@@ -164,7 +164,7 @@
       var li = document.createElement("li");
       var a = document.createElement("a");
       a.href = "#/day/" + dateKey + "/1";
-      a.className = "year-day-link";
+      a.className = "year-day-link list-second-item";
       a.dataset.date = dateKey;
       a.textContent = formatDateTitleNoYear(dateKey) + " 早报";
       a.title = dateKey;
@@ -368,7 +368,7 @@
     tree.forEach(function (p) {
       var a = document.createElement("a");
       a.href = "#/skills/" + p.slug;
-      a.className = "skills-category-tab year-tab" + (p.slug === parentSlug ? " is-active" : "");
+      a.className = "skills-category-tab year-tab list-first-item" + (p.slug === parentSlug ? " is-active" : "");
       a.setAttribute("role", "tab");
       a.textContent = p.nameZh || p.name;
       a.addEventListener("click", function (e) {
@@ -385,7 +385,7 @@
         var li = document.createElement("li");
         var a = document.createElement("a");
         a.href = "#/skills/" + c.fullSlug;
-        a.className = "skills-child-link" + (c.fullSlug === childSlug ? " is-active" : "");
+        a.className = "skills-child-link list-second-item" + (c.fullSlug === childSlug ? " is-active" : "");
         a.textContent = c.nameZh || c.name;
         a.addEventListener("click", function (e) {
           e.preventDefault();
@@ -404,7 +404,7 @@
       var li = document.createElement("li");
       var a = document.createElement("a");
       a.href = "#/skills/" + encodeURIComponent(s.slug);
-      a.className = "skill-list-link-inner" + (s.slug === skillSlug ? " is-active" : "");
+      a.className = "skill-list-link-inner list-third-item" + (s.slug === skillSlug ? " is-active" : "");
       a.textContent = (skillMeta[s.slug] && skillMeta[s.slug].title) || SKILLS_SLUG_TO_NAME[s.slug] || s.name || s.slug;
       a.addEventListener("click", function (e) {
         e.preventDefault();
@@ -703,7 +703,7 @@
         a.href = routeHash;
         a.dataset.tag = tag;
         a.dataset.tagIndex = String(idx);
-        a.className = "item-link" + (idx === 0 ? " is-active" : "");
+        a.className = "item-link list-third-item" + (idx === 0 ? " is-active" : "");
         a.textContent = item.title || "无标题";
         a.title = item.title || "无标题";
         a.addEventListener("click", function (e) {
@@ -732,7 +732,7 @@
           var li = document.createElement("li");
           var a = document.createElement("a");
           a.href = "/#/skills/" + encodeURIComponent(skill.slug);
-          a.className = "item-link item-link-skill" + (entries.length === 0 && idx === 0 ? " is-active" : "");
+          a.className = "item-link item-link-skill list-third-item" + (entries.length === 0 && idx === 0 ? " is-active" : "");
           a.textContent = skill.name || skill.slug;
           a.title = skill.description || skill.name || skill.slug;
           li.appendChild(a);
@@ -780,7 +780,7 @@
       a.href = isDayPage(pathname) ? "#" + (idx + 1) : (isZaobao ? "#/zaobao/" + dateKey + "/" + (idx + 1) : "#/day/" + dateKey + "/" + (idx + 1));
       a.dataset.date = dateKey;
       a.dataset.index = String(idx);
-      a.className = "item-link" + (idx === 0 ? " is-active" : "");
+      a.className = "item-link list-third-item" + (idx === 0 ? " is-active" : "");
       a.textContent = item.title || "无标题";
       a.title = item.title || "无标题";
       a.addEventListener("click", function (e) {
@@ -999,7 +999,7 @@
       });
     });
 
-    var yearDaysWrap = document.querySelector(".year-days-wrap");
+    var yearDaysWrap = document.getElementById("year-days-wrap");
     if (yearDaysWrap) {
       yearDaysWrap.addEventListener("scroll", function () {
         onYearDaysScroll();

@@ -5,8 +5,16 @@
     <link>https://www.zaobao.tech/</link>
     <description>记录每天值得分享的科技内容，每天发布。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 25 Feb 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Feb 2026 12:00:00 GMT</lastBuildDate>
     <atom:link href="https://www.zaobao.tech/rss.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>Antigravity 模型如何切换最合理</title>
+      <link>https://www.zaobao.tech/day/2026-02-26/1/</link>
+      <description>合理选择 Antigravity 模型，提升开发效率。</description>
+      <pubDate>Thu, 26 Feb 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.zaobao.tech/day/2026-02-26/1/</guid>
+    </item>
 
     <item>
       <title>Anthropic 推出企业级插件 Cowork，深度植入 Office 办公全家桶</title>

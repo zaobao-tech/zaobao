@@ -7,6 +7,12 @@
   </url>
 
   <url>
+    <loc>https://www.zaobao.tech/day/2026-02-26/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.zaobao.tech/day/2026-02-25/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -60,6 +66,12 @@
     <priority>0.8</priority>
   </url>
 
+
+  <url>
+    <loc>https://www.zaobao.tech/day/2026-02-26/1/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
   <url>
     <loc>https://www.zaobao.tech/day/2026-02-25/1/</loc>
