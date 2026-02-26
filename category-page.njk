@@ -24,30 +24,29 @@ description: "{{ categoryPage.nameZh or categoryPage.name }} 分类下的 Agent 
   {% endif %}
 {% endif %}
 
-<section class="skills-zaobao-layout" aria-hidden="true">
-  <aside class="skills-left">
-    <div class="skills-left-row">
-      <div class="skills-category-tabs" role="tablist" aria-label="分类">
-        {% for parent in skillsIndex.categoryTreeWithCounts %}
-        <a href="/categories/{{ parent.slug }}/" class="skills-category-tab {% if parent.slug == currentParentSlug %}is-active{% endif %}" role="tab">{{ parent.nameZh or parent.name }}</a>
-        {% endfor %}
-      </div>
-      <div class="skills-children-wrap">
-        {% for parent in skillsIndex.categoryTreeWithCounts %}
-          {% if parent.slug == currentParentSlug %}
-        <ul class="skills-children-list">
-            {% for child in parent.children %}
-          <li>
-            <a href="/categories/{{ child.fullSlug }}/" class="skills-child-link {% if categoryPage.type == "child" and child.fullSlug == categoryPage.path %}is-active{% endif %}">{{ child.nameZh or child.name }}</a>
-          </li>
-            {% endfor %}
-        </ul>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </aside>
-  <div class="skills-content">
+{% set currentParentSlug = categoryPage.parentSlug if categoryPage.type == "child" else categoryPage.path %}
+<section class="nav-layout nav-layout--skills" aria-hidden="true">
+  {% set navVariant = "skills" %}
+  {% set firstColumnHtml %}
+  {% for parent in skillsIndex.categoryTreeWithCounts %}
+  <a href="/categories/{{ parent.slug }}/" class="skills-category-tab list-first-item {% if parent.slug == currentParentSlug %}is-active{% endif %}" role="tab">{{ parent.nameZh or parent.name }}</a>
+  {% endfor %}
+  {% endset %}
+  {% set secondColumnHtml %}
+  {% for parent in skillsIndex.categoryTreeWithCounts %}
+  {% if parent.slug == currentParentSlug %}
+  <ul class="list-second-list" id="skills-children-list">
+    {% for child in parent.children %}
+    <li>
+      <a href="/categories/{{ child.fullSlug }}/" class="skills-child-link list-second-item {% if categoryPage.type == "child" and child.fullSlug == categoryPage.path %}is-active{% endif %}">{{ child.nameZh or child.name }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endfor %}
+  {% endset %}
+  {% include "nav-left-aside.njk" %}
+  <div class="nav-content">
     {% if categoryPage.type == "parent" %}
     <nav class="breadcrumb" aria-label="面包屑">
       <a href="/">首页</a>
@@ -56,9 +55,9 @@ description: "{{ categoryPage.nameZh or categoryPage.name }} 分类下的 Agent 
       <span aria-hidden="true">/</span>
       <span>{{ categoryPage.nameZh or categoryPage.name }}</span>
     </nav>
-    <h1 class="skills-page-title">{{ categoryPage.nameZh or categoryPage.name }}</h1>
+    <h1 class="nav-page-title">{{ categoryPage.nameZh or categoryPage.name }}</h1>
     {% if categoryPage.description %}
-    <p class="skills-page-desc">{{ categoryPage.description }}</p>
+    <p class="nav-page-desc">{{ categoryPage.description }}</p>
     {% endif %}
     {% endif %}
 
@@ -73,17 +72,18 @@ description: "{{ categoryPage.nameZh or categoryPage.name }} 分类下的 Agent 
     </ul>
     {% else %}
     {% set pageSkills = categoryPage.skills or skillsIndex.skillsByCategorySlug[categoryPage.path] or [] %}
-    <div class="skills-content-inner">
-      <div class="skill-list-wrap">
-        <ul class="skill-list-inner">
+    <div class="nav-panel">
+      <div class="nav-list-third list-third" id="skills-skill-list-wrap">
+        <ul class="list-third-list" id="skills-skill-list">
           {% for s in pageSkills %}
           <li>
-            <a href="/skills/{{ s.slug }}/" class="skill-list-link-inner">{{ zaobao.skillTitleBySlug[s.slug] or s.slug }}</a>
+            <a href="/skills/{{ s.slug }}/" class="skill-list-link-inner list-third-item">{{ zaobao.skillTitleBySlug[s.slug] or s.slug }}</a>
           </li>
           {% endfor %}
         </ul>
       </div>
-      <div class="skill-detail-wrap">
+      <div class="nav-resizer" title="拖动调节宽度"></div>
+      <div class="nav-detail">
         {% if pageSkills.length > 0 %}
         <nav class="breadcrumb" aria-label="面包屑">
           <a href="/">首页</a>
@@ -95,11 +95,11 @@ description: "{{ categoryPage.nameZh or categoryPage.name }} 分类下的 Agent 
           <span>{{ categoryPage.nameZh or categoryPage.name }}</span>
         </nav>
         {% endif %}
-        <h1 class="skills-page-title">{{ categoryPage.nameZh or categoryPage.name }}</h1>
+        <h1 class="nav-page-title">{{ categoryPage.nameZh or categoryPage.name }}</h1>
         {% if categoryPage.description %}
-        <p class="skills-page-desc">{{ categoryPage.description }}</p>
+        <p class="nav-page-desc">{{ categoryPage.description }}</p>
         {% endif %}
-        <p class="skill-no-content">共 {{ pageSkills.length }} 个技能，点击左侧列表查看内容。</p>
+        <p class="nav-no-content">共 {{ pageSkills.length }} 个技能，点击左侧列表查看内容。</p>
       </div>
     </div>
     {% endif %}

@@ -1,0 +1,15 @@
+{
+  "date": "2026-02-26",
+  "items": [
+    {
+      "id": "1",
+      "title": "Antigravity 模型如何切换最合理",
+      "summary": "合理选择 Antigravity 模型，提升开发效率。",
+      "tags": [
+        "Antigravity",
+        "模型选择"
+      ],
+      "contentRef": "2026-02-26-antigravity-model-guide.md"
+    }
+  ]
+}

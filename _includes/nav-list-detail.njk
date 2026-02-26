@@ -1,0 +1,70 @@
+{# 导航右侧：三级列表(list-third) + 分隔条 + 详情区，早报与 Skills 共用同一 DOM 和样式
+   使用前 set navVariant = "zaobao" 或 "skills"
+   可选：listThirdHtml、detailBodyHtml（静态页传入） #}
+{% if not navVariant %}{% set navVariant = "zaobao" %}{% endif %}
+{% if navVariant == "skills" %}
+  {% set showTitle = false %}
+  {% set titleId = "" %}
+  {% set listThirdWrapId = "skills-skill-list-wrap" %}
+  {% set listThirdListId = "skills-skill-list" %}
+  {% set showEmptyState = false %}
+  {% set resizerId = "skills-list-resizer" %}
+  {% set detailTitleId = "skills-detail-title" %}
+  {% set detailTagsId = "skills-detail-tags" %}
+  {% set detailMetaId = "skills-detail-meta" %}
+  {% set detailMetaHasDate = true %}
+  {% set detailDateId = "skills-detail-date" %}
+  {% set detailPvId = "skills-page-pv-value" %}
+  {% set detailSummaryId = "skills-detail-summary" %}
+  {% set detailMetaExtraId = "skills-detail-meta-extra" %}
+  {% set detailBodyId = "skills-detail-body" %}
+  {% set showNoContent = true %}
+  {% set noContentId = "skills-no-content" %}
+  {% set noContentText = "请从左侧选择分类与技能。" %}
+{% else %}
+  {% set showTitle = true %}
+  {% set titleId = "day-title" %}
+  {% set listThirdWrapId = "day-list" %}
+  {% set listThirdListId = "item-list" %}
+  {% set showEmptyState = true %}
+  {% set resizerId = "day-resizer" %}
+  {% set detailTitleId = "detail-title" %}
+  {% set detailTagsId = "detail-tags" %}
+  {% set detailMetaId = "detail-meta" %}
+  {% set detailMetaHasDate = false %}
+  {% set detailDateId = "" %}
+  {% set detailPvId = "page-pv-value" %}
+  {% set detailSummaryId = "detail-summary" %}
+  {% set detailMetaExtraId = "detail-meta-extra" %}
+  {% set detailBodyId = "detail-body" %}
+  {% set showNoContent = false %}
+  {% set noContentId = "" %}
+  {% set noContentText = "" %}
+{% endif %}
+<div class="nav-content {% if showTitle %}nav-content--with-title{% endif %}">
+  {% if showTitle %}<h2 class="nav-title" id="{{ titleId }}">选择日期</h2>
+  <div class="nav-content-scroll">{% endif %}
+  <div class="nav-panel">
+    <div class="nav-list-third list-third" id="{{ listThirdWrapId }}">
+      {% if listThirdHtml is defined and listThirdHtml %}{{ listThirdHtml | safe }}{% else %}
+      <ul class="list-third-list" id="{{ listThirdListId }}"></ul>
+      {% if showEmptyState %}<p class="nav-empty-state" id="empty-state">请从左侧选择日期。</p>{% endif %}
+      {% endif %}
+    </div>
+    <div class="nav-resizer" id="{{ resizerId }}" title="拖动调节宽度"></div>
+    <div class="nav-detail">
+      {% if detailBodyHtml is defined and detailBodyHtml %}{{ detailBodyHtml | safe }}{% else %}
+      <h1 class="nav-detail-title hidden" id="{{ detailTitleId }}"></h1>
+      <div class="detail-tags hidden" id="{{ detailTagsId }}"></div>
+      <div class="detail-meta hidden" id="{{ detailMetaId }}">
+        {% if detailMetaHasDate %}<span class="detail-date" id="{{ detailDateId }}"></span><span class="detail-meta-sep" aria-hidden="true">|</span>{% endif %}<span class="detail-views">阅读 <span id="{{ detailPvId }}">0</span> 次</span>
+      </div>
+      <p class="detail-summary hidden" id="{{ detailSummaryId }}"></p>
+      <dl class="detail-meta-extra hidden" id="{{ detailMetaExtraId }}"></dl>
+      <{% if detailBodyId == "detail-body" %}article{% else %}div{% endif %} class="nav-detail-body detail-body hidden" id="{{ detailBodyId }}"></{% if detailBodyId == "detail-body" %}article{% else %}div{% endif %}>
+      {% if showNoContent %}<p class="nav-no-content" id="{{ noContentId }}">{{ noContentText }}</p>{% endif %}
+      {% endif %}
+    </div>
+  </div>
+  {% if showTitle %}</div>{% endif %}
+</div>

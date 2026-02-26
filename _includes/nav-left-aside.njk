@@ -1,0 +1,37 @@
+{# 导航左侧：一级(list-first) + 二级(list-second)，早报与 Skills 共用同一 DOM 和样式
+   使用前 set navVariant = "zaobao" 或 "skills"
+   可选：firstColumnHtml、secondColumnHtml（静态页传入） #}
+{% if not navVariant %}{% set navVariant = "zaobao" %}{% endif %}
+{% if navVariant == "skills" %}
+  {% set navFirstId = "skills-category-tabs" %}
+  {% set navFirstAttrs = 'role="tablist" aria-label="分类"' %}
+  {% set navSecondWrapId = "" %}
+  {% set navSecondListId = "skills-children-list" %}
+  {% set navShowSecondExtra = false %}
+{% else %}
+  {% set navFirstId = "year-tabs-left" %}
+  {% set navFirstAttrs = "" %}
+  {% set navSecondWrapId = "year-days-wrap" %}
+  {% set navSecondListId = "year-days-list" %}
+  {% set navShowSecondExtra = true %}
+{% endif %}
+<aside class="nav-left">
+  <div class="nav-left-row">
+    <div class="nav-first list-first" id="{{ navFirstId }}" {{ navFirstAttrs }}>
+      {% if firstColumnHtml is defined and firstColumnHtml %}{{ firstColumnHtml | safe }}{% elif navVariant == "zaobao" and zaobao and zaobao.years %}
+      {% for y in zaobao.years %}
+      <button type="button" class="year-tab list-first-item {% if y == zaobao.years[0] %}is-active{% endif %}" data-year="{{ y }}">{{ y }}</button>
+      {% endfor %}
+      {% endif %}
+    </div>
+    <div class="nav-second list-second" {% if navSecondWrapId %}id="{{ navSecondWrapId }}"{% endif %}>
+      {% if secondColumnHtml is defined and secondColumnHtml %}{{ secondColumnHtml | safe }}{% else %}
+      <ul class="list-second-list" id="{{ navSecondListId }}"></ul>
+      {% if navShowSecondExtra %}
+      <p class="nav-second-loading hidden" id="year-days-loading">加载中…</p>
+      <p class="nav-second-empty hidden" id="year-days-empty">该年暂无早报。</p>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</aside>

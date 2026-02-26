@@ -7,28 +7,26 @@ permalink: categories/index.html
 ---
 
 <script>document.addEventListener("DOMContentLoaded", function() { window.location.replace("/#/skills"); });</script>
-<section class="skills-zaobao-layout" aria-hidden="true">
-  <aside class="skills-left">
-    <div class="skills-left-row">
-      <div class="skills-category-tabs" role="tablist" aria-label="分类">
-        {% for parent in skillsIndex.categoryTreeWithCounts %}
-        <a href="/categories/{{ parent.slug }}/" class="skills-category-tab {% if loop.first %}is-active{% endif %}" role="tab">{{ parent.nameZh or parent.name }}</a>
-        {% endfor %}
-      </div>
-      <div class="skills-children-wrap">
-        {% set firstParent = skillsIndex.categoryTreeWithCounts[0] %}
-        <ul class="skills-children-list">
-          {% for child in firstParent.children %}
-          <li>
-            <a href="/categories/{{ child.fullSlug }}/" class="skills-child-link">{{ child.nameZh or child.name }}</a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  </aside>
-  <div class="skills-content">
-    <h1 class="skills-page-title">按分类浏览</h1>
-    <p class="skills-page-desc">按使用场景浏览技能，便于快速找到所需能力。同一技能可能属于多个分类。请从左侧选择分类。</p>
+<section class="nav-layout nav-layout--skills">
+  {% set navVariant = "skills" %}
+  {% set firstColumnHtml %}
+  {% for parent in skillsIndex.categoryTreeWithCounts %}
+  <a href="/categories/{{ parent.slug }}/" class="skills-category-tab list-first-item {% if loop.first %}is-active{% endif %}" role="tab">{{ parent.nameZh or parent.name }}</a>
+  {% endfor %}
+  {% endset %}
+  {% set secondColumnHtml %}
+  {% set firstParent = skillsIndex.categoryTreeWithCounts[0] %}
+  <ul class="list-second-list" id="skills-children-list">
+    {% for child in firstParent.children %}
+    <li>
+      <a href="/categories/{{ child.fullSlug }}/" class="skills-child-link list-second-item">{{ child.nameZh or child.name }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endset %}
+  {% include "nav-left-aside.njk" %}
+  <div class="nav-content">
+    <h1 class="nav-page-title">按分类浏览</h1>
+    <p class="nav-page-desc">按使用场景浏览技能，便于快速找到所需能力。同一技能可能属于多个分类。请从左侧选择分类。</p>
   </div>
 </section>

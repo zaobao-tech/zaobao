@@ -49,25 +49,25 @@ permalink: "day/{{ dayInfo.dateKey }}/index.html"
   </div>
 </div>
 
-<div class="day-section">
-  <h2 class="day-title" id="day-title">{{ dayInfo.dateKey | formatDateCN }} 早报</h2>
-  <div class="day-section-scroll">
-  <div class="day-panel">
-    <div class="day-list" id="day-list">
-      <ul class="item-list" id="item-list">
+<div class="nav-content nav-content--with-title">
+  <h2 class="nav-title" id="day-title">{{ dayInfo.dateKey | formatDateCN }} 早报</h2>
+  <div class="nav-content-scroll">
+  <div class="nav-panel">
+    <div class="nav-list-third list-third" id="day-list">
+      <ul class="list-third-list" id="item-list">
         {% for item in dayInfo.day.items %}
         <li>
-          <a href="/day/{{ dayInfo.dateKey }}/{{ loop.index }}/" class="item-link {% if loop.index0 == 0 %}is-active{% endif %}">{{ item.title or "无标题" }}</a>
+          <a href="/day/{{ dayInfo.dateKey }}/{{ loop.index }}/" class="item-link list-third-item {% if loop.index0 == 0 %}is-active{% endif %}">{{ item.title or "无标题" }}</a>
         </li>
         {% endfor %}
       </ul>
-      <p class="empty-state {% if dayInfo.day.items.length %}hidden{% endif %}" id="empty-state">该日暂无早报。</p>
+      <p class="nav-empty-state {% if dayInfo.day.items.length %}hidden{% endif %}" id="empty-state">该日暂无早报。</p>
     </div>
-    <div class="day-resizer" id="day-resizer" title="拖动调节宽度"></div>
-    <div class="day-detail">
+    <div class="nav-resizer" id="day-resizer" title="拖动调节宽度"></div>
+    <div class="nav-detail">
       {% if dayInfo.day.items.length %}
       {% set first = dayInfo.day.items[0] %}
-      <h1 class="detail-title" id="detail-title">{{ first.title or "无标题" }}</h1>
+      <h1 class="nav-detail-title" id="detail-title">{{ first.title or "无标题" }}</h1>
       <div class="detail-tags" id="detail-tags">
         {% for tagName in first.tags or [] %}
         <a href="#" class="tag" data-tag="{{ tagName }}">{{ tagName }}</a>
@@ -76,14 +76,14 @@ permalink: "day/{{ dayInfo.dateKey }}/index.html"
       <div class="detail-meta" id="detail-meta">
         <span class="detail-date" id="detail-date">{{ dayInfo.dateKey | formatDateLine }}</span><span class="detail-meta-sep" aria-hidden="true">|</span><span class="detail-views">阅读 <span id="page-pv-value">0</span> 次</span>
       </div>
-      <article class="detail-body" id="detail-body">
+      <article class="nav-detail-body detail-body" id="detail-body">
         {{ first.contentHtml | safe }}
       </article>
       {% else %}
-      <h1 class="detail-title hidden" id="detail-title"></h1>
+      <h1 class="nav-detail-title hidden" id="detail-title"></h1>
       <div class="detail-tags hidden" id="detail-tags"></div>
       <div class="detail-meta hidden" id="detail-meta"></div>
-      <article class="detail-body hidden" id="detail-body"></article>
+      <article class="nav-detail-body detail-body hidden" id="detail-body"></article>
       {% endif %}
     </div>
   </div>
